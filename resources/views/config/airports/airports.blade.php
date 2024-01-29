@@ -29,29 +29,43 @@
                             <th>Modificado</th>
                             <th>Creado por</th>
                             <th>Modificado por</th>
-                            <th class="text-center">Estado</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($data as $airport)
-                        <tr>
-                            <td>{{ $airport->airport }}</td>
-                            <td>{{ $airport->code }}</td>
-                            <td>{{ $airport->created_at }}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class="text-center">
-                                
-                            </td>
-                            <td class="text-center">
-                                
-                            </td>
-                            
-                        </tr>
+                        @foreach ($data as $airport)
+                            <tr>
+                                <td>{{ $airport->airport }}</td>
+                                <td>{{ $airport->code }}</td>
+                                <td>{{ $airport->created_at }}</td>
+                                <td class="text-center">{{ $airport->update_at ?? 'N/D' }}</td>
+                                <td class="text-center"> {{ $airport->user_create }} </td>
+                                <td class="text-center"> {{ $airport->user_update }} </td>
+                                <td class="text-center">
+                                    <form action="actions">
+                                        @if ($airport->status != 1)
+                                            <button type="submit"
+                                                class="btn btn-outline-danger btn-xs tablabutton btnActivar" name="activar"
+                                                AirportID={{ $airport->id }}>
+                                                <span class="fas fa-toggle-on fa-flip-horizontal"></span>
+                                            </button>
+                                        @else
+                                            <button type="submit"
+                                                class="btn btn-outline-success btn-xs tablabutton btnActivar"
+                                                name="desactivar" AirportID={{ $airport->id }}>
+                                                <span class="fas fa-toggle-on"></span>
+                                            </button>
+                                        @endif
+                                        <button type="submit" class="btn btn-xs btn-outline-warning tablabutton"
+                                            name="edit">
+                                            <span class="fas fa-pen"></span>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
+                </table>
             </div>
         </div>
     </div>

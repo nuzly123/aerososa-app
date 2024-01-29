@@ -20,16 +20,6 @@
                             <input type="text" name="codigoAero" class="form-control" placeholder="Código" required />
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label for="nameBasic" class="form-label text-left">Latitud</label>
-                            <input type="text" name="latitud" class="form-control" placeholder="Latitud" required />
-                        </div>
-                        <div class="col mb-3">
-                            <label for="nameBasic" class="form-label text-left">Longitud</label>
-                            <input type="text" name="longitud" class="form-control" placeholder="Longitud" required />
-                        </div>
-                    </div>
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
