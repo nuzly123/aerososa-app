@@ -32,3 +32,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
  */
 
 Route::resource('airports', AirportController::class);
+Route::get('airports/{id}/update-status', [AirportController::class, 'updateStatus']);

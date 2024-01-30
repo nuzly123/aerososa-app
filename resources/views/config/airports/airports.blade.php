@@ -19,8 +19,14 @@
                 </div>
             </div>
             @include('config.airports.create')
+            @if (Session::get('success'))
+                <div class="alert alert-success" id="alert">
+                    {{ Session::get('success') }}
+                </div>
+            @endif
             <div class="card-body">
                 <table class="table table-striped">
+
                     <thead>
                         <tr>
                             <th>Aeropuerto</th>
@@ -33,40 +39,53 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $airport)
-                            <tr>
-                                <td>{{ $airport->airport }}</td>
-                                <td>{{ $airport->code }}</td>
-                                <td>{{ $airport->created_at }}</td>
-                                <td class="text-center">{{ $airport->update_at ?? 'N/D' }}</td>
-                                <td class="text-center"> {{ $airport->user_create }} </td>
-                                <td class="text-center"> {{ $airport->user_update }} </td>
-                                <td class="text-center">
-                                    <form action="actions">
-                                        @if ($airport->status != 1)
-                                            <button type="submit"
-                                                class="btn btn-outline-danger btn-xs tablabutton btnActivar" name="activar"
-                                                AirportID={{ $airport->id }}>
-                                                <span class="fas fa-toggle-on fa-flip-horizontal"></span>
-                                            </button>
-                                        @else
-                                            <button type="submit"
-                                                class="btn btn-outline-success btn-xs tablabutton btnActivar"
-                                                name="desactivar" AirportID={{ $airport->id }}>
-                                                <span class="fas fa-toggle-on"></span>
-                                            </button>
-                                        @endif
+                        @if (!empty($data))
+                            @foreach ($data as $airport)
+                                <tr>
+                                    <td>{{ $airport->airport }}</td>
+                                    <td>{{ $airport->code }}</td>
+                                    <td class="text-center">{{ $airport->created_at }}</td>
+                                    <td class="text-center">{{ $airport->updated_at ?? 'N/D' }}</td>
+                                    <td class="text-center"> {{ $airport->createdBy->user }} </td>
+                                    <td class="text-center"> {{ $airport->updatedBy->user ?? 'N/D' }} </td>
+                                    <td class="text-center">
+                                        {{-- <form action=""> --}}
+                                        <a href="airports/{{$airport->id}}/update-status"
+                                            class="btn btn-outline-{{ $airport->status ? 'success' : 'danger' }} btn-xs">
+                                            <span class="fas {{ $airport->status ? 'fa-toggle-on fa-flip-horizontal' : 'fa-toggle-on' }}"></span>
+                                        </a>
+                                        {{-- </form> --}}
                                         <button type="submit" class="btn btn-xs btn-outline-warning tablabutton"
-                                            name="edit">
+                                            name="editButton" data-toggle="modal"
+                                            data-target="#modal-edit{{ $airport->id }}">
                                             <span class="fas fa-pen"></span>
                                         </button>
-                                    </form>
+
+
+                                    </td>
+                                    @include('config.airports.edit')
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="7">
+                                    <div class="alert alert-warning">
+                                        <i class="icon fas fa-exclamation-triangle"></i> No hay registros.
+                                    </div>
                                 </td>
                             </tr>
-                        @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+@stop
+
+@section('js')
+    <script>
+        setTimeout(() => {
+            $('#alert').fadeOut('slow');
+        }, 2000);
+    </script>
 @stop

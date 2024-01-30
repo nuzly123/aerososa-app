@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('address', 50);
             $table->string('latitude', 50);
             $table->string('longitude', 50);
-            $table->boolean('status');
+            $table->boolean('status')->default(true);
             $table->integer('user_create');
-            $table->integer('user_update');
+            $table->integer('user_update')->nullable();
             $table->timestamps();
 
             //Foreign keys:

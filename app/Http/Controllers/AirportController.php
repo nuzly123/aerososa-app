@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Airport;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,8 +15,13 @@ class AirportController extends Controller
     public function index()
     {
         //
-        $data=DB::select("SELECT * FROM AIRPORTS");
-        return view('config.airports.airports')->with("data", $data);
+        //$data = DB::select("SELECT * FROM AIRPORTS");
+        $data = Airport::with(['createdBy', 'updatedBy'])->get();
+
+        //return view('config.airports.airports')->with("data", $data);
+        //return response()->json($data);
+        //return dd($data);
+        return view('config.airports.airports', compact('data'));
     }
 
     /**
@@ -29,9 +35,14 @@ class AirportController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         //
+        //$dataRequest = request()->all();
+        //return response()->json($dataRequest);
+
+        Airport::create($request->all());
+        return redirect()->route('airports.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**
@@ -48,6 +59,8 @@ class AirportController extends Controller
     public function edit(Airport $airport)
     {
         //
+        return view('config.airports.index', ['airport' => $airport]);
+        //return dd($airport);
     }
 
     /**
@@ -56,6 +69,9 @@ class AirportController extends Controller
     public function update(Request $request, Airport $airport)
     {
         //
+        $airport->update($request->all());
+        //return redirect()->route('airports.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return dd($airport);
     }
 
     /**
@@ -64,5 +80,12 @@ class AirportController extends Controller
     public function destroy(Airport $airport)
     {
         //
+    }
+
+    public function updateStatus($id)
+    {
+        if ($result = $this->toggleStatus('airports', $id)) {
+            return back()->with('success', 'El registro se ha actualizado exitosamente!');
+        }
     }
 }

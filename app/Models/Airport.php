@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Airport extends Model
 {
     use HasFactory;
+    protected $fillable = ['airport', 'code', 'user_create', 'user_update', 'status'];
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'user_create');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'user_update');
+    }
 }

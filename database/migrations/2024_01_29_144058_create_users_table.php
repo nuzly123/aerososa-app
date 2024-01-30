@@ -16,14 +16,13 @@ return new class extends Migration
             $table->string('user', 50);
             $table->string('password');
             $table->integer('reset_password');
-            $table->boolean('status');
+            $table->boolean('status')->default(true);
             $table->integer('user_create');
-            $table->integer('user_update');
+            $table->integer('user_update')->nullable();
             $table->timestamps();
 
             //Foreign keys:
             $table->foreignId('employee_id')->constrained();
-            $table->foreignId('rol_id')->constrained();
         });
     }
 
