@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Ciudades</h3>
+                <h3 class="card-title">Oficinas</h3>
                 <div class="card-tools">
                     <button type="submit" class="btn btn-sm btn-default" name="addButton" data-toggle="modal"
                         data-target="#modal-nuevo">
@@ -16,7 +16,7 @@
                     </button>
                 </div>
             </div>
-            @include('config.cities.create')
+            @include('config.offices.create')
             @if (Session::get('success'))
                 <div class="alert alert-success" id="alert">
                     {{ Session::get('success') }}
@@ -26,8 +26,9 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Ciudad</th>
+                            <th>Oficina</th>
                             <th>Código</th>
+                            <th>Extensión</th>
                             <th>Creado</th>
                             <th>Modificado</th>
                             <th>Creado por</th>
@@ -37,31 +38,36 @@
                     </thead>
                     <tbody>
                         @if (!empty($data))
-                            @foreach ($data as $city)
+                            @foreach ($data as $office)
                                 <tr>
-                                    <td>{{ $city->city }}</td>
-                                    <td>{{ $city->code }}</td>
-                                    <td class="text-center">{{ $city->created_at }}</td>
-                                    <td class="text-center">{{ $city->updated_at ?? 'N/D' }}</td>
-                                    <td class="text-center"> {{ $city->createdBy->user }} </td>
-                                    <td class="text-center"> {{ $city->updatedBy->user ?? 'N/D' }} </td>
+                                    <td>{{ $office->office }}</td>
+                                    <td>{{ $office->code }}</td>
+                                    <td class="text-center">{{ $office->extension }}</td>
+                                    <td class="text-center">{{ $office->created_at }}</td>
+                                    <td class="text-center">{{ $office->updated_at ?? 'N/D' }}</td>
+                                    <td class="text-center"> {{ $office->createdBy->user }} </td>
+                                    <td class="text-center"> {{ $office->updatedBy->user ?? 'N/D' }} </td>
                                     <td class="text-center">
                                         {{-- <form action=""> --}}
-                                        <a href="cities/{{ $city->id }}/update-status"
-                                            class="btn btn-outline-{{ $city->status ? 'success' : 'danger' }} btn-xs">
+                                        <a href="offices/{{ $office->id }}/update-status"
+                                            class="btn btn-outline-{{ $office->status ? 'success' : 'danger' }} btn-xs">
                                             <span
-                                                class="fas {{ $city->status ? 'fa-toggle-on fa-flip-horizontal' : 'fa-toggle-on' }}"></span>
+                                                class="fas {{ $office->status ? 'fa-toggle-on fa-flip-horizontal' : 'fa-toggle-on' }}"></span>
                                         </a>
                                         {{-- </form> --}}
                                         <button type="submit" class="btn btn-xs btn-outline-warning tablabutton"
                                             name="editButton" data-toggle="modal"
-                                            data-target="#modal-edit{{ $city->id }}">
+                                            data-target="#modal-edit{{ $office->id }}">
                                             <span class="fas fa-pen"></span>
                                         </button>
-
-
+                                        @include('config.offices.edit')
+                                        <button type="submit" class="btn btn-xs btn-outline-info tablabutton"
+                                            name="infoButton" data-toggle="modal"
+                                            data-target="#modal-info-{{ $office->id }}">
+                                            <span class="fas fa-info-circle"></span>
+                                        </button>
                                     </td>
-                                    @include('config.cities.edit')
+                                    @include('config.offices.info')
                                 </tr>
                             @endforeach
                         @else
@@ -78,6 +84,10 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="">
 @stop
 
 @section('js')

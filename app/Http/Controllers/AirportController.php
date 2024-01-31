@@ -70,8 +70,8 @@ class AirportController extends Controller
     {
         //
         $airport->update($request->all());
-        //return redirect()->route('airports.index')->with('success', 'El registro se ha añadido exitosamente!');
-        return dd($airport);
+        return redirect()->route('airports.index')->with('success', 'El registro se ha añadido exitosamente!');
+        //return dd($airport);
     }
 
     /**

@@ -367,15 +367,15 @@ return [
                 ],
                 [
                     'text' => 'Departamentos',
-                    'url'  => '#',
+                    'url'  => 'departments',
                 ],
                 [
                     'text' => 'Estaciones',
-                    'url'  => '#',
+                    'url'  => 'stations',
                 ],
                 [
                     'text' => 'Oficinas',
-                    'url'  => '#',
+                    'url'  => 'offices',
                 ],
             ],
         ],

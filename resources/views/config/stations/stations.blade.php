@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Ciudades</h3>
+                <h3 class="card-title">Estaciones</h3>
                 <div class="card-tools">
                     <button type="submit" class="btn btn-sm btn-default" name="addButton" data-toggle="modal"
                         data-target="#modal-nuevo">
@@ -16,7 +16,7 @@
                     </button>
                 </div>
             </div>
-            @include('config.cities.create')
+            @include('config.stations.create')
             @if (Session::get('success'))
                 <div class="alert alert-success" id="alert">
                     {{ Session::get('success') }}
@@ -26,7 +26,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Ciudad</th>
+                            <th>Estación</th>
                             <th>Código</th>
                             <th>Creado</th>
                             <th>Modificado</th>
@@ -37,31 +37,31 @@
                     </thead>
                     <tbody>
                         @if (!empty($data))
-                            @foreach ($data as $city)
+                            @foreach ($data as $station)
                                 <tr>
-                                    <td>{{ $city->city }}</td>
-                                    <td>{{ $city->code }}</td>
-                                    <td class="text-center">{{ $city->created_at }}</td>
-                                    <td class="text-center">{{ $city->updated_at ?? 'N/D' }}</td>
-                                    <td class="text-center"> {{ $city->createdBy->user }} </td>
-                                    <td class="text-center"> {{ $city->updatedBy->user ?? 'N/D' }} </td>
+                                    <td>{{ $station->station }}</td>
+                                    <td class="text-center">{{ $station->code }}</td>
+                                    <td class="text-center">{{ $station->created_at }}</td>
+                                    <td class="text-center">{{ $station->updated_at ?? 'N/D' }}</td>
+                                    <td class="text-center"> {{ $station->createdBy->user }} </td>
+                                    <td class="text-center"> {{ $station->updatedBy->user ?? 'N/D' }} </td>
                                     <td class="text-center">
                                         {{-- <form action=""> --}}
-                                        <a href="cities/{{ $city->id }}/update-status"
-                                            class="btn btn-outline-{{ $city->status ? 'success' : 'danger' }} btn-xs">
+                                        <a href="stations/{{ $station->id }}/update-status"
+                                            class="btn btn-outline-{{ $station->status ? 'success' : 'danger' }} btn-xs">
                                             <span
-                                                class="fas {{ $city->status ? 'fa-toggle-on fa-flip-horizontal' : 'fa-toggle-on' }}"></span>
+                                                class="fas {{ $station->status ? 'fa-toggle-on fa-flip-horizontal' : 'fa-toggle-on' }}"></span>
                                         </a>
                                         {{-- </form> --}}
                                         <button type="submit" class="btn btn-xs btn-outline-warning tablabutton"
                                             name="editButton" data-toggle="modal"
-                                            data-target="#modal-edit{{ $city->id }}">
+                                            data-target="#modal-edit{{ $station->id }}">
                                             <span class="fas fa-pen"></span>
                                         </button>
 
 
                                     </td>
-                                    @include('config.cities.edit')
+                                    @include('config.stations.edit')
                                 </tr>
                             @endforeach
                         @else

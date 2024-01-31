@@ -23,12 +23,14 @@ class Controller extends BaseController
             if ($record) {
                 // Cambia el estado
                 $record->status = !$record->status;
-
+                $record->user_update = 1; //id del user de la sesion, cambiar cuando se trabaje en el modelo
                 // Guarda el registro actualizado
                 $record->save();
 
                 // Redirecciona de nuevo con un mensaje de éxito
                 return true;
+                //return dd($record);
+                //$record=null;
             }
         }
         // Redirecciona de nuevo con un mensaje de error si no se encuentra el registro o el modelo
