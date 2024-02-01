@@ -9,13 +9,13 @@
             </div>
             <div class="modal-body">
                 <form action="{{ url('/offices') }}" method="post">
-                    @csrf
+                    @csrf   
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-8 mb-3">
                                     <label for="nameBasic" class="form-label text-left">Nombre</label>
-                                    <input type="text" name="city" class="form-control" placeholder="Oficina"
+                                    <input type="text" name="office" class="form-control" placeholder="Oficina"
                                         required />
                                 </div>
                                 <div class="col-md-4 mb-3">
@@ -58,7 +58,7 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="nameBasic" class="form-label text-left">Estación</label>
-                                    <select class="custom-select rounded-2" name="city_id" id="city_id">
+                                    <select class="custom-select rounded-2" name="station_id">
                                         <option value="0">- Opción -</option>
                                         @foreach ($stations as $station)
                                             <option value="{{ $station->id }}">{{ $station->station }}</option>
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="nameBasic" class="form-label text-left">Ciudad</label>
-                                    <select class="custom-select rounded-2" name="city_id" id="city_id">
+                                    <select class="custom-select rounded-2" name="city_id">
                                         <option value="0">- Opción -</option>
                                         @foreach ($cities as $city)
                                             <option value="{{ $city->id }}">{{ $city->city }}</option>
@@ -77,7 +77,6 @@
                             </div>
                         </div>
                     </div>
-
                     <input type="hidden" name="user_create" value="{{ 1 }}">
                     <input type="hidden" name="user_update" value="{{ 1 }}">
             </div>

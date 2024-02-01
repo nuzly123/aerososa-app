@@ -60,13 +60,14 @@
                                             data-target="#modal-edit{{ $office->id }}">
                                             <span class="fas fa-pen"></span>
                                         </button>
-                                        @include('config.offices.edit')
+                                        
                                         <button type="submit" class="btn btn-xs btn-outline-info tablabutton"
                                             name="infoButton" data-toggle="modal"
                                             data-target="#modal-info-{{ $office->id }}">
                                             <span class="fas fa-info-circle"></span>
                                         </button>
                                     </td>
+                                    @include('config.offices.edit')
                                     @include('config.offices.info')
                                 </tr>
                             @endforeach
