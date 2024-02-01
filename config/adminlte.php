@@ -311,28 +311,35 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ], */
+        ['header' => 'PRINCIPAL'],
         [
             'text'        => 'Monitoreo',
-            'url'         => 'admin/pages', //cambiar
+            'url'         => 'monitoring', //cambiar
             'icon'        => 'fas fa-fw fa-tachometer-alt',
             'label_color' => 'success',
         ],
-        [
-            'text'        => 'Usuarios',
-            'url'         => 'admin/pages', //cambiar
-            'icon'        => 'fas fa-fw fa-user',
-        ],
+        ['header' => 'RECURSOS HUMANOS'],
         [
             'text'        => 'Empleados',
-            'url'         => 'admin/pages', //cambiar
+            'url'         => 'employees', //cambiar
             'icon'        => 'fas fa-fw fa-briefcase',
         ],
         [
             'text'        => 'Tripulación',
-            'url'         => 'admin/pages', //cambiar
+            'url'         => 'tripulation', //cambiar
             'icon'        => 'fas fa-fw fa-users',
         ],
-        ['header' => 'MÁS OPCIONES'],
+        ['header' => 'ADMINISTRADOR'],
+        [
+            'text'        => 'Usuarios',
+            'url'         => 'users', //cambiar
+            'icon'        => 'fas fa-fw fa-user',
+        ],
+        [
+            'text'        => 'Reportes',
+            'url'         => 'reports', //cambiar
+            'icon'        => 'fas fa-fw fa-file-alt',
+        ],
         [
             'text'    => 'Configuración',
             'icon'    => 'fas fa-fw fa-cog',
@@ -379,6 +386,7 @@ return [
                 ],
             ],
         ],
+        ['header' => 'MÁS OPCIONES'],
         [
             'text' => 'Perfil',
             'url'  => 'admin/settings',
