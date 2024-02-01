@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\Office;
+use App\Models\Station;
 use Illuminate\Http\Request;
 
 class OfficeController extends Controller
@@ -14,7 +16,9 @@ class OfficeController extends Controller
     {
         //
         $data = Office::with(['createdBy', 'updatedBy', 'cities', 'stations'])->get();
-        return view('config.offices.offices', compact('data'));
+        $cities = City::get();
+        $stations = Station::get();
+        return view('config.offices.offices', compact('data', 'cities', 'stations'));
         //return dd($data);
     }
 

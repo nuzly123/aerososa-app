@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('/stations') }}" method="post">
+                <form action="{{ url('/offices') }}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
@@ -60,8 +60,8 @@
                                     <label for="nameBasic" class="form-label text-left">Estación</label>
                                     <select class="custom-select rounded-2" name="city_id" id="city_id">
                                         <option value="0">- Opción -</option>
-                                        @foreach ($data as $station)
-                                        <option value="{{$station->station_id}}">{{$station->stations->station}}</option>
+                                        @foreach ($stations as $station)
+                                            <option value="{{ $station->id }}">{{ $station->station }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -69,8 +69,8 @@
                                     <label for="nameBasic" class="form-label text-left">Ciudad</label>
                                     <select class="custom-select rounded-2" name="city_id" id="city_id">
                                         <option value="0">- Opción -</option>
-                                        @foreach ($data as $city)
-                                        <option value="{{$city->city_id}}">{{$city->cities->city}}</option>
+                                        @foreach ($cities as $city)
+                                            <option value="{{ $city->id }}">{{ $city->city }}</option>
                                         @endforeach
                                     </select>
                                 </div>
