@@ -1,0 +1,54 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Employee extends Model
+{
+    use HasFactory;
+
+    protected $fillable = 
+    ['dni',
+    'name', 
+    'last_name', 
+    'phone', 
+    'email', 
+    'birth', 
+    'address', 
+    'position', 
+    'entry_date', 
+    'user_create', 
+    'user_update', 
+    'status',
+    'department_id',
+    'office_id',
+    'contract_id'
+    ];
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'user_create');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'user_update');
+    }
+
+    public function departments()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
+    }
+
+    public function offices()
+    {
+        return $this->belongsTo(Office::class, 'office_id');
+    }
+
+    public function contracts()
+    {
+        return $this->belongsTo(Contract::class, 'contract_id');
+    }
+}

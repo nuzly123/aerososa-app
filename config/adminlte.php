@@ -373,6 +373,10 @@ return [
                     ], */
                 ],
                 [
+                    'text' => 'Contratos',
+                    'url'  => 'contracts',
+                ],
+                [
                     'text' => 'Departamentos',
                     'url'  => 'departments',
                 ],
@@ -389,12 +393,12 @@ return [
         ['header' => 'MÁS OPCIONES'],
         [
             'text' => 'Perfil',
-            'url'  => 'admin/settings',
+            'url'  => 'profile',
             'icon' => 'fas fa-fw fa-user-circle',
         ],
         [
             'text' => 'Cerrar Sesión',
-            'url'  => 'home',
+            'url'  => 'log-out',
             'icon' => 'fas fa-fw fa-sign-out-alt',
         ],
         /* ['header' => 'labels'],

@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AirportController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\StationController;
 use App\Models\Airport;
@@ -41,6 +43,9 @@ Route::get('airports/{id}/update-status', [AirportController::class, 'updateStat
 Route::resource('cities', CityController::class);
 Route::get('cities/{id}/update-status', [CityController::class, 'updateStatus']);
 
+Route::resource('contracts', ContractController::class);
+Route::get('contracts/{id}/update-status', [ContractController::class, 'updateStatus']);
+
 Route::resource('departments', DepartmentController::class);
 Route::get('departments/{id}/update-status', [DepartmentController::class, 'updateStatus']);
 
@@ -51,3 +56,8 @@ Route::resource('offices', OfficeController::class);
 Route::get('offices/{id}/update-status', [OfficeController::class, 'updateStatus']);
 
 /* ------------------------------------------------------------------------------------ */
+/* RECURSOS HUMANOS */
+Route::resource('employees', EmployeeController::class);
+Route::get('employees/{id}/update-status', [EmployeeController::class, 'updateStatus']);
+
+

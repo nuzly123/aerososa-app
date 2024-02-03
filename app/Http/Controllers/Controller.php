@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class Controller extends BaseController
@@ -15,7 +16,7 @@ class Controller extends BaseController
     {
         // Obtiene el nombre del modelo basado en el nombre de la tabla
         $modelClassName = 'App\\Models\\' . Str::studly(Str::singular($tableName));
-
+//preuntar si es una peticion ajax
         // Verifica si el modelo existe
         if (class_exists($modelClassName)) {
             // Encuentra el registro en la tabla correspondiente
@@ -23,17 +24,17 @@ class Controller extends BaseController
             if ($record) {
                 // Cambia el estado
                 $record->status = !$record->status;
-                $record->user_update = 1; //id del user de la sesion, cambiar cuando se trabaje en el modelo
+                $record->user_update = Auth::user()->id; //id del user de la sesion, cambiar cuando se trabaje en el modelo
                 // Guarda el registro actualizado
                 $record->save();
 
-                // Redirecciona de nuevo con un mensaje de éxito
-                return true;
+                
+                return true; //tiene que retornar una respuesta json (return response()->json(parametros)
                 //return dd($record);
                 //$record=null;
             }
         }
-        // Redirecciona de nuevo con un mensaje de error si no se encuentra el registro o el modelo
+        
         return false;
     }
 }
