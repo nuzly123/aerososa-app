@@ -6,8 +6,10 @@ use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\StationController;
 use App\Models\Airport;
+use App\Models\Position;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,7 +49,7 @@ Route::resource('contracts', ContractController::class);
 Route::get('contracts/{id}/update-status', [ContractController::class, 'updateStatus']);
 
 Route::resource('departments', DepartmentController::class);
-Route::get('departments/{id}/update-status', [DepartmentController::class, 'updateStatus']);
+Route::get('de partments/{id}/update-status', [DepartmentController::class, 'updateStatus']);
 
 Route::resource('stations', StationController::class);
 Route::get('stations/{id}/update-status', [StationController::class, 'updateStatus']);
@@ -55,9 +57,16 @@ Route::get('stations/{id}/update-status', [StationController::class, 'updateStat
 Route::resource('offices', OfficeController::class);
 Route::get('offices/{id}/update-status', [OfficeController::class, 'updateStatus']);
 
+Route::resource('positions', PositionController::class);
+Route::get('positions/{id}/update-status', [PositionController::class, 'updateStatus']);
+
 /* ------------------------------------------------------------------------------------ */
 /* RECURSOS HUMANOS */
 Route::resource('employees', EmployeeController::class);
 Route::get('employees/{id}/update-status', [EmployeeController::class, 'updateStatus']);
+Route::get('employees/{id}/profile', [EmployeeController::class, 'viewProfile']);
 
 
+
+/* ------------------------------------------------------------------------------------ */
+/* RECURSOS HUMANOS */

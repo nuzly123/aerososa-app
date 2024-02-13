@@ -18,6 +18,7 @@ class Employee extends Model
     'birth', 
     'address', 
     'position', 
+    'photo',
     'entry_date', 
     'user_create', 
     'user_update', 

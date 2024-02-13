@@ -24,7 +24,7 @@ class Controller extends BaseController
             if ($record) {
                 // Cambia el estado
                 $record->status = !$record->status;
-                $record->user_update = Auth::user()->id; //id del user de la sesion, cambiar cuando se trabaje en el modelo
+                $record->user_update = 1;//Auth::user()->id; //id del user de la sesion, cambiar cuando se trabaje en el modelo
                 // Guarda el registro actualizado
                 $record->save();
 

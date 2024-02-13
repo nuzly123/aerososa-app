@@ -12,8 +12,10 @@
         <div class="col-md-12">
             <div class="card mb-4">
                 <h5 class="card-header">Nuevo Empleado</h5>
-                <form action="{{ url('/employees') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('employees.update', $employee) }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    {{ method_field('PATCH') }}
+                    {{-- @method('PUT') --}}
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -21,11 +23,11 @@
                                     <div class="col-md-12">
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon11">DNI</span>
+                                                <span class="input-group-text">DNI</span>
                                                 <input type="text" name="number" hidden>
                                             </div>
                                             <input type="text" class="form-control" name="dni"
-                                                placeholder="Identidad" required />
+                                                placeholder="Identidad" value="{{ $employee->dni }}" required />
                                         </div>
                                     </div>
                                 </div>
@@ -36,7 +38,7 @@
                                                 <span for="name" class="input-group-text">Nombre</span>
                                             </div>
                                             <input type="text" class="form-control" name="name" id="name"
-                                                required placeholder="Nombre" />
+                                                required placeholder="Nombre" value="{{ $employee->name }}" />
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -45,14 +47,16 @@
                                                 <span class="input-group-text" id="basic-addon11">Apellidos</span>
                                             </div>
                                             <input type="text" class="form-control" name="last_name" id="last_name"
-                                                required placeholder="Apellidos" aria-describedby="basic-addon11" />
+                                                required placeholder="Apellidos" aria-describedby="basic-addon11"
+                                                value="{{ $employee->last_name }}" />
                                         </div>
                                     </div>
                                 </div>
                                 <label for="nuevo-empleado">Fecha de Nacimiento</label>
                                 <div class="row">
                                     <div class="col-md-4 mb-3">
-                                        <input class="form-control" type="date" name="birth" required />
+                                        <input class="form-control" type="date" name="birth" required
+                                            value="{{ date('Y-m-d', strtotime($employee->birth)) }}" />
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <div class="input-group">
@@ -60,7 +64,7 @@
                                                 <span class="input-group-text">Teléfono</span>
                                             </div>
                                             <input type="text" class="form-control" name="phone" required
-                                                placeholder="Teléfono" />
+                                                placeholder="Teléfono" value="{{ $employee->phone }}" />
                                         </div>
                                     </div>
                                     <div class="col-md-4 mb-3">
@@ -69,14 +73,14 @@
                                                 <span class="input-group-text">Correo</span>
                                             </div>
                                             <input type="text" class="form-control" name="email" required
-                                                placeholder="Correo" />
+                                                placeholder="Correo" value="{{ $employee->email }}" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
                                     <div class="col-md-12 mb-3">
                                         <label for="exampleFormControlTextarea1" class="form-label">Dirección</label>
-                                        <textarea class="form-control" name="address" required rows="1"></textarea>
+                                        <textarea class="form-control" name="address" required rows="1">{{ $employee->address }}</textarea>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
@@ -85,7 +89,9 @@
                                         <select class="custom-select rounded-2" name="contract_id" required>
                                             <option value="">- Opción -</option>
                                             @foreach ($contracts as $contract)
-                                                <option value="{{ $contract->id }}">{{ $contract->contract }}</option>
+                                                <option value="{{ $contract->id }}"
+                                                    {{ $employee->contract_id == $contract->id ? 'selected' : '' }}>
+                                                    {{ $contract->contract }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -93,7 +99,7 @@
                                         <div class="mb-3">
                                             <label for="txtCargo" class="form-label">Cargo</label>
                                             <input type="text" class="form-control" required name="position"
-                                                id="position" placeholder="Cargo" />
+                                                id="position" placeholder="Cargo" value="{{ $employee->position }}" />
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -101,7 +107,10 @@
                                         <select class="custom-select rounded-2" name="department_id" required>
                                             <option value="">- Opción -</option>
                                             @foreach ($departments as $department)
-                                                <option value="{{ $department->id }}">{{ $department->department }}</option>
+                                                <option value="{{ $department->id }}"
+                                                    {{ $employee->department_id == $department->id ? 'selected' : '' }}>
+                                                    {{ $department->department }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -110,7 +119,9 @@
                                         <select class="custom-select rounded-2" name="office_id" required>
                                             <option value="">- Opción -</option>
                                             @foreach ($offices as $office)
-                                                <option value="{{ $office->id }}">{{ $office->office }}</option>
+                                                <option value="{{ $office->id }}"
+                                                    {{ $employee->office_id == $office->id ? 'selected' : '' }}>
+                                                    {{ $office->office }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -118,7 +129,8 @@
                                 <div class="row mb-3">
                                     <div class="col-md-3 mb-3">
                                         <label class="form-label">Fecha Ingreso</label>
-                                        <input class="form-control" type="date" required name="entry_date" />
+                                        <input class="form-control" type="date" required name="entry_date"
+                                            value="{{ date('Y-m-d', strtotime($employee->entry_date)) }}" />
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
@@ -135,9 +147,28 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {{-- <div class="col-md-3">
+                                        <label class="form-label">Ciudad</label>
+                                        <select class="custom-select rounded-2" name="city_id" required>
+                                            <option value="">- Opción -</option>
+                                            @foreach ($cities as $city)
+                                                <option value="{{ $city->id }}"
+                                                    {{ $employee->city_id == $city->id ? 'selected' : '' }}>
+                                                    {{ $city->city }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div> --}}
                                 </div>
-                                <div class="col-md-12" align="right">
-                                    <button type="submit" class="btn btn-success" name="nuevoEmpleado">Guardar</button>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-11" align="right">
+                                            <a href="{{ url('/employees') }}" class="btn btn-default">Regresar</a>
+                                        </div>
+                                        <div class="col-md-1" align="right">
+                                            <button type="submit" class="btn btn-success"
+                                                name="nuevoEmpleado">Guardar</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -155,6 +186,6 @@
 @stop
 
 @section('js')
-    <script src="../../resources/js/employee.js"></script>
+    <script src="../../../resources/js/employee.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
 @stop

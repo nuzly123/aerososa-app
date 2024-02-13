@@ -1,0 +1,23 @@
+
+.clip{
+    clip-path: inset(20px 60px 20px 0px);
+}
+   
+.clip > img{
+    border: 3px solid #ff9daa;
+}
+
+.objetfit > img{
+	width: 200px;
+	height: 200px;
+	object-fit: none;
+	background-color: black;
+	border: 3px solid #ff9daa;
+}
+
+.objetfitcover > img{
+	width: 200px;
+	height: 400px;
+	object-fit: cover;
+	border: 3px solid #ff9daa;
+}

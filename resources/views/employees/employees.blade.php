@@ -33,25 +33,31 @@
                     <tbody>
                         @foreach ($data as $employee)
                             <tr>
-                                <td>{{ $employee->name }}</td>
+                                <td>{{ $employee->name." ".$employee->last_name }}</td>
                                 <td>{{ $employee->position }}</td>
                                 <td>{{ $employee->offices->office }}</td>
                                 <td class="text-center">{{ $employee->contracts->contract }}</td>
                                 <td class="text-center">
-                                    <a href="stations/{{ $employee->id }}/update-status"
+                                    <a href="employees/{{ $employee->id }}/update-status"
                                         class="btn btn-outline-{{ $employee->status ? 'success' : 'danger' }} btn-xs">
                                         <span
                                             class="fas {{ $employee->status ? 'fa-toggle-on fa-flip-horizontal' : 'fa-toggle-on' }}"></span>
                                     </a>
                                     {{-- </form> --}}
-                                    <button type="submit" class="btn btn-xs btn-outline-warning tablabutton"
+                                    <a href="employees/{{ $employee->id }}/edit" class="btn btn-xs btn-outline-warning tablabutton">
+                                        <span class="fas fa-pen"></span>
+                                    </a>
+                                    {{-- <button type="submit" class="btn btn-xs btn-outline-warning tablabutton"
                                         name="editButton" data-toggle="modal" data-target="#modal-edit{{ $employee->id }}">
                                         <span class="fas fa-pen"></span>
-                                    </button>
-                                    <button type="submit" class="btn btn-xs btn-outline-info tablabutton" name="infoButton"
+                                    </button> --}}
+                                    <a href="employees/{{ $employee->id }}/profile" class="btn btn-xs btn-outline-info tablabutton">
+                                        <span class="fas fa-eye"></span>
+                                    </a>
+                                    {{-- <button type="submit" class="btn btn-xs btn-outline-info tablabutton" name="viewprofile"
                                         data-toggle="modal" data-target="#modal-info-{{ $employee->id }}">
-                                        <span class="fas fa-info-circle"></span>
-                                    </button>
+                                        <span class="fas fa-eye"></span>
+                                    </button> --}}
                                 </td>
                             </tr>
                         @endforeach
@@ -70,6 +76,6 @@
     <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="//cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
     <script>
-        $('.table-dataTable').dataTable();
+    $('.table-dataTable').dataTable();
     </script>
 @stop

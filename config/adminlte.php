@@ -388,6 +388,10 @@ return [
                     'text' => 'Oficinas',
                     'url'  => 'offices',
                 ],
+                [
+                    'text' => 'Cargos',
+                    'url'  => 'positions',
+                ]
             ],
         ],
         ['header' => 'MÁS OPCIONES'],
