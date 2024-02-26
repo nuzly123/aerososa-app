@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('employees', function (Blueprint $table) {
-            //
-            $table->string("photo")->nullable()->after("birth");
+        Schema::create('position_details', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+
+            //foreign
+            $table->foreignId('position_id')->constrained();
+            $table->foreignId('employee_id')->constrained();
         });
     }
 
@@ -22,9 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('employees', function (Blueprint $table) {
-            //
-            $table->dropColumn("photo");
-        });
+        Schema::dropIfExists('position_details');
     }
 };

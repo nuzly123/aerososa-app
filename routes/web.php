@@ -8,6 +8,8 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\StationController;
+use App\Http\Controllers\TripulationController;
+use App\Http\Controllers\UserController;
 use App\Models\Airport;
 use App\Models\Position;
 use Illuminate\Support\Facades\Route;
@@ -69,4 +71,7 @@ Route::get('employees/{id}/profile', [EmployeeController::class, 'viewProfile'])
 
 
 /* ------------------------------------------------------------------------------------ */
-/* RECURSOS HUMANOS */
+/* USUARIOS */
+Route::resource('users', UserController::class);
+Route::get('users/{id}/update-status', [UserController::class, 'updateStatus']);
+

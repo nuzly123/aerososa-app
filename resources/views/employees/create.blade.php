@@ -90,10 +90,17 @@
                                         </select>
                                     </div>
                                     <div class="col-md-3">
+                                        <label for="txtCargo" class="form-label">Cargo</label>
                                         <div class="mb-3">
-                                            <label for="txtCargo" class="form-label">Cargo</label>
-                                            <input type="text" class="form-control" required name="position"
-                                                id="position" placeholder="Cargo" />
+                                            {{-- <input type="text" class="form-control" required name="position"
+                                                id="position" placeholder="Cargo" /> --}}
+                                            <select class="select2" style="width: 100%;" name="positions_array[]"
+                                                multiple="multiple" data-placeholder="Seleccione cargo(s)" required>
+                                                {{-- <option value="">- Opción -</option> --}}
+                                                @foreach ($positions as $position)
+                                                    <option value="{{ $position->id }}">{{ $position->position }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -125,9 +132,10 @@
                                             <label for="exampleInputFile">Fotografía</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input"
-                                                        name="photo" id="photo" onchange="updateFileName()">
-                                                    <label class="custom-file-label" for="photo" id="photoName">Seleccionar</label>
+                                                    <input type="file" class="custom-file-input" name="photo"
+                                                        id="photo" onchange="updateFileName()">
+                                                    <label class="custom-file-label" for="photo"
+                                                        id="photoName">Seleccionar</label>
                                                 </div>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">Upload</span>
@@ -136,9 +144,16 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12" align="right">
-                                    <button type="submit" class="btn btn-success" name="nuevoEmpleado">Guardar</button>
+                                <div class="row">
+                                    <div class="col-md-11" align="right">
+                                        <a href="{{ url('/employees') }}" class="btn btn-default">Regresar</a>
+                                    </div>
+                                    <div class="col-md-1" align="right">
+                                        <button type="submit" class="btn btn-success"
+                                            name="nuevoEmpleado">Guardar</button>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -151,10 +166,24 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.min.css">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.min.css"> --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 @stop
 
 @section('js')
     <script src="../../resources/js/employee.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Select2 Multiple
+            $('.select2').select2({
+                /* placeholder: "- Opción -", */
+                allowClear: false,
+                theme: "classic"
+            });
+
+        });
+    </script>
 @stop

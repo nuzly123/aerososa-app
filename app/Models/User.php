@@ -24,7 +24,8 @@ class User extends Authenticatable
         'password',
         'user_create',
         'user_update',
-        'employee_id'
+        'employee_id',
+        /* 'last_login', */
     ];
 
     /**
@@ -47,4 +48,23 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
     
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'user_create');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'user_update');
+    }
+
+   /*  public function offices()
+    {
+        return $this->belongsTo(Office::class, 'office_id');
+    } */
+
+    public function employees()
+    {
+        return $this->belongsTo(Employee::class, 'employee_id');
+    }
 }

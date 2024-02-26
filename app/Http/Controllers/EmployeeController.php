@@ -7,8 +7,11 @@ use App\Models\Office;
 use App\Models\Department;
 use App\Models\Contract;
 use App\Models\Employee;
+use App\Models\Position;
+use App\Models\Position_Details;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -18,8 +21,12 @@ class EmployeeController extends Controller
     public function index()
     {
         //
-        $data = Employee::with(['createdBy', 'updatedBy', 'departments', 'offices', 'contracts'])->get();
+        $data = Employee::with(['createdBy', 'updatedBy', 'departments', 'offices', 'contracts', 'positions'])->get();
+
+
         return view('employees.employees', compact('data'));
+        //return response()->json($data);
+        //return dd($data);
     }
 
     /**
@@ -28,11 +35,11 @@ class EmployeeController extends Controller
     public function create()
     {
         //
-        $cities = City::get();
-        $offices = Office::get();
-        $departments = Department::get();
-        $contracts = Contract::get();
-        return view('employees.create', compact('cities', 'offices', 'departments', 'contracts'));
+        $offices = Office::where('status', 1)->get();
+        $departments = Department::where('status', 1)->get();
+        $contracts = Contract::where('status', 1)->get();
+        $positions = Position::where('status', 1)->get();
+        return view('employees.create', compact('offices', 'departments', 'contracts', 'positions'));
     }
 
     /**
@@ -40,18 +47,20 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        /* if($request->hasFile('photo')){
-            $request['photo']=$request->file('photo')->store('uploads', 'public');
-        }
-        
-        Employee::create($request->all());
-        return redirect()->route('employees.index')->with('success', 'El registro se ha añadido exitosamente!'); */
+        //creando empleado
         $data = request()->except('_token');
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('uploads', 'public');
         }
         Employee::create($data);
+
+        //creando detalles de cargo
+        $position_values = $request->input('positions_array');
+        $employee_id = Employee::max('id');
+        foreach ($position_values as $position) {
+            Position_Details::create(['position_id' => $position, 'employee_id' => $employee_id]);
+        }
+
         return redirect()->route('employees.index')->with('success', 'El registro se ha añadido exitosamente!');
         /* return response()->json($data); */
     }
@@ -70,11 +79,11 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         //
-        $cities = City::get();
-        $offices = Office::get();
-        $departments = Department::get();
-        $contracts = Contract::get();
-        return view('employees.edit', ['employee' => $employee], compact('cities', 'offices', 'departments', 'contracts'));
+        $offices = Office::where('status', 1)->get();
+        $departments = Department::where('status', 1)->get();
+        $contracts = Contract::where('status', 1)->get();
+        $positions = Position::where('status', 1)->get();
+        return view('employees.edit', ['employee' => $employee], compact('offices', 'departments', 'contracts', 'positions'));
         /* return dd($employee); */
     }
 
@@ -90,8 +99,24 @@ class EmployeeController extends Controller
             Storage::delete('public/' . $employee->photo);
             $data['photo'] = $request->file('photo')->store('uploads', 'public');
         }
-
+        /*  return dd($data); */
         $employee->update($data);
+
+        //actualizando tabla de detalles
+
+
+
+        $position_values = $request->input('positions_array'); //obtengo los cargos o cargo
+
+        //borrando los registros de detalles creados en la BD
+        DB::table('position_details')
+            ->where('employee_id', $employee->id)
+            ->delete();
+
+        //creando el nuevo registro o registros.
+        foreach ($position_values as $position) {
+            Position_Details::create(['position_id' => $position, 'employee_id' => $employee->id]);
+        }
 
         return redirect()->route('employees.index')->with('success', 'El registro se ha añadido exitosamente!');
         /* return response()->json($data); */
