@@ -127,7 +127,7 @@
                                         <label class="form-label">Fecha Ingreso</label>
                                         <input class="form-control" type="date" required name="entry_date" />
                                     </div>
-                                    <div class="col-md-9">
+                                    {{-- <div class="col-md-9">
                                         <div class="form-group">
                                             <label for="exampleInputFile">Fotografía</label>
                                             <div class="input-group">
@@ -142,7 +142,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="row">
                                     <div class="col-md-11" align="right">

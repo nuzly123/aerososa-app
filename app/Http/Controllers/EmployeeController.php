@@ -47,12 +47,17 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //creando empleado
+        //verifica si request trae un archivo(foto), si no, asigna una ruta de foto por default
         $data = request()->except('_token');
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('uploads', 'public');
+        }else{
+            $data['photo'] = "uploads/default.png";
         }
+
+        //creando empleado
         Employee::create($data);
+        
 
         //creando detalles de cargo
         $position_values = $request->input('positions_array');

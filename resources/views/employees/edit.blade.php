@@ -144,7 +144,7 @@
                                         <input class="form-control" type="date" required name="entry_date"
                                             value="{{ date('Y-m-d', strtotime($employee->entry_date)) }}" />
                                     </div>
-                                    <div class="col-md-9">
+                                    {{-- <div class="col-md-9">
                                         <div class="form-group">
                                             <label for="exampleInputFile">Fotografía</label>
                                             <div class="input-group">
@@ -159,7 +159,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     {{-- <div class="col-md-3">
                                         <label class="form-label">Ciudad</label>
                                         <select class="custom-select rounded-2" name="city_id" required>

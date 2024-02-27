@@ -12,7 +12,7 @@
                     @csrf
                     <div class="col-md-8 mb-3">
                         <label for="nameBasic" class="form-label text-left">Nombre</label>
-                        <input type="text" name="department" class="form-control" placeholder="Ciudad" required />
+                        <input type="text" name="department" class="form-control" placeholder="Departamento" required />
                     </div>
                     <input type="hidden" name="user_create" value="{{ 1 }}">
                     <input type="hidden" name="user_update" value="{{ 1 }}">

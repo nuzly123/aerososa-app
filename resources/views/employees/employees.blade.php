@@ -42,7 +42,7 @@
                                         @endif
                                     @endforeach
                                 </td>
-                                <td>{{ $employee->offices->office }}</td>
+                                <td>{{ $employee->offices->code }}</td>
                                 <td class="text-center">{{ $employee->contracts->contract }}</td>
                                 <td class="text-center">
                                     <a href="employees/{{ $employee->id }}/update-status"

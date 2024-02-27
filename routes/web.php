@@ -62,6 +62,11 @@ Route::get('offices/{id}/update-status', [OfficeController::class, 'updateStatus
 Route::resource('positions', PositionController::class);
 Route::get('positions/{id}/update-status', [PositionController::class, 'updateStatus']);
 
+
+
+
+
+
 /* ------------------------------------------------------------------------------------ */
 /* RECURSOS HUMANOS */
 Route::resource('employees', EmployeeController::class);
@@ -75,3 +80,15 @@ Route::get('employees/{id}/profile', [EmployeeController::class, 'viewProfile'])
 Route::resource('users', UserController::class);
 Route::get('users/{id}/update-status', [UserController::class, 'updateStatus']);
 
+
+
+/* ------------------------------------------------------------------------------------ */
+/* AIRCRAFTS */
+Route::resource('aircrafts', UserController::class);
+Route::get('users/{id}/update-status', [UserController::class, 'updateStatus']);
+
+
+
+/* ------------------------------------------------------------------------------------ */
+/* TRIPULATIONS */
+Route::resource('tripulation', TripulationController::class);

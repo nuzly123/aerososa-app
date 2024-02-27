@@ -314,30 +314,35 @@ return [
         ['header' => 'PRINCIPAL'],
         [
             'text'        => 'Monitoreo',
-            'url'         => 'monitoring', //cambiar
+            'url'         => 'monitoring', 
             'icon'        => 'fas fa-fw fa-tachometer-alt',
             'label_color' => 'success',
+        ],
+        [
+            'text'        => 'Tripulación',
+            'url'         => 'tripulation', 
+            'icon'        => 'fas fa-fw fa-users',
+        ],
+        [
+            'text'        => 'Aeronaves',
+            'url'         => 'airplanes', 
+            'icon'        => 'fas fa-fw fa-plane',
         ],
         ['header' => 'RECURSOS HUMANOS'],
         [
             'text'        => 'Empleados',
-            'url'         => 'employees', //cambiar
+            'url'         => 'employees', 
             'icon'        => 'fas fa-fw fa-briefcase',
-        ],
-        [
-            'text'        => 'Tripulación',
-            'url'         => 'tripulation', //cambiar
-            'icon'        => 'fas fa-fw fa-users',
         ],
         ['header' => 'ADMINISTRADOR'],
         [
             'text'        => 'Usuarios',
-            'url'         => 'users', //cambiar
+            'url'         => 'users', 
             'icon'        => 'fas fa-fw fa-user',
         ],
         [
             'text'        => 'Reportes',
-            'url'         => 'reports', //cambiar
+            'url'         => 'reports', 
             'icon'        => 'fas fa-fw fa-file-alt',
         ],
         [
