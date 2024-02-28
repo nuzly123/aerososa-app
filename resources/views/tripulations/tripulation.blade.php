@@ -37,7 +37,7 @@
                     <div class="row">
                         @foreach ($data as $crew)
                             <div class="col-sm-3 col-md-2 d-flex align-items-stretch flex-column">
-                                <div class="card bg-light d-flex flex-fill">    
+                                <div class="card bg-light d-flex flex-fill">
                                     <div class="card-body {{-- pt-0 --}}">
                                         <div class="col-12 text-center">
                                             <img src="{{ asset('storage') . '/' . $crew->photo }}" alt="user-avatar"
@@ -65,21 +65,6 @@
             </div>
         </div>
 
-        {{-- <div class="card-footer">
-            <nav aria-label="Contacts Page Navigation">
-                <ul class="pagination justify-content-center m-0">
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="#">6</a></li>
-                    <li class="page-item"><a class="page-link" href="#">7</a></li>
-                    <li class="page-item"><a class="page-link" href="#">8</a></li>
-                </ul>
-            </nav>
-        </div>
+    </div>
 
-    </div> --}}
-
-    @stop
+@stop

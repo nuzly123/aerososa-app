@@ -13,6 +13,9 @@ class AircraftController extends Controller
     public function index()
     {
         //
+        //$data = Aircraft::with(['createdBy', 'updatedBy'])->get();
+        $data = Aircraft::with(['createdBy', 'updatedBy', 'type'])->get();
+        return view('aircrafts.aircrafts', compact('data'));
     }
 
     /**

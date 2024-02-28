@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('aircrafts', function (Blueprint $table) {
             $table->id();
             $table->string('registration', 50);
+            $table->string('img');
             $table->boolean('status')->default(true);
             $table->integer('user_create');
             $table->integer('user_update')->nullable();

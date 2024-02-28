@@ -325,8 +325,9 @@ return [
         ],
         [
             'text'        => 'Aeronaves',
-            'url'         => 'airplanes', 
+            'url'         => 'aircrafts', 
             'icon'        => 'fas fa-fw fa-plane',
+            
         ],
         ['header' => 'RECURSOS HUMANOS'],
         [

@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Aircraft extends Model
+class Aircraft_Types extends Model
 {
     use HasFactory;
-
+    public $table = 'aircraft_types';
     protected $fillable = [
-        'registration', 
-        'aircraft_type_id',
-        'img', 
+        'type', 
         'user_create', 
         'user_update', 
         'status'
@@ -28,8 +26,5 @@ class Aircraft extends Model
         return $this->belongsTo(User::class, 'user_update');
     }
 
-    public function type()
-    {
-        return $this->belongsTo(Aircraft_Types::class, 'aircraft_type_id');
-    }
+
 }
