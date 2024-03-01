@@ -8,16 +8,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('/cities') }}" method="post">
+                <form action="{{ url('/aircraft_types') }}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-md-8 mb-3">
-                            <label for="nameBasic" class="form-label text-left">Nombre</label>
-                            <input type="text" name="city" class="form-control" placeholder="Ciudad" required />
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="nameBasic" class="form-label text-left">Código</label>
-                            <input type="text" name="code" class="form-control" placeholder="Código" required />
+                            <label for="nameBasic" class="form-label text-left">Tipo</label>
+                            <input type="text" name="type" class="form-control" placeholder="Tipo"
+                                required />
                         </div>
                     </div>
                     <input type="hidden" name="user_create" value="{{ 1 }}">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aircraft;
+use App\Models\AircraftType;
 use Illuminate\Http\Request;
 
 class AircraftController extends Controller
@@ -14,8 +15,9 @@ class AircraftController extends Controller
     {
         //
         //$data = Aircraft::with(['createdBy', 'updatedBy'])->get();
-        $data = Aircraft::with(['createdBy', 'updatedBy', 'type'])->get();
-        return view('aircrafts.aircrafts', compact('data'));
+        $data = Aircraft::with(['createdBy', 'updatedBy', 'types'])->get();
+        $types = AircraftType::where('status', 1)->get();
+        return view('aircrafts.aircrafts', compact('data', 'types'));
     }
 
     /**
@@ -24,6 +26,7 @@ class AircraftController extends Controller
     public function create()
     {
         //
+        return view('aircrafts.create');
     }
 
     /**
@@ -32,6 +35,14 @@ class AircraftController extends Controller
     public function store(Request $request)
     {
         //
+        $data = request()->except('_token');
+        if ($request->hasFile('photo')) {
+            $data['img'] = $request->file('photo')->store('uploads', 'public');
+        }else{
+            $data['img'] = "uploads/default-photo.jpg";
+        }
+        Aircraft::create($data);
+        return redirect()->route('aircrafts.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**

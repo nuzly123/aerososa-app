@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\App;
+
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
+
+
 use Illuminate\Support\Str;
 
 class Controller extends BaseController
@@ -18,7 +23,7 @@ class Controller extends BaseController
         $modelClassName = 'App\\Models\\' . Str::studly(Str::singular($tableName));
 //preuntar si es una peticion ajax
         // Verifica si el modelo existe
-        if (class_exists($modelClassName)) {
+        if (class_exists($modelClassName) /* or Schema::hasTable($tableName) */) {
             // Encuentra el registro en la tabla correspondiente
             $record = $modelClassName::find($id);
             if ($record) {

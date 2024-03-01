@@ -9,6 +9,8 @@ class Aircraft extends Model
 {
     use HasFactory;
 
+    public $table = 'aircrafts';
+
     protected $fillable = [
         'registration', 
         'aircraft_type_id',
@@ -28,8 +30,8 @@ class Aircraft extends Model
         return $this->belongsTo(User::class, 'user_update');
     }
 
-    public function type()
+    public function types()
     {
-        return $this->belongsTo(Aircraft_Types::class, 'aircraft_type_id');
+        return $this->belongsTo(AircraftType::class, 'aircraft_type_id');
     }
 }

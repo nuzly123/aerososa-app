@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AircraftController;
+use App\Http\Controllers\AircraftTypeController;
 use App\Http\Controllers\AirportController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContractController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\StationController;
 use App\Http\Controllers\TripulationController;
 use App\Http\Controllers\UserController;
 use App\Models\Aircraft;
+use App\Models\AircraftType;
 use App\Models\Airport;
 use App\Models\Position;
 use Illuminate\Support\Facades\Route;
@@ -64,7 +66,8 @@ Route::get('offices/{id}/update-status', [OfficeController::class, 'updateStatus
 Route::resource('positions', PositionController::class);
 Route::get('positions/{id}/update-status', [PositionController::class, 'updateStatus']);
 
-
+Route::resource('aircraft_types', AircraftTypeController::class);
+Route::get('aircraft_types/{id}/update-status', [AircraftTypeController::class, 'updateStatus']);
 
 
 

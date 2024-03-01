@@ -379,6 +379,10 @@ return [
                     ], */
                 ],
                 [
+                    'text' => 'Cargos',
+                    'url'  => 'positions',
+                ],
+                [
                     'text' => 'Contratos',
                     'url'  => 'contracts',
                 ],
@@ -395,9 +399,9 @@ return [
                     'url'  => 'offices',
                 ],
                 [
-                    'text' => 'Cargos',
-                    'url'  => 'positions',
-                ]
+                    'text' => 'Tipos Aeronave',
+                    'url'  => 'aircraft_types',
+                ]             
             ],
         ],
         ['header' => 'MÁS OPCIONES'],
