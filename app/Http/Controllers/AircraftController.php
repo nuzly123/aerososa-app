@@ -36,13 +36,14 @@ class AircraftController extends Controller
     {
         //
         $data = request()->except('_token');
-        if ($request->hasFile('photo')) {
-            $data['img'] = $request->file('photo')->store('uploads', 'public');
+        if ($request->hasFile('img')) {
+            $data['img'] = $request->file('img')->store('uploads', 'public');
         }else{
             $data['img'] = "uploads/default-photo.jpg";
         }
-        Aircraft::create($data);
-        return redirect()->route('aircrafts.index')->with('success', 'El registro se ha añadido exitosamente!');
+        //Aircraft::create($data);
+        //return redirect()->route('aircrafts.index')->with('success', 'El registro se ha añadido exitosamente!');
+        //return dd($data);
     }
 
     /**

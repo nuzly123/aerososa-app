@@ -42,26 +42,50 @@
                         @foreach ($data as $aircraft)
                             <div class="col-sm-3 col-md-2 d-flex align-items-stretch flex-column">
                                 <div class="card bg-light d-flex flex-fill">
-                                    <div class="card-body {{-- pt-0 --}}">
-                                        <div class="col-12 text-center">
+                                    <div class="card-header text-right border-bottom-0">
+                                        <div class="card-tools">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-light btn-sm dropdown-toggle"
+                                                    data-toggle="dropdown" data-offset="-52" aria-expanded="false">
+                                                    <i class="fas fa-bars"></i>
+                                                </button>
+                                                <div class="dropdown-menu" role="menu" style="">
+                                                    <a href="#" class="dropdown-item">
+                                                        <p class="text-left mb-0"><i class="fas fa-pen mr-3"></i>Editar</p>
+                                                    </a>
+                                                    <a href="#" class="dropdown-item">
+                                                        <p class="text-left mb-0"><i
+                                                                class="fas fa-info-circle mr-3"></i>Detalles</p>
+                                                    </a>
+
+                                                    <a href="#" class="dropdown-item">
+                                                        <p class="text-left mb-0"><i
+                                                                class="fas fa-history mr-3"></i>Historial</p>
+                                                    </a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a href="#" class="dropdown-item">
+                                                        <p class="text-left mb-0"><i class="fas fa-gas-pump mr-3"></i>Gaseo
+                                                        </p>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <div class="col-12 text-center mb-2">
                                             <img src="{{ asset('storage') . '/' . $aircraft->img }}" alt="aircraft-img"
                                                 class="img-fluid">
                                         </div>
-                                    </div>
-                                    <div class="card-header text-muted border-bottom-0 text-center pt-0">
-                                        {{ $aircraft->types->type}}
+                                        <div class="col-12 text-center">
+                                            {{ '#' . $aircraft->registration }}
+                                        </div>
                                     </div>
                                     <div class="card-footer">
-                                        <div class="text-right">
-                                            <a href="#" class="btn btn-xs bg-teal">
-                                                <i class="fas fa-history"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-xs btn-primary">
-                                                <i class="fas fa-info-circle"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-xs btn-warning">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
+                                        <div class="col-12 text-right">
+                                            {{-- <a href="#" class="btn btn-sm bg-teal btn-success">
+                                                <i class="fas fa-gas-pump"></i> GASEO
+                                            </a> --}}
                                         </div>
                                     </div>
                                 </div>
