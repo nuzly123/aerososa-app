@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aircraft;
 use App\Models\AircraftType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AircraftController extends Controller
 {
@@ -36,13 +37,14 @@ class AircraftController extends Controller
     {
         //
         $data = request()->except('_token');
+
         if ($request->hasFile('img')) {
             $data['img'] = $request->file('img')->store('uploads', 'public');
         }else{
             $data['img'] = "uploads/default-photo.jpg";
         }
-        //Aircraft::create($data);
-        //return redirect()->route('aircrafts.index')->with('success', 'El registro se ha añadido exitosamente!');
+        Aircraft::create($data);
+        return redirect()->route('aircrafts.index')->with('success', 'El registro se ha añadido exitosamente!');
         //return dd($data);
     }
 
@@ -68,6 +70,15 @@ class AircraftController extends Controller
     public function update(Request $request, Aircraft $aircraft)
     {
         //
+        $data = request()->except(['_token', '_method']);
+        if ($request->hasFile('img')) {
+            Storage::delete('public/' . $aircraft->img);
+            $data['img'] = $request->file('img')->store('uploads', 'public');
+        }
+        
+        //return dd($data);
+        $aircraft->update($data);
+        return redirect()->route('aircrafts.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**
@@ -76,5 +87,12 @@ class AircraftController extends Controller
     public function destroy(Aircraft $aircraft)
     {
         //
+    }
+
+    public function updateStatus($id)
+    {
+        if ($this->toggleStatus('aircrafts', $id)) {
+            return back()->with('success', 'El registro se ha actualizado exitosamente!');
+        }
     }
 }

@@ -90,7 +90,7 @@ Route::get('users/{id}/update-status', [UserController::class, 'updateStatus']);
 /* ------------------------------------------------------------------------------------ */
 /* AIRCRAFTS */
 Route::resource('aircrafts', AircraftController::class);
-Route::get('users/{id}/update-status', [AircraftController::class, 'updateStatus']);
+Route::get('aircrafts/{id}/update-status', [AircraftController::class, 'updateStatus']);
 
 
 

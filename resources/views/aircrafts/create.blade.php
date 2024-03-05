@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('/aircrafts') }}" method="post">
+                <form action="{{ url('/aircrafts') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
@@ -61,6 +61,7 @@
 </div>
 <!-- /.modal -->
 
-@section('js')
+{{-- @section('js')
     <script src="../resources/js/aircraft.js"></script>
 @stop
+ --}}
