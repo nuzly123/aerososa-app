@@ -11,7 +11,7 @@
     <div class="container-fluid">
         <div class="col-md-12">
             <div class="card mb-4">
-                <h5 class="card-header">Nuevo Empleado</h5>
+                <h5 class="card-header">Editar Empleado</h5>
                 <form action="{{ route('employees.update', $employee) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     {{ method_field('PATCH') }}
@@ -138,39 +138,20 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                <div class="col-md-3 mb-3" id="licencia_field"
+                                    {{-- style="display: {{isset($crews) ? ''}};"> --}}
+                                    <label class="form-label">Número de Licencia</label>
+                                    <input type="text" class="form-control" name="license_number"
+                                        id="license_number">
+                                </div>
+
                                 <div class="row mb-3">
                                     <div class="col-md-3 mb-3">
                                         <label class="form-label">Fecha Ingreso</label>
                                         <input class="form-control" type="date" required name="entry_date"
                                             value="{{ date('Y-m-d', strtotime($employee->entry_date)) }}" />
                                     </div>
-                                    {{-- <div class="col-md-9">
-                                        <div class="form-group">
-                                            <label for="exampleInputFile">Fotografía</label>
-                                            <div class="input-group">
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" name="photo"
-                                                        id="photo" onchange="updateFileName()">
-                                                    <label class="custom-file-label" for="photo"
-                                                        id="photoName">Seleccionar</label>
-                                                </div>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">Upload</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                    {{-- <div class="col-md-3">
-                                        <label class="form-label">Ciudad</label>
-                                        <select class="custom-select rounded-2" name="city_id" required>
-                                            <option value="">- Opción -</option>
-                                            @foreach ($cities as $city)
-                                                <option value="{{ $city->id }}"
-                                                    {{ $employee->city_id == $city->id ? 'selected' : '' }}>
-                                                    {{ $city->city }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div> --}}
                                 </div>
                                 <div class="col-md-12">
                                     <div class="row">
@@ -212,6 +193,27 @@
                 theme: "classic"
             });
 
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const departmentSelect = document.querySelector('select[name="department_id"]');
+            licenseField = document.getElementById('licencia_field');
+            licenseNumnberField = document.getElementById('license_number');
+            //license_number
+            departmentSelect.addEventListener('change', function() {
+                if (departmentSelect.value === '3') {
+                    licenseField.style.display = 'block';
+
+                    /* officeField.style.display = 'none';
+                    officeField.value = '0'; */
+                } else {
+                    licenseNumnberField.value = '';
+                    licenseField.style.display = 'none';
+                    /* licenseField.value = '';
+                    officeField.style.display = 'block'; */
+                }
+            });
         });
     </script>
 @stop

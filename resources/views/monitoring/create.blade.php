@@ -10,23 +10,16 @@
 @section('content')
     <div class="container-fluid">
         <div class="col-md-12">
-            <div class="card mb-4">
-                <h5 class="card-header">Nuevo Empleado</h5>
-                <form action="{{ url('/employees') }}" method="post" enctype="multipart/form-data">
+            <div class="card mb-4"> 
+                <h5 class="card-header">Nuevo Registro Tráfico Aéreo</h5>
+                <form action="{{ url('/monitoring') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon11">DNI</span>
-                                                <input type="text" name="number" hidden>
-                                            </div>
-                                            <input type="text" class="form-control" name="dni"
-                                                placeholder="Identidad" required />
-                                        </div>
+                                    <div class="col-md-3">
+                                        <label for="txtCargo" class="form-label">Aeronave</label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -79,54 +72,12 @@
                                         <textarea class="form-control" name="address" required rows="1"></textarea>
                                     </div>
                                 </div>
-                                <div class="mb-3 row">
-                                    <div class="col-md-3">
-                                        <label for="selectContrato" class="form-label">Tipo Contrato</label>
-                                        <select class="custom-select rounded-2" name="contract_id" required>
-                                            <option value="">- Opción -</option>
-                                            @foreach ($contracts as $contract)
-                                                <option value="{{ $contract->id }}">{{ $contract->contract }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="txtCargo" class="form-label">Cargo</label>
-                                        <div class="mb-3">
-                                            {{-- <input type="text" class="form-control" required name="position"
-                                                id="position" placeholder="Cargo" /> --}}
-                                            <select class="select2" style="width: 100%;" name="positions_array[]"
-                                                multiple="multiple" data-placeholder="Seleccione cargo(s)" required>
-                                                {{-- <option value="">- Opción -</option> --}}
-                                                @foreach ($positions as $position)
-                                                    <option value="{{ $position->id }}">{{ $position->position }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Departamento</label>
-                                        <select class="custom-select rounded-2" name="department_id" required>
-                                            <option value="">- Opción -</option>
-                                            @foreach ($departments as $department)
-                                                <option value="{{ $department->id }}">{{ $department->department }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3" id="office_id" style="display: block;">
-                                        <label class="form-label">Oficina</label>
-                                        <select class="custom-select rounded-2" name="office_id" required>
-                                            <option value="">- Opción -</option>
-                                            @foreach ($offices as $office)
-                                                <option value="{{ $office->id }}">{{ $office->office }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
+
 
                                 <div class="col-md-3 mb-3" id="licencia_field" style="display: none;">
                                     <label class="form-label">Número de Licencia</label>
                                     <input type="text" class="form-control" name="license_number" id="license_number">
-                                </div>  
+                                </div>
 
                                 <div class="row mb-3">
                                     <div class="col-md-3 mb-3">
@@ -155,8 +106,7 @@
                                         <a href="{{ url('/employees') }}" class="btn btn-default">Regresar</a>
                                     </div>
                                     <div class="col-md-1" align="right">
-                                        <button type="submit" class="btn btn-success"
-                                            name="nuevoEmpleado">Guardar</button>
+                                        <button type="submit" class="btn btn-success" name="nuevoEmpleado">Guardar</button>
                                     </div>
                                 </div>
 
@@ -201,11 +151,11 @@
             departmentSelect.addEventListener('change', function() {
                 if (departmentSelect.value === '3') {
                     licenseField.style.display = 'block';
-                    
+
                     /* officeField.style.display = 'none';
                     officeField.value = '0'; */
                 } else {
-                    licenseNumnberField.value = ''; 
+                    licenseNumnberField.value = '';
                     licenseField.style.display = 'none';
                     /* licenseField.value = '';
                     officeField.style.display = 'block'; */

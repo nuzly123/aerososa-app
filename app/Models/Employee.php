@@ -57,4 +57,8 @@ class Employee extends Model
     {
         return $this->hasMany(Position_Details::class, 'employee_id', 'id');
     }
+    public function isCrew()
+    {
+        return $this->hasMany(Employee_Crew::class, 'employee_id', 'id');
+    }
 }

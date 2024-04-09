@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('employee_crews', function (Blueprint $table) {
             $table->id();
-            $table->string('licence', 50);
+            $table->string('license', 50);
             $table->boolean('status')->default(true);
-            $table->integer('user_create');
-            $table->integer('user_update')->nullable();
             $table->timestamps();            
             $table->foreignId('employee_id')->constrained();
         });

@@ -7,6 +7,7 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\StationController;
@@ -97,3 +98,7 @@ Route::get('aircrafts/{id}/update-status', [AircraftController::class, 'updateSt
 /* ------------------------------------------------------------------------------------ */
 /* TRIPULATIONS */
 Route::resource('tripulation', TripulationController::class);
+
+/* ------------------------------------------------------------------------------------ */
+/* MONITORING */
+Route::resource('monitoring', MonitoringController::class);

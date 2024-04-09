@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\City;
+use App\Models\Employee_Crew;
 use App\Models\Office;
 use App\Models\Department;
 use App\Models\Contract;
@@ -47,17 +47,23 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->input('license_number') == null) {
+            $data = request()->except('_token', 'license_number');
+        } else {
+            $data = request()->except('_token');
+        }
+        // return dd($data);
+
         //verifica si request trae un archivo(foto), si no, asigna una ruta de foto por default
-        $data = request()->except('_token');
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('uploads', 'public');
-        }else{
+        } else {
             $data['photo'] = "uploads/default.png";
         }
 
         //creando empleado
         Employee::create($data);
-        
+
 
         //creando detalles de cargo
         $position_values = $request->input('positions_array');
@@ -65,9 +71,15 @@ class EmployeeController extends Controller
         foreach ($position_values as $position) {
             Position_Details::create(['position_id' => $position, 'employee_id' => $employee_id]);
         }
+        
+        if (isset($data['license_number'])) {
+            Employee_Crew::create(['license' => $data['license_number'], 'employee_id' => $employee_id]);
+        }
 
         return redirect()->route('employees.index')->with('success', 'El registro se ha añadido exitosamente!');
         /* return response()->json($data); */
+
+        
     }
 
     /**
@@ -88,6 +100,7 @@ class EmployeeController extends Controller
         $departments = Department::where('status', 1)->get();
         $contracts = Contract::where('status', 1)->get();
         $positions = Position::where('status', 1)->get();
+        $crews = Employee_Crew::where('employee_id', $employee->id)->get();
         return view('employees.edit', ['employee' => $employee], compact('offices', 'departments', 'contracts', 'positions'));
         /* return dd($employee); */
     }

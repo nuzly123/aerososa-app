@@ -36,7 +36,7 @@
                                 <td>{{ $employee->name . ' ' . $employee->last_name }}</td>
                                 <td>
                                     @foreach ($employee->positions as $index => $position_detail)
-                                        {{ $position_detail->positions->position}}
+                                        {{ $position_detail->positions->position }}
                                         @if ($index < $employee->positions->count() - 1)
                                             ,
                                         @endif
