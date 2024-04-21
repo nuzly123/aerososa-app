@@ -19,4 +19,14 @@ class City extends Model
     {
         return $this->belongsTo(User::class, 'user_update');
     }
+
+    public function flightsFrom()
+    {
+        return $this->hasMany(Flight::class, 'origin');
+    }
+
+    public function flightsTo()
+    {
+        return $this->hasMany(Flight::class, 'destination');
+    }
 }

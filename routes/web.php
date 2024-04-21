@@ -7,6 +7,7 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\FlightController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\PositionController;
@@ -70,7 +71,8 @@ Route::get('positions/{id}/update-status', [PositionController::class, 'updateSt
 Route::resource('aircraft_types', AircraftTypeController::class);
 Route::get('aircraft_types/{id}/update-status', [AircraftTypeController::class, 'updateStatus']);
 
-
+Route::resource('flights', FlightController::class);
+Route::get('flights/{id}/update-status', [FlightController::class, 'updateStatus']);
 
 
 /* ------------------------------------------------------------------------------------ */

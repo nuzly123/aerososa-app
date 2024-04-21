@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aircraft;
+use App\Models\Flight;
 use App\Models\Monitoring;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,8 @@ class MonitoringController extends Controller
     {
         //
         $aircrafts = Aircraft::where('status', 1)->get();
-        return view('monitoring.create', compact('aircrafts'));
+        $flights = Flight::where('status', 1)->get();
+        return view('monitoring.create', compact('aircrafts', 'flights'));
     }
 
     /**

@@ -401,6 +401,10 @@ return [
                 [
                     'text' => 'Tipos Aeronave',
                     'url'  => 'aircraft_types',
+                ],
+                [
+                    'text' => 'Vuelos',
+                    'url'  => 'flights',
                 ]             
             ],
         ],
