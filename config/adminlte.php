@@ -314,7 +314,7 @@ return [
         ['header' => 'PRINCIPAL'],
         [
             'text'        => 'Monitoreo',
-            'url'         => 'monitoring', 
+            'url'         => 'air_traffic', 
             'icon'        => 'fas fa-fw fa-tachometer-alt',
             'label_color' => 'success',
         ],

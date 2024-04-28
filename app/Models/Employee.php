@@ -61,4 +61,9 @@ class Employee extends Model
     {
         return $this->hasMany(Employee_Crew::class, 'employee_id', 'id');
     }
+
+    public function flightAssistantDetails()
+    {
+        return $this->hasMany(FlightAssistantDetails::class);
+    }
 }

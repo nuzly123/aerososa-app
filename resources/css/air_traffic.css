@@ -13,3 +13,23 @@
     margin-top: 0; /* Elimina el margen superior predeterminado del título */
     margin-bottom: 20px; /* Espaciado inferior entre el título y los campos */
 }
+
+
+.section-title {
+    background-color: rgb(107, 126, 146);
+    color: #fff;
+    padding: 8px 16px;
+    margin-bottom: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.list-unstyled {
+    list-style: none;
+    padding-left: 0;
+}
+
+.info-section{
+    text-align: left;
+    margin-left: 5%;
+}

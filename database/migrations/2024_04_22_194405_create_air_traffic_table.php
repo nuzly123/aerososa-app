@@ -15,8 +15,9 @@ return new class extends Migration
 
             $table->id();
             $table->date('flight_date');
-            $table->date('departure');
-            $table->date('arrival')->nullable();
+            $table->time('departure');
+            $table->time('arrival')->nullable();
+            $table->string('flight_route');
             $table->integer('flight_status'); //valores 0 Matricula , 1 Adelantado, 2 ON-TIME, 3 Delayed
 
             //pasajeros
@@ -28,13 +29,13 @@ return new class extends Migration
             //tripulacion
             $table->foreignId('captain_id');
             $table->foreignId('first_official_id');
-            $table->foreignId('flight_assistant_id');
+            /* $table->foreignId('flight_assistant_id'); */
             $table->string('obsservant')->nullable();
 
             //calculo de libras
             $table->integer('px_lbs');
             $table->integer('freight');
-            $table->integer('trans_weigth');
+            $table->integer('trans_weight');
             $table->integer('total_lbs');
 
             //transito
@@ -51,9 +52,11 @@ return new class extends Migration
             $table->foreignId('flight_id');
 
             //tripulacion
-            $table->foreign('captain_id')->references('id')->on('employee_crews');
-            $table->foreign('first_official_id')->references('id')->on('employee_crews');
-            $table->foreign('flight_assistant_id')->references('id')->on('employee_crews');
+            $table->foreign('captain_id')->references('id')->on('employees');
+            $table->foreign('first_official_id')->references('id')->on('employees');
+            /* $table->foreign('flight_assistant_id')->references('id')->on('employees'); */
+
+            //
             $table->foreign('aircraft_id')->references('id')->on('aircrafts');
             $table->foreign('flight_id')->references('id')->on('flights');
 
@@ -72,4 +75,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('air_traffic');
     }
+    
 };

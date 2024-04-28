@@ -9,5 +9,13 @@ class Monitoring extends Model
 {
     use HasFactory;
 
-    
+    protected $fillable = [
+        'flight_date',
+        'aircraft_id',
+        'flight_id',
+        'captain_id',
+        'first_official_id',
+        'remark',
+        // Agrega aquí otros campos que desees permitir la asignación masiva
+    ];
 }

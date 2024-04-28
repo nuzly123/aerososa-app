@@ -24,7 +24,7 @@ return new class extends Migration
     {
         Schema::table('stations', function (Blueprint $table) {
             //
-            $table->dropColumn('code');
+            //$table->dropColumn('code');
         });
     }
 };

@@ -3,13 +3,13 @@
 use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\AircraftTypeController;
 use App\Http\Controllers\AirportController;
+use App\Http\Controllers\AirTrafficController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DatosController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FlightController;
-use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\StationController;
@@ -18,6 +18,7 @@ use App\Http\Controllers\UserController;
 use App\Models\Aircraft;
 use App\Models\AircraftType;
 use App\Models\Airport;
+use App\Models\AirTraffic;
 use App\Models\Position;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -96,7 +97,6 @@ Route::get('users/{id}/update-status', [UserController::class, 'updateStatus']);
 /* ------------------------------------------------------------------------------------ */
 /* AIRCRAFTS */
 Route::resource('aircrafts', AircraftController::class);
-Route::get('aircrafts/{id}/update-status', [AircraftController::class, 'updateStatus']);
 
 
 
@@ -106,7 +106,7 @@ Route::resource('tripulation', TripulationController::class);
 
 /* ------------------------------------------------------------------------------------ */
 /* MONITORING */
-Route::resource('monitoring', MonitoringController::class);
+Route::resource('air_traffic', AirTrafficController::class);
 
 
 

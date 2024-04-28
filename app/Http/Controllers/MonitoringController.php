@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aircraft;
 use App\Models\Employee;
 use App\Models\Flight;
-use App\Models\Department;
+use App\Models\FlightAssistantDetails;
 use App\Models\Monitoring;
 use App\Models\Position;
 use App\Models\Position_Details;
@@ -58,6 +58,41 @@ class MonitoringController extends Controller
     public function store(Request $request)
     {
         //
+        // Validación de los datos recibidos
+        /* $request->validate([
+            'flight_date' => 'required|date',
+            'registration' => 'required',
+            'flight' => 'required',
+            'captain_id' => 'required',
+            'first_official_id' => 'required',
+            'flight_assistant_id' => 'required|array|min:1',
+        ]); */
+
+        // Crear un nuevo registro de tráfico aéreo
+        $airTraffic = new Monitoring([
+            'flight_date' => $request->input('flight_date'),
+            'aircraft_id' => $request->input('registration'),
+            'flight_id' => $request->input('flight'),
+            'captain_id' => $request->input('captain_id'),
+            'first_official_id' => $request->input('first_official_id'),
+            'remark' => $request->input('remark'),
+        ]);
+        $airTraffic->save();
+
+        // Obtener los IDs de los tripulantes seleccionados desde el formulario
+        $flightAssistants = $request->input('flight_assistant_id');
+
+        // Guardar los registros de los tripulantes en la tabla intermedia
+        foreach ($flightAssistants as $flightAssistantId) {
+            $flightAssistantDetails = new FlightAssistantDetails([
+                'flight_assistant_id' => $flightAssistantId,
+                'air_traffic_id' => $airTraffic->id, // Asigna el ID del registro de tráfico aéreo recién creado
+            ]);
+            $flightAssistantDetails->save();
+        }
+
+        // Redireccionar o realizar cualquier otra acción necesaria después de guardar los datos
+        return redirect()->route('monitoring.index')->with('success', 'Registro de tráfico aéreo creado exitosamente.');
     }
 
     /**

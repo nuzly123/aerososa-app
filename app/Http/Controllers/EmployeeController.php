@@ -111,7 +111,7 @@ class EmployeeController extends Controller
     public function update(Request $request, Employee $employee)
     {
         //
-        $data = request()->except(['_token', '_method']);
+        $data = request()->except(['_token', '_method']); 
 
         if ($request->hasFile('photo')) {
             Storage::delete('public/' . $employee->photo);

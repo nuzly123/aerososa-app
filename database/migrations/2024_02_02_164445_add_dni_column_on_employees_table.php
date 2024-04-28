@@ -24,7 +24,7 @@ return new class extends Migration
     {
         Schema::table('employees', function (Blueprint $table) {
             //
-            $table->dropColumn('dni');
+            //$table->dropColumn('dni');
         });
     }
 };

@@ -12,8 +12,9 @@
         <div class="col-md-12">
             <div class="card mb-4">
                 <h5 class="card-header">Nuevo Registro Tráfico Aéreo</h5>
-                <form action="{{ url('/monitoring') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('air_traffic.update', $air_traffic) }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    {{ method_field('PATCH') }}
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
@@ -27,29 +28,33 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="txtCargo" class="form-label">Aeronave</label>
-                                            <select class="select2 form-control" style="width: 100%;" name="registration"
+                                            <select class="select2 form-control" style="width: 100%;" name="aircraft_id"
                                                 required>
                                                 <option value="">- Opción -</option>
                                                 @foreach ($aircrafts as $aircraft)
-                                                    <option value="{{ $aircraft->id }}">{{ $aircraft->registration }}
+                                                    <option value="{{ $aircraft->id }}"
+                                                        {{ $air_traffic->aircraft_id == $aircraft->id ? 'selected' : '' }}>
+                                                        {{ $aircraft->registration }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="txtCargo" class="form-label">No. Vuelo</label>
-                                            <select class="select2 form-control" style="width: 100%;" name="flight"
+                                            <select class="select2 form-control" style="width: 100%;" name="flight_id"
                                                 id="flight_selected" required>
                                                 <option value="">- Opción -</option>
                                                 @foreach ($flights as $flight)
-                                                    <option value="{{ $flight->id }}">{{ $flight->code }}</option>
+                                                    <option value="{{ $flight->id }}"
+                                                        {{ $air_traffic->flight_id == $flight->id ? 'selected' : '' }}>
+                                                        {{ $flight->code }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Ruta de Vuelo</label>
                                             <input type="text" class="form-control" name="flight_route" id="flight_route"
-                                                readonly>
+                                                value="{{ $air_traffic->flight_route }}" readonly>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <div class="row">
@@ -60,7 +65,8 @@
                                                     <p class="text-primary" id="departure_time" align="right">00:00:00</p>
                                                 </div>
                                             </div>
-                                            <input type="time" class="form-control" name="departure" id="departure">
+                                            <input type="time" class="form-control" name="departure" id="departure"
+                                                value="{{ $air_traffic->departure }}">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <div class="row">
@@ -71,7 +77,8 @@
                                                     <p class="text-primary" id="arrival_time" align="right">00:00:00</p>
                                                 </div>
                                             </div>
-                                            <input type="time" class="form-control" name="arrival" id="arrival" readonly>
+                                            <input type="time" class="form-control" name="arrival" id="arrival"
+                                                value="{{ $air_traffic->arrival }}" readonly>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             {{-- <div class="row">
@@ -84,8 +91,10 @@
                                             </div>      --}}
                                             <label class="form-label">Estado de Vuelo:</label>
                                             <input type="text" class="form-control" id="flight_status" readonly
-                                                placeholder="-">
-                                            <input type="hidden" name="flight_status_index" id="flight_status_index">
+                                                placeholder="-"
+                                                value="{{ $flight_status_array[$air_traffic->flight_status] }}">
+                                            <input type="hidden" name="flight_status" id="flight_status_index"
+                                                value="{{ $air_traffic->flight_status }}">
                                         </div>
                                     </div>
                                 </div>
@@ -95,20 +104,23 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">PX</label>
-                                            <input type="number" class="form-control" name="px" id="px" value="0">
+                                            <input type="number" class="form-control" name="px" id="px"
+                                                value="{{ $air_traffic->px }}">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">DH</label>
-                                            <input type="number" class="form-control" name="dh" id="dh" value="0">
+                                            <input type="number" class="form-control" name="dh" id="dh"
+                                                value="{{ $air_traffic->dh }}">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">INF</label>
-                                            <input type="number" class="form-control" name="inf" id="inf" value="0">
+                                            <input type="number" class="form-control" name="inf" id="inf"
+                                                value="{{ $air_traffic->inf }}">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Total</label>
-                                            <input type="number" class="form-control" name="total_passengers" id="total"
-                                                readonly value="0">
+                                            <input type="number" class="form-control" name="total_passengers"
+                                                id="total" readonly value="{{ $air_traffic->total_passengers }}">
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +134,9 @@
                                                 required>
                                                 <option value="">- Opción -</option>
                                                 @foreach ($crew_members['capitan'] as $crew_member)
-                                                    <option value="{{ $crew_member->id }}">{{ $crew_member->name.' '.$crew_member->last_name }}
+                                                    <option value="{{ $crew_member->id }}"
+                                                        {{ $air_traffic->captain_id == $crew_member->id ? 'selected' : '' }}>
+                                                        {{ $crew_member->name . ' ' . $crew_member->last_name }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -133,7 +147,9 @@
                                                 name="first_official_id" required>
                                                 <option value="">- Opción -</option>
                                                 @foreach ($crew_members['primer_oficial'] as $crew_member)
-                                                    <option value="{{ $crew_member->id }}">{{ $crew_member->name.' '.$crew_member->last_name }}
+                                                    <option value="{{ $crew_member->id }}"
+                                                        {{ $air_traffic->first_official_id == $crew_member->id ? 'selected' : '' }}>
+                                                        {{ $crew_member->name . ' ' . $crew_member->last_name }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -141,18 +157,21 @@
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Tripulante</label>
                                             <select class="select2 form-control" style="width: 100%;"
-                                                name="flight_assistant_id" multiple required>
+                                                name="flight_assistant_id[]" multiple required>
                                                 <option value="">- Opción -</option>
                                                 @foreach ($crew_members['tripulante_cabina'] as $crew_member)
-                                                    <option value="{{ $crew_member->id }}">{{ $crew_member->name.' '.$crew_member->last_name }}
+                                                    <option value="{{ $crew_member->id }}"
+                                                        @foreach ($flight_assistants as $flight_assistant) 
+                                                        {{ $flight_assistant->flight_assistant_id == $crew_member->id ? 'selected' : '' }} @endforeach>
+                                                        {{ $crew_member->name . ' ' . $crew_member->last_name }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Observador</label>
-                                            <input type="text" class="form-control" name="obsservant"
-                                                id="obsservant">
+                                            <input type="text" class="form-control" name="obsservant" id="obsservant"
+                                                value="{{ $air_traffic->obsservant }}">
                                         </div>
                                     </div>
                                 </div>
@@ -163,20 +182,23 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">PX</label>
-                                            <input type="number" class="form-control" name="px_lbs" id="px_lbs" value="0">
+                                            <input type="number" class="form-control" name="px_lbs" id="px_lbs"
+                                                value="{{ $air_traffic->px_lbs }}">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Carga</label>
-                                            <input type="number" class="form-control" name="freight" id="freight" value="0">
+                                            <input type="number" class="form-control" name="freight" id="freight"
+                                                value="{{ $air_traffic->freight }}">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Trans</label>
-                                            <input type="number" class="form-control" name="trans" id="trans_weight" value="0">
+                                            <input type="number" class="form-control" name="trans_weight"
+                                                id="trans_weight" value="{{ $air_traffic->trans_weight }}">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Total</label>
                                             <input type="number" class="form-control" name="total_lbs" id="total_lbs"
-                                                readonly value="0">
+                                                readonly value="{{ $air_traffic->total_lbs }}">
                                         </div>
                                     </div>
 
@@ -187,19 +209,23 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">TGU</label>
-                                            <input type="number" class="form-control" name="trans_tgu" id="trans_tgu" value="0">
+                                            <input type="number" class="form-control" name="trans_tgu" id="trans_tgu"
+                                                value="{{ $air_traffic->trans_tgu }}">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">SAP</label>
-                                            <input type="number" class="form-control" name="trans_sap" id="trans_sap" value="0">
+                                            <input type="number" class="form-control" name="trans_sap" id="trans_sap"
+                                                value="{{ $air_traffic->trans_sap }}">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">RTB</label>
-                                            <input type="number" class="form-control" name="trans_rtb" id="trans_rtb" value="0">
+                                            <input type="number" class="form-control" name="trans_rtb" id="trans_rtb"
+                                                value="{{ $air_traffic->trans_rtb }}">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">LCE</label>
-                                            <input type="number" class="form-control" name="trans_lce" id="trans_lce" value="0">
+                                            <input type="number" class="form-control" name="trans_lce" id="trans_lce"
+                                                value="{{ $air_traffic->trans_lce }}">
                                         </div>
                                     </div>
                                 </div>
@@ -208,7 +234,7 @@
                                     <div class="row">
                                         <div class="col-md-12 mb-3">
                                             <label class="form-label">Observaciones</label>
-                                            <textarea name="remark" id="remark" cols="10" rows="2" class="form-control"></textarea>
+                                            <textarea name="remark" id="remark" cols="10" rows="2" class="form-control" style="height: 195px;">{{ $air_traffic->remark }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -216,7 +242,7 @@
                                 <div class="control">
                                     <div class="row">
                                         <div class="col-md-9 mt-5" align="right">
-                                            <a href="{{ url('/monitoring') }}"
+                                            <a href="{{ url('/air_traffic') }}"
                                                 class="btn btn-default btn-lg">Regresar</a>
                                         </div>
                                         <div class="col-md-3 mt-5" align="right">
@@ -238,14 +264,14 @@
 
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../../resources/css/air_traffic.css">
+    <link rel="stylesheet" href="../../../resources/css/air_traffic.css">
 @stop
 
 @section('js')
-    <script src="../../resources/js/employee.js"></script>
+    <script src="../../../resources/js/employee.js"></script>
     <script src="//cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
-    <script src="../../resources/js/air_traffic.js"></script>
+    <script src="../../../resources/js/air_traffic.js"></script>
 
     <script>
         $(document).ready(function() {
