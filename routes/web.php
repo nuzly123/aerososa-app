@@ -5,6 +5,7 @@ use App\Http\Controllers\AircraftTypeController;
 use App\Http\Controllers\AirportController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\DatosController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FlightController;
@@ -57,7 +58,7 @@ Route::resource('contracts', ContractController::class);
 Route::get('contracts/{id}/update-status', [ContractController::class, 'updateStatus']);
 
 Route::resource('departments', DepartmentController::class);
-Route::get('de partments/{id}/update-status', [DepartmentController::class, 'updateStatus']);
+Route::get('departments/{id}/update-status', [DepartmentController::class, 'updateStatus']);
 
 Route::resource('stations', StationController::class);
 Route::get('stations/{id}/update-status', [StationController::class, 'updateStatus']);
@@ -73,6 +74,8 @@ Route::get('aircraft_types/{id}/update-status', [AircraftTypeController::class, 
 
 Route::resource('flights', FlightController::class);
 Route::get('flights/{id}/update-status', [FlightController::class, 'updateStatus']);
+ //'FlightController@getFlightRoute' http://localhost/ruta-vuelo/1
+
 
 
 /* ------------------------------------------------------------------------------------ */
@@ -104,3 +107,15 @@ Route::resource('tripulation', TripulationController::class);
 /* ------------------------------------------------------------------------------------ */
 /* MONITORING */
 Route::resource('monitoring', MonitoringController::class);
+
+
+
+/* ------------------------------------------------------------------------------------ */
+
+//Route::get('/datos', 'DatosController@obtenerDatos')->name('datos.obtener');
+Route::get('/datos', [DatosController::class, 'obtenerDatos'])->name('datos.obtener');
+//Route::get('/ruta-vuelo/{id}', [FlightController::class, 'getFlightRoute']);
+Route::get('/ruta-vuelo/{id}', [FlightController::class, 'getFlightRoute'])->name('ruta.obtener');
+Route::get('/obtener-estado-vuelo/{id}', [FlightController::class, 'getFlightStatus'])->name('estado.obtener');
+
+Route::get('/calcular-llegada/{departure_time}', [FlightController::class, 'calculateArrivalTime']);

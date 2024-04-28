@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aircraft;
+use App\Models\Employee;
 use App\Models\Flight;
+use App\Models\Department;
 use App\Models\Monitoring;
+use App\Models\Position;
+use App\Models\Position_Details;
 use Illuminate\Http\Request;
 
 class MonitoringController extends Controller
@@ -23,10 +27,29 @@ class MonitoringController extends Controller
      */
     public function create()
     {
-        //
         $aircrafts = Aircraft::where('status', 1)->get();
         $flights = Flight::where('status', 1)->get();
-        return view('monitoring.create', compact('aircrafts', 'flights'));
+
+        // Obtener IDs de los empleados para cada posición
+        $positions = [
+            'capitan' => Position::where('position', "Capitán")->first(),
+            'primer_oficial' => Position::where('position', "Primer Oficial")->first(),
+            'tripulante_cabina' => Position::where('position', "Tripulante de Cabina")->first()
+        ];
+
+        $crew_members = [];
+
+        foreach ($positions as $key => $position) {
+            if ($position) {
+                $crew_member_ids = Position_Details::where('position_id', $position->id)->pluck('employee_id')->toArray();
+                $crew_members[$key] = Employee::whereIn('id', $crew_member_ids)->get();
+            } else {
+                // Manejar el caso en el que no se encuentre ninguna posición
+                // Por ejemplo, redirigir a una página de error o mostrar un mensaje de error.
+            }
+        }
+
+        return view('monitoring.create', compact('aircrafts', 'flights', 'crew_members'));
     }
 
     /**

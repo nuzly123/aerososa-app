@@ -139,8 +139,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 mb-3" id="licencia_field"
-                                    {{-- style="display: {{isset($crews) ? ''}};"> --}}
+                                <div class="col-md-3 mb-3" id="licencia_field" {{-- style="display: {{isset($crews) ? ''}};" --}}>
                                     <label class="form-label">Número de Licencia</label>
                                     <input type="text" class="form-control" name="license_number"
                                         id="license_number">

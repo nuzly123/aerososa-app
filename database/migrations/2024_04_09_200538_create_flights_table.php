@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('origin'); //de donde sale
             $table->foreignId('destination'); // hacia donde va
             $table->time('departure'); //hora de salida
-            $table->time('arrival'); //hora de llegada
+            $table->time('arrival')->nullable(); //hora de llegada
             /* $table->string('frecuency'); //dia que vuela */
             $table->time('flight_time'); //duracion
             $table->boolean('status')->default(true);

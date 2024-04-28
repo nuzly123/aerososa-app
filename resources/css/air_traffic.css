@@ -1,0 +1,15 @@
+/* Estilo para resaltar cada sección del formulario */
+.section {
+    background-color: #f9f9f9; /* Color de fondo */
+    border: 1px solid #ddd; /* Borde sólido */
+    padding: 20px; /* Espaciado interno */
+    margin-bottom: 20px; /* Espaciado inferior entre secciones */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+/* Estilo para el título de cada sección */
+.section h4 {
+    margin-top: 0; /* Elimina el margen superior predeterminado del título */
+    margin-bottom: 20px; /* Espaciado inferior entre el título y los campos */
+}

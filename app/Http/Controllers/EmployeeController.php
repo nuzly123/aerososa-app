@@ -101,7 +101,7 @@ class EmployeeController extends Controller
         $contracts = Contract::where('status', 1)->get();
         $positions = Position::where('status', 1)->get();
         $crews = Employee_Crew::where('employee_id', $employee->id)->get();
-        return view('employees.edit', ['employee' => $employee], compact('offices', 'departments', 'contracts', 'positions'));
+        return view('employees.edit', ['employee' => $employee], compact('offices', 'departments', 'contracts', 'positions', 'crews'));
         /* return dd($employee); */
     }
 
@@ -135,6 +135,10 @@ class EmployeeController extends Controller
         foreach ($position_values as $position) {
             Position_Details::create(['position_id' => $position, 'employee_id' => $employee->id]);
         }
+
+        $license_number = $request->input('license_number');
+
+        Employee_Crew::create(['license' => $license_number, 'employee_id' => $employee->id]);
 
         return redirect()->route('employees.index')->with('success', 'El registro se ha añadido exitosamente!');
         /* return response()->json($data); */
