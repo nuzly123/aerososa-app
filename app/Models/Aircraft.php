@@ -14,6 +14,7 @@ class Aircraft extends Model
     protected $fillable = [
         'registration', 
         'aircraft_type_id',
+        'residual_fuel_id',
         'img', 
         'user_create', 
         'user_update', 
@@ -33,5 +34,10 @@ class Aircraft extends Model
     public function types()
     {
         return $this->belongsTo(AircraftType::class, 'aircraft_type_id');
+    }
+
+    public function residual_fuel()
+    {
+        return $this->belongsTo(ResidualFuel::class, 'residual_fuel_id');
     }
 }

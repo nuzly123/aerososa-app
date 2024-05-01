@@ -10,6 +10,8 @@ use App\Http\Controllers\DatosController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FlightController;
+use App\Http\Controllers\FlightRouteController;
+use App\Http\Controllers\FlightRouteDetailController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\StationController;
@@ -19,6 +21,7 @@ use App\Models\Aircraft;
 use App\Models\AircraftType;
 use App\Models\Airport;
 use App\Models\AirTraffic;
+use App\Models\FlightRouteDetail;
 use App\Models\Position;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -75,9 +78,13 @@ Route::get('aircraft_types/{id}/update-status', [AircraftTypeController::class, 
 
 Route::resource('flights', FlightController::class);
 Route::get('flights/{id}/update-status', [FlightController::class, 'updateStatus']);
- //'FlightController@getFlightRoute' http://localhost/ruta-vuelo/1
+//'FlightController@getFlightRoute' http://localhost/ruta-vuelo/1
 
+Route::resource('flight_routes', FlightRouteController::class);
+Route::get('flight_routes/{id}/update-status', [FlightRouteController::class, 'updateStatus']);
 
+Route::resource('flight_route_details', FlightRouteDetailController::class);
+Route::get('flight_route_details/{id}/update-status', [FlightRouteDetailController::class, 'updateStatus']);
 
 /* ------------------------------------------------------------------------------------ */
 /* RECURSOS HUMANOS */
@@ -107,6 +114,7 @@ Route::resource('tripulation', TripulationController::class);
 /* ------------------------------------------------------------------------------------ */
 /* MONITORING */
 Route::resource('air_traffic', AirTrafficController::class);
+Route::get('/consumo-combustible', [AirTrafficController::class, 'getFuelConsumption'])->name('consumo.combustible');
 
 
 

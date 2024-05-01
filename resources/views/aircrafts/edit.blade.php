@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-edit{{$aircraft->id}}">
+<div class="modal fade" id="modal-edit{{ $aircraft->id }}">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -18,7 +18,7 @@
                                 <select class="custom-select rounded-2" name="aircraft_type_id" required>
                                     <option value="">- Opción -</option>s
                                     @foreach ($types as $type)
-                                        <option value="{{ $type->id }}" 
+                                        <option value="{{ $type->id }}"
                                             {{ $aircraft->aircraft_type_id == $type->id ? 'selected' : '' }}>
                                             {{ $type->type }}</option>
                                     @endforeach
@@ -28,8 +28,16 @@
                         <div class="col-md-6">
                             <label for="nameBasic" class="form-label text-left">Matricula</label>
                             <input type="text" name="registration" class="form-control" placeholder="Matricula"
-                                value="{{$aircraft->registration}}" required />
+                                value="{{ $aircraft->registration }}" required />
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="nameBasic" class="form-label text-left">Combustible Remanente</label>
+                            <input type="number" name="residual_fuel_amount" class="form-control" placeholder="0"
+                                required value="{{ $aircraft->residual_fuel->residual_fuel_amount ?? '0' }}" />
+                        </div>
+
                     </div>
                     <div class="row">
                         <div class="col-md-12">

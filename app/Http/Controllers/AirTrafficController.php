@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\AirTraffic;
 use App\Models\Aircraft;
+use App\Models\AircraftType;
 use App\Models\Employee;
 use App\Models\Flight;
 use App\Models\FlightAssistantDetails;
+use App\Models\FlightRoute;
+use App\Models\FlightRouteDetail;
 use App\Models\Position;
 use App\Models\Position_Details;
 use Carbon\Carbon;
@@ -167,5 +170,31 @@ class AirTrafficController extends Controller
     public function destroy(AirTraffic $airTraffic)
     {
         //
+    }
+
+    public function getFuelConsumption(Request $request)
+    {
+        $aircraftId = $request->aircraft_id;
+        $route = $request->flight_route;
+
+        //parametros
+        $aircraftType = Aircraft::where('id', $aircraftId)->first()->aircraft_type_id; //obtiene el id que hace referencia al tipo de aeronave
+        if (!$aircraftType) {
+            return response()->json(['error' => 'No se encontró el tipo de aeronave correspondiente'], 404);
+        }
+
+        $routeId = FlightRoute::where('route', $route)->first()->id; //obtiene el id que hace referencia a la ruta
+        if (!$routeId) {
+            // Manejar el caso en que no se encuentra la ruta de vuelo
+            return response()->json(['error' => 'No se encontró la ruta de vuelo correspondiente'], 404);
+        }
+
+        $fuelConsumption = FlightRouteDetail::where('route_id', $routeId)
+            ->where('aircraft_type_id', $aircraftType)
+            ->first()
+            ->fuel;
+
+        //dd($fuelConsumption);
+        return response()->json(['fuel_consumption' => $fuelConsumption]);
     }
 }

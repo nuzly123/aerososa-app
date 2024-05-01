@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Tipos de Aeronaves</h3>
+                <h3 class="card-title">Nombre de Rutas</h3>
                 <div class="card-tools">
                     <button type="submit" class="btn btn-sm btn-default" name="addButton" data-toggle="modal"
                         data-target="#modal-nuevo">
@@ -16,7 +16,7 @@
                     </button>
                 </div>
             </div>
-            @include('config.aircrafts.types.create')
+            @include('config.flight_routes.create')
             @if (Session::get('success'))
                 <div class="alert alert-success" id="alert">
                     {{ Session::get('success') }}
@@ -26,7 +26,8 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Tipo</th>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Ruta</th>
                             <th class="text-center">Creado</th>
                             <th class="text-center">Modificado</th>
                             <th class="text-center">Creado por</th>
@@ -36,30 +37,31 @@
                     </thead>
                     <tbody>
                         @if (!empty($data))
-                            @foreach ($data as $type)
+                            @foreach ($data as $flight_route)
                                 <tr>
-                                    <td>{{ $type->type }}</td>
-                                    <td class="text-center">{{ $type->created_at }}</td> 
-                                    <td class="text-center">{{ $type->updated_at ?? 'N/D' }}</td>
-                                    <td class="text-center"> {{ $type->createdBy->user }} </td>
-                                    <td class="text-center"> {{ $type->updatedBy->user ?? 'N/D' }} </td>
+                                    <td class="text-center">{{ $flight_route->id }}</td>
+                                    <td class="text-center">{{ $flight_route->route }}</td>
+                                    <td class="text-center">{{ $flight_route->createdBy->user }}</td>
+                                    <td class="text-center">{{ $flight_route->updatedBy->user }}</td>
+                                    <td class="text-center">{{ $flight_route->created_at }}</td>
+                                    <td class="text-center">{{ $flight_route->updated_at }}</td>
                                     <td class="text-center">
                                         {{-- <form action=""> --}}
-                                        <a href="aircraft_types/{{ $type->id }}/update-status"
-                                            class="btn btn-outline-{{ $type->status ? 'success' : 'danger' }} btn-xs">
+                                        <a href="{{-- flight_routes/{{ $flight_route->id }}/update-status --}}"
+                                            class="btn btn-outline-{{ $flight_route->status ? 'success' : 'danger' }} btn-xs">
                                             <span
-                                                class="fas {{ $type->status ? 'fa-toggle-on fa-flip-horizontal' : 'fa-toggle-on' }}"></span>
+                                                class="fas {{ $flight_route->status ? 'fa-toggle-on fa-flip-horizontal' : 'fa-toggle-on' }}"></span>
                                         </a>
                                         {{-- </form> --}}
                                         <button type="submit" class="btn btn-xs btn-outline-warning tablabutton"
-                                            name="editButton" data-toggle="modal"
-                                            data-target="#modal-edit{{ $type->id }}">
+                                            name="editButton" data-toggle="modal" data-target=".modal-edit" disabled>
                                             <span class="fas fa-pen"></span>
                                         </button>
 
 
+
                                     </td>
-                                    @include('config.aircrafts.types.edit')
+                                    {{-- @include('config.flight_routes.edit') --}}
                                 </tr>
                             @endforeach
                         @else
@@ -84,4 +86,5 @@
             $('#alert').fadeOut('slow');
         }, 2000);
     </script>
+    <script src="../resources/js/flight_routes.js"></script>
 @stop

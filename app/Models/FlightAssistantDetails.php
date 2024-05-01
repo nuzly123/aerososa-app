@@ -23,4 +23,5 @@ class FlightAssistantDetails extends Model
     {
         return $this->belongsTo(Employee::class, 'flight_assistant_id', 'id');
     }
+    
 }

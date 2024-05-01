@@ -27,7 +27,7 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="txtCargo" class="form-label">Aeronave</label>
-                                            <select class="select2 form-control" style="width: 100%;" name="aircraft_id"
+                                            <select class="select2 form-control" style="width: 100%;" name="aircraft_id" id="aircraft_id"
                                                 required>
                                                 <option value="">- Opción -</option>
                                                 @foreach ($aircrafts as $aircraft)
@@ -71,7 +71,8 @@
                                                     <p class="text-primary" id="arrival_time" align="right">00:00:00</p>
                                                 </div>
                                             </div>
-                                            <input type="time" class="form-control" name="arrival" id="arrival" readonly>
+                                            <input type="time" class="form-control" name="arrival" id="arrival"
+                                                readonly>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             {{-- <div class="row">
@@ -95,20 +96,23 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">PX</label>
-                                            <input type="number" class="form-control" name="px" id="px" value="0">
+                                            <input type="number" class="form-control" name="px" id="px"
+                                                value="0">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">DH</label>
-                                            <input type="number" class="form-control" name="dh" id="dh" value="0">
+                                            <input type="number" class="form-control" name="dh" id="dh"
+                                                value="0">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">INF</label>
-                                            <input type="number" class="form-control" name="inf" id="inf" value="0">
+                                            <input type="number" class="form-control" name="inf" id="inf"
+                                                value="0">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Total</label>
-                                            <input type="number" class="form-control" name="total_passengers" id="total"
-                                                readonly value="0">
+                                            <input type="number" class="form-control" name="total_passengers"
+                                                id="total" readonly value="0">
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +126,8 @@
                                                 required>
                                                 <option value="">- Opción -</option>
                                                 @foreach ($crew_members['capitan'] as $crew_member)
-                                                    <option value="{{ $crew_member->id }}">{{ $crew_member->name.' '.$crew_member->last_name }}
+                                                    <option value="{{ $crew_member->id }}">
+                                                        {{ $crew_member->name . ' ' . $crew_member->last_name }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -133,7 +138,8 @@
                                                 name="first_official_id" required>
                                                 <option value="">- Opción -</option>
                                                 @foreach ($crew_members['primer_oficial'] as $crew_member)
-                                                    <option value="{{ $crew_member->id }}">{{ $crew_member->name.' '.$crew_member->last_name }}
+                                                    <option value="{{ $crew_member->id }}">
+                                                        {{ $crew_member->name . ' ' . $crew_member->last_name }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -144,7 +150,8 @@
                                                 name="flight_assistant_id[]" multiple required>
                                                 <option value="">- Opción -</option>
                                                 @foreach ($crew_members['tripulante_cabina'] as $crew_member)
-                                                    <option value="{{ $crew_member->id }}">{{ $crew_member->name.' '.$crew_member->last_name }}
+                                                    <option value="{{ $crew_member->id }}">
+                                                        {{ $crew_member->name . ' ' . $crew_member->last_name }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -163,15 +170,18 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">PX</label>
-                                            <input type="number" class="form-control" name="px_lbs" id="px_lbs" value="0">
+                                            <input type="number" class="form-control" name="px_lbs" id="px_lbs"
+                                                value="0">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Carga</label>
-                                            <input type="number" class="form-control" name="freight" id="freight" value="0">
+                                            <input type="number" class="form-control" name="freight" id="freight"
+                                                value="0">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Trans</label>
-                                            <input type="number" class="form-control" name="trans_weight" id="trans_weight" value="0">
+                                            <input type="number" class="form-control" name="trans_weight"
+                                                id="trans_weight" value="0">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Total</label>
@@ -187,28 +197,60 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">TGU</label>
-                                            <input type="number" class="form-control" name="trans_tgu" id="trans_tgu" value="0">
+                                            <input type="number" class="form-control" name="trans_tgu" id="trans_tgu"
+                                                value="0">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">SAP</label>
-                                            <input type="number" class="form-control" name="trans_sap" id="trans_sap" value="0">
+                                            <input type="number" class="form-control" name="trans_sap" id="trans_sap"
+                                                value="0">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">RTB</label>
-                                            <input type="number" class="form-control" name="trans_rtb" id="trans_rtb" value="0">
+                                            <input type="number" class="form-control" name="trans_rtb" id="trans_rtb"
+                                                value="0">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">LCE</label>
-                                            <input type="number" class="form-control" name="trans_lce" id="trans_lce" value="0">
+                                            <input type="number" class="form-control" name="trans_lce" id="trans_lce"
+                                                value="0">
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="fueling section">
+                                    <div class="row">
+                                        <div class="col-md-12 mb-3">
+                                            <h5>Combustible <i class="fas fa-gas-pump"></i></i></h5>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label">Inicial</label>
+                                                    <input type="number" class="form-control" name="initial_fuel"
+                                                        id="initial_fuel" value="0" readonly>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label">Gaseo</label>
+                                                    <input type="number" class="form-control" name="refueling_amount"
+                                                        id="refueling" value="0">
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label">Consumo</label>
+                                                    <input type="number" class="form-control" name="fuel_consumption"
+                                                        id="fuel_consumption" value="0" disabled>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label">Remanente</label>
+                                                    <input type="number" class="form-control" name="residual_fuel"
+                                                        id="residual_fuel" readonly value="0">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="remarks section mb-5">
                                     <div class="row">
                                         <div class="col-md-12 mb-3">
                                             <label class="form-label">Observaciones</label>
-                                            <textarea name="remark" id="remark" cols="10" rows="2" class="form-control" style="height: 195px;"></textarea>
+                                            <textarea name="remark" id="remark" cols="10" rows="2" class="form-control"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -287,7 +329,7 @@
                             // Actualizar el horario de llegada
                             $('#arrival_time').text(response.arrival_time);
 
-                            // Actualizar otros elementos si es necesario
+                            $('#flight_route').trigger('change');
                         },
                         error: function(xhr, status, error) {
                             console.error(error); // Maneja errores en la solicitud AJAX
@@ -330,7 +372,6 @@
                             $('#flight_status').val(estadoVuelo);
                             $('#flight_status_index').val(indiceVuelo);
                             $('#arrival').val(llegadaVuelo);
-
                         },
                         error: function(xhr, status, error) {
                             console.error(error);
@@ -339,6 +380,35 @@
                 } else {
                     $('#flight_status').val('');
                     $('#flight_status_index').val('');
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#flight_route').change(function() {
+                var flightRoute = $(this).val();
+                var aircraftId = $('#aircraft_id').val();
+                console.log(flightRoute);
+                console.log(aircraftId);
+                if (flightRoute !== '' && aircraftId !== '') {
+                    $.ajax({
+                        type: 'GET',
+                        url: '{{ route('consumo.combustible') }}',
+                        data: {
+                            flight_route: flightRoute,
+                            aircraft_id: aircraftId
+                        },
+                        success: function(response) {
+                            $('#fuel_consumption').val(response.fuel_consumption);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
+                } else {
+                    $('#fuel_consumption').val('');
                 }
             });
         });

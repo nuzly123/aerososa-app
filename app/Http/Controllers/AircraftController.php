@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Aircraft;
 use App\Models\AircraftType;
+use App\Models\ResidualFuel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class AircraftController extends Controller
@@ -16,9 +18,10 @@ class AircraftController extends Controller
     {
         //
         //$data = Aircraft::with(['createdBy', 'updatedBy'])->get();
-        $data = Aircraft::with(['createdBy', 'updatedBy', 'types'])->get();
+        $data = Aircraft::with(['createdBy', 'updatedBy', 'types', 'residual_fuel'])->get();
         $types = AircraftType::where('status', 1)->get();
         return view('aircrafts.aircrafts', compact('data', 'types'));
+        //dd($data[0]);
     }
 
     /**
@@ -36,14 +39,21 @@ class AircraftController extends Controller
     public function store(Request $request)
     {
         //
-        $data = request()->except('_token');
+        $data = request()->except('_token', 'residual_fuel_amount');
 
         if ($request->hasFile('img')) {
             $data['img'] = $request->file('img')->store('uploads', 'public');
         }else{
             $data['img'] = "uploads/default-photo.jpg";
         }
-        Aircraft::create($data);
+        Aircraft::create($data); //se creo el registro
+
+        //crear registro de remanente
+        $residual_fuel = $request->input('residual_fuel_amount');
+        $aircraft_id = Aircraft::max('id');
+        ResidualFuel::create(['residual_fuel_amount' => $residual_fuel, 'aircraft_id' => $aircraft_id]); //registro creado
+
+
         return redirect()->route('aircrafts.index')->with('success', 'El registro se ha añadido exitosamente!');
         //return dd($data);
     }
@@ -78,6 +88,22 @@ class AircraftController extends Controller
         
         //return dd($data);
         $aircraft->update($data);
+
+        //dd($aircraft->residual_fuel_id);
+        //borrando los registros de detalles creados en la BD
+        DB::table('residual_fuel')
+            ->where('id', $aircraft->residual_fuel_id)
+            ->where('aircraft_id', $aircraft->id)
+            ->delete();
+
+        $residual_fuel = $request->input('residual_fuel_amount');
+        ResidualFuel::create(['residual_fuel_amount' => $residual_fuel, 'aircraft_id' => $aircraft->id]); //registro creado
+
+
+        $data['residual_fuel_id'] = ResidualFuel::max('id');
+
+        $aircraft->update($data);
+
         return redirect()->route('aircrafts.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 

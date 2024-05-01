@@ -314,36 +314,36 @@ return [
         ['header' => 'PRINCIPAL'],
         [
             'text'        => 'Monitoreo',
-            'url'         => 'air_traffic', 
+            'url'         => 'air_traffic',
             'icon'        => 'fas fa-fw fa-tachometer-alt',
             'label_color' => 'success',
         ],
         [
             'text'        => 'Tripulación',
-            'url'         => 'tripulation', 
+            'url'         => 'tripulation',
             'icon'        => 'fas fa-fw fa-users',
         ],
         [
             'text'        => 'Aeronaves',
-            'url'         => 'aircrafts', 
+            'url'         => 'aircrafts',
             'icon'        => 'fas fa-fw fa-plane',
-            
+
         ],
         ['header' => 'RECURSOS HUMANOS'],
         [
             'text'        => 'Empleados',
-            'url'         => 'employees', 
+            'url'         => 'employees',
             'icon'        => 'fas fa-fw fa-briefcase',
         ],
         ['header' => 'ADMINISTRADOR'],
         [
             'text'        => 'Usuarios',
-            'url'         => 'users', 
+            'url'         => 'users',
             'icon'        => 'fas fa-fw fa-user',
         ],
         [
             'text'        => 'Reportes',
-            'url'         => 'reports', 
+            'url'         => 'reports',
             'icon'        => 'fas fa-fw fa-file-alt',
         ],
         [
@@ -399,13 +399,27 @@ return [
                     'url'  => 'offices',
                 ],
                 [
+                    'text'    => 'Rutas de Vuelo',
+                    /* 'icon'    => 'fas fa-fw fa-cog', */
+                    'submenu' => [
+                        [
+                            'text' => 'Nombre Rutas',
+                            'url'  => 'flight_routes',
+                        ],
+                        [
+                            'text' => 'Configurar Rutas',
+                            'url'  => 'flight_route_details',
+                        ],
+                    ]
+                ],  
+                [
                     'text' => 'Tipos Aeronave',
                     'url'  => 'aircraft_types',
                 ],
                 [
                     'text' => 'Vuelos',
                     'url'  => 'flights',
-                ]             
+                ]
             ],
         ],
         ['header' => 'MÁS OPCIONES'],

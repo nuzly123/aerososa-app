@@ -7,11 +7,11 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    {{-- <p>Welcome to this beautiful admin panel.</p>
 
     <h1>Ejemplo de AJAX en Laravel</h1>
     <div id="resultado"></div>
-    <button id="obtenerDatos">Obtener Datos</button>
+    <button id="obtenerDatos">Obtener Datos</button> --}}
 @stop
 
 {{-- @section('css')
@@ -21,7 +21,7 @@
 @section('js')
     {{-- <script> console.log('Hi!'); </script> --}}
 
-   {{--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
+    {{--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
     <script>
         $(document).ready(function() {
             // Realizar la petición AJAX al hacer clic en un botón (puedes cambiar el evento según tus necesidades)

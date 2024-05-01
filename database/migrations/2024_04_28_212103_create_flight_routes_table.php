@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('aircraft_types', function (Blueprint $table) {
+        Schema::create('flight_routes', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->string('route');
             $table->boolean('status')->default(true);
             $table->integer('user_create');
             $table->integer('user_update')->nullable();
@@ -26,7 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('aircraft_types');
+        Schema::dropIfExists('flight_routes');
     }
 };
-

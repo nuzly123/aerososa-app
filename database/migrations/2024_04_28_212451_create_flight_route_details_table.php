@@ -11,13 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('aircraft_types', function (Blueprint $table) {
+        Schema::create('flight_route_details', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->unsignedBigInteger('route_id');
+            $table->unsignedBigInteger('aircraft_type_id');
+            $table->string('time');
+            $table->integer('fuel');
             $table->boolean('status')->default(true);
             $table->integer('user_create');
             $table->integer('user_update')->nullable();
             $table->timestamps();
+
+
+            // Foreign keys
+            $table->foreign('route_id')->references('id')->on('flight_routes')->onDelete('cascade');
+            $table->foreign('aircraft_type_id')->references('id')->on('aircraft_types')->onDelete('cascade');
         });
     }
 
@@ -26,7 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('aircraft_types');
+        Schema::dropIfExists('flight_route_details');
     }
 };
-
