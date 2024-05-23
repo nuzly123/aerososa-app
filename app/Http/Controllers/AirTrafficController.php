@@ -5,16 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\AirTraffic;
 use App\Models\Aircraft;
 use App\Models\AircraftType;
+use App\Models\Airport;
 use App\Models\Employee;
 use App\Models\Flight;
 use App\Models\FlightAssistantDetails;
 use App\Models\FlightRoute;
 use App\Models\FlightRouteDetail;
+use App\Models\Fueling;
 use App\Models\Position;
 use App\Models\Position_Details;
+use App\Models\ResidualFuel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\CssSelector\XPath\Extension\FunctionExtension;
 
 class AirTrafficController extends Controller
 {
@@ -43,12 +47,18 @@ class AirTrafficController extends Controller
         //
         $aircrafts = Aircraft::where('status', 1)->get();
         $flights = Flight::where('status', 1)->get();
+        $airports = Airport::where('status', 1)->get();
 
+        /* $position = Position::where('position', "Despachador de Vuelo")->first(); //obtengo el id de la posicion
+        $dispatcher_id = Position_Details::where('position_id', $position->id); //obtengo los id de empleados segun la posicion
+        $dispatchers = Employee::where('status', 1)->where('id', $dispatcher_id);
+ */
         // Obtener IDs de los empleados para cada posición
         $positions = [
             'capitan' => Position::where('position', "Capitán")->first(),
             'primer_oficial' => Position::where('position', "Primer Oficial")->first(),
-            'tripulante_cabina' => Position::where('position', "Tripulante de Cabina")->first()
+            'tripulante_cabina' => Position::where('position', "Tripulante de Cabina")->first(),
+            'despachador_vuelo' => Position::where('position', "Despachador de Vuelo")->first()
         ];
 
         $crew_members = [];
@@ -57,13 +67,10 @@ class AirTrafficController extends Controller
             if ($position) {
                 $crew_member_ids = Position_Details::where('position_id', $position->id)->pluck('employee_id')->toArray();
                 $crew_members[$key] = Employee::whereIn('id', $crew_member_ids)->get();
-            } else {
-                // Manejar el caso en el que no se encuentre ninguna posición
-                // Por ejemplo, redirigir a una página de error o mostrar un mensaje de error.
             }
         }
 
-        return view('air_traffic.create', compact('aircrafts', 'flights', 'crew_members'));
+        return view('air_traffic.create', compact('aircrafts', 'flights', 'crew_members', 'airports'));
     }
 
     /**
@@ -72,10 +79,33 @@ class AirTrafficController extends Controller
     public function store(Request $request)
     {
 
-        AirTraffic::create($request->all());
+        AirTraffic::create($request->except('refueling', 'approved_by'));
 
         //$employee_id = Employee::max('id');
         $airTraffic_id = AirTraffic::max('id');
+
+        $registro = AirTraffic::where('id', $airTraffic_id)->get();
+
+        //datos de otras tablas
+        $registration = Aircraft::where('id', $registro[0]['aircraft_id'])->value('registration');
+        $flight_code = Flight::where('id', $registro[0]['flight_id'])->value('code');
+
+        //formar codigo de referencia de gaseo MATRICULA, NUMERO VUELO, FECHA VUELO
+        $reference = $registration . ' ' . $flight_code . ' ' . $registro[0]['created_at'];
+        $caracteres = array('-', ':', ' ');
+        $newReference = str_replace($caracteres, '', $reference); //limpia la cadena de los caracteres especiales
+
+        //crear registro de gaseo
+        Fueling::create([
+            'reference' => $newReference, 'fuel_amount' => $request['refueling_amount'],
+            'approved_by' => $request['approved_by'], 'user_create' => $request['user_create'],
+            'user_update' => $request['user_update'], 'aircraft_id' => $request ['aircraft_id'],
+            'airport_id' => $request['airport_id'],
+        ]);
+
+        $fueling_id = Fueling::max('id'); //trae el ultimo id registrado
+
+        AirTraffic::where('id', $airTraffic_id)->update(['fueling_id' => $fueling_id]); //actualiza el campo de la referencia de gaseo en la BD
 
         // Obtener los IDs de los tripulantes seleccionados desde el formulario
         $flightAssistants = $request->input('flight_assistant_id');
@@ -88,8 +118,9 @@ class AirTrafficController extends Controller
         // Redireccionar o realizar cualquier otra acción necesaria después de guardar los datos
         return redirect()->route('air_traffic.index')->with('success', 'Registro de tráfico aéreo creado exitosamente.');
 
-        //dd($request->all());
+        //dd($newReference);
         //return dd('creado');
+        //echo $newReference;
     }
 
     /**
@@ -196,5 +227,32 @@ class AirTrafficController extends Controller
 
         //dd($fuelConsumption);
         return response()->json(['fuel_consumption' => $fuelConsumption]);
+    }
+
+    public function getResidualFuel(Request $request)
+    {
+        $aircraftId = $request->aircraft_id;
+
+        $residualFuel = ResidualFuel::where('aircraft_id', $aircraftId)
+            ->first()
+            ->residual_fuel_amount;
+
+        return response()
+            ->json(['residual_fuel' => $residualFuel]);
+        //dd($residualFuel);
+    }
+
+    public function getInitialFuel(Request $request)
+    {
+        $refuelingAmount = $request->refueling_amount;
+        $residualFuel  = $request->residual_fuel;
+
+        /* refueling_amount: refuelingAmount,
+            residual_fuel: residualFuel */
+
+        $initialFuel = $refuelingAmount + $residualFuel;
+
+        return response()->json(['initial_fuel' => $initialFuel]);
+        //dd($initialFuel);
     }
 }

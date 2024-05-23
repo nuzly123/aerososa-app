@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email', 50)->unique();
             $table->dateTime('birth');
             $table->string('address');
-            $table->string('position', 50);
+            /* $table->string('position', 50); */
             $table->dateTime('entry_date');
             $table->boolean('status')->default(true);
             $table->integer('user_create');

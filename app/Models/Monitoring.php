@@ -16,6 +16,6 @@ class Monitoring extends Model
         'captain_id',
         'first_official_id',
         'remark',
-        // Agrega aquí otros campos que desees permitir la asignación masiva
+        'fueling_id',
     ];
 }

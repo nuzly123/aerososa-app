@@ -27,8 +27,8 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="txtCargo" class="form-label">Aeronave</label>
-                                            <select class="select2 form-control" style="width: 100%;" name="aircraft_id" id="aircraft_id"
-                                                required>
+                                            <select class="select2 form-control" style="width: 100%;" name="aircraft_id"
+                                                id="aircraft_id" required>
                                                 <option value="">- Opción -</option>
                                                 @foreach ($aircrafts as $aircraft)
                                                     <option value="{{ $aircraft->id }}">{{ $aircraft->registration }}
@@ -243,6 +243,35 @@
                                                         id="residual_fuel" readonly value="0">
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label text-primary">Gaseo autorizado por: </label>
+                                                    <select class="select2 form-control" style="width: 100%;"
+                                                        name="approved_by" id="approved_by" required>
+                                                        <option value="">- Opción -</option>
+                                                        @foreach ($crew_members['despachador_vuelo'] as $crew_member)
+                                                            <option value="{{ $crew_member->id }}">
+                                                                {{ $crew_member->name . ' ' . $crew_member->last_name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label text-primary">Aeropuerto: </label>
+                                                    <select class="select2 form-control" style="width: 100%;"
+                                                        name="airport_id" id="airport_id" required>
+                                                        <option value="">- Opción -</option>
+                                                        @foreach ($airports as $airport)
+                                                            <option value="{{ $airport->id }}">
+                                                                {{ $airport->code }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            {{-- <div class="row">
+
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -322,7 +351,8 @@
                             //console.log('Correcto');
                             $('#flight_route').val(
                                 response.flight_route
-                            ); // Actualiza el campo de entrada de texto con la ruta obtenida
+                            );
+                            // Actualiza el campo de entrada de texto con la ruta obtenida
                             // Actualizar el horario de salida
                             $('#departure_time').text(response.departure_time);
 
@@ -332,7 +362,7 @@
                             $('#flight_route').trigger('change');
                         },
                         error: function(xhr, status, error) {
-                            console.error(error); // Maneja errores en la solicitud AJAX
+                            console.error(error); //Maneja errores en la solicitud AJAX
                         }
                     });
                 } else {
@@ -390,8 +420,8 @@
             $('#flight_route').change(function() {
                 var flightRoute = $(this).val();
                 var aircraftId = $('#aircraft_id').val();
-                console.log(flightRoute);
-                console.log(aircraftId);
+                /*console.log(flightRoute);
+                console.log(aircraftId); */
                 if (flightRoute !== '' && aircraftId !== '') {
                     $.ajax({
                         type: 'GET',
@@ -408,10 +438,64 @@
                         }
                     });
                 } else {
-                    $('#fuel_consumption').val('');
+                    $('#fuel_consumption').val('0');
                 }
             });
         });
     </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#aircraft_id').change(function() {
+                var aircraftId = $(this).val();
+                if (aircraftId !== '') {
+                    $.ajax({
+                        type: 'GET',
+                        url: '{{ route('remanente.combustible') }}',
+                        data: {
+                            aircraft_id: aircraftId
+                        },
+                        success: function(response) {
+                            $('#residual_fuel').val(response.residual_fuel);
+                            $('#initial_fuel').val(response.residual_fuel);
+                            $('#refueling').val('0');
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
+                } else {
+                    $('#residual_fuel').val('0');
+                }
+            });
+        });
+    </script>
+
+    {{-- <script>
+    $(document).ready(function() {
+        $('#refueling_amount').change(function() {
+            var refuelingAmount = $(this).val();
+            var residualFuel = $('#residual_fuel').val();
+            if (refuelingAmount !== '') {
+                $.ajax({
+                    type: 'GET',
+                    url: '{{ route('refueling.combustible') }}',
+                    data: {
+                        refueling_amount: refuelingAmount,
+                        residual_fuel: residualFuel
+                    },
+                    success: function(response) {
+                        $('#initial_fuel').val(response.initial_fuel);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            } else {
+                $('#initial_fuel').val('0');
+            }
+        });
+    });
+</script> --}}
 
 @stop

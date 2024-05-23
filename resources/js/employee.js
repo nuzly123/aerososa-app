@@ -22,31 +22,6 @@ function updateFileName() {
   }
 }
 
-/* document.getElementById("name").addEventListener("input", function(event) {
-    var textInput = this.value;
-    var regex = /^[A-Za-z]+$/;
-    if (!regex.test(textInput)) {
-        //alert("Por favor, ingresa solo letras (sin números).");
-        document.getElementById("name").value = "";
-        event.preventDefault();
-      }
-}); */
-
-/* const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.onmouseenter = Swal.stopTimer;
-      toast.onmouseleave = Swal.resumeTimer;
-    }
-  });
-  Toast.fire({
-    icon: "Ingrese solo letras (sin números)",
-    title: ""
-  }); */
   
 function validarSoloLetras(selector){
 $(selector).bind('keypress', function(event) {

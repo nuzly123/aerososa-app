@@ -115,8 +115,8 @@ Route::resource('tripulation', TripulationController::class);
 /* MONITORING */
 Route::resource('air_traffic', AirTrafficController::class);
 Route::get('/consumo-combustible', [AirTrafficController::class, 'getFuelConsumption'])->name('consumo.combustible');
-
-
+Route::get('/remanente-combustible', [AirTrafficController::class, 'getResidualFuel'])->name('remanente.combustible');
+Route::get('/refueling-combustible', [AirTrafficController::class, 'getInitialFuel'])->name('refueling.combustible');
 
 /* ------------------------------------------------------------------------------------ */
 
