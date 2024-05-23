@@ -235,7 +235,7 @@
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Consumo</label>
                                                     <input type="number" class="form-control" name="fuel_consumption"
-                                                        id="fuel_consumption" value="0" disabled>
+                                                        id="fuel_consumption" value="0" readonly>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Remanente</label>

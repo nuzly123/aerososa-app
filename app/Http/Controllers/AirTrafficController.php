@@ -86,6 +86,7 @@ class AirTrafficController extends Controller
 
         $registro = AirTraffic::where('id', $airTraffic_id)->get();
 
+        //REGISTRO DE GASEO
         //datos de otras tablas
         $registration = Aircraft::where('id', $registro[0]['aircraft_id'])->value('registration');
         $flight_code = Flight::where('id', $registro[0]['flight_id'])->value('code');
@@ -106,7 +107,13 @@ class AirTrafficController extends Controller
         $fueling_id = Fueling::max('id'); //trae el ultimo id registrado
 
         AirTraffic::where('id', $airTraffic_id)->update(['fueling_id' => $fueling_id]); //actualiza el campo de la referencia de gaseo en la BD
+        
+        //ACTUALIZACION DE REMANENTES
+        $residual_fuel_amount = $request['initial_fuel'] - $request['fuel_consumption'];
+        ResidualFuel::where('aircraft_id', $registro[0]['aircraft_id'])->update(['residual_fuel_amount' => $residual_fuel_amount, 'air_traffic_id' => $airTraffic_id]);
 
+
+        //REGISTRO DE ASISTENTES DE VUELO
         // Obtener los IDs de los tripulantes seleccionados desde el formulario
         $flightAssistants = $request->input('flight_assistant_id');
 
@@ -118,9 +125,9 @@ class AirTrafficController extends Controller
         // Redireccionar o realizar cualquier otra acción necesaria después de guardar los datos
         return redirect()->route('air_traffic.index')->with('success', 'Registro de tráfico aéreo creado exitosamente.');
 
-        //dd($newReference);
+        //dd($request);
         //return dd('creado');
-        //echo $newReference;
+        //echo $residual_fuel_amount;
     }
 
     /**
