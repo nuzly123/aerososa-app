@@ -11,6 +11,7 @@ use App\Models\Flight;
 use App\Models\FlightAssistantDetails;
 use App\Models\FlightRoute;
 use App\Models\FlightRouteDetail;
+use App\Models\FlightTime;
 use App\Models\Fueling;
 use App\Models\Position;
 use App\Models\Position_Details;
@@ -29,7 +30,7 @@ class AirTrafficController extends Controller
     {
         //
         $data = AirTraffic::with(['createdBy', 'updatedBy', 'flight', 'captain', 'first_official', 'flightAssistants', 'fueling'])
-        ->whereDate('created_at', Carbon::today())->get();
+            ->whereDate('created_at', Carbon::today())->get();
         $flight_status_array = [
             0 => "MATRICULA",
             1 => "ON-TIME",
@@ -101,14 +102,14 @@ class AirTrafficController extends Controller
         Fueling::create([
             'reference' => $newReference, 'fuel_amount' => $request['refueling_amount'],
             'approved_by' => $request['approved_by'], 'user_create' => $request['user_create'],
-            'user_update' => $request['user_update'], 'aircraft_id' => $request ['aircraft_id'],
+            'user_update' => $request['user_update'], 'aircraft_id' => $request['aircraft_id'],
             'airport_id' => $request['airport_id'],
         ]);
 
         $fueling_id = Fueling::max('id'); //trae el ultimo id registrado
 
         AirTraffic::where('id', $airTraffic_id)->update(['fueling_id' => $fueling_id]); //actualiza el campo de la referencia de gaseo en la BD
-        
+
         //ACTUALIZACION DE REMANENTES
         $residual_fuel_amount = $request['initial_fuel'] - $request['fuel_consumption'];
         ResidualFuel::where('aircraft_id', $registro[0]['aircraft_id'])->update(['residual_fuel_amount' => $residual_fuel_amount, 'air_traffic_id' => $airTraffic_id]);
@@ -125,14 +126,35 @@ class AirTrafficController extends Controller
 
 
         //TIEMPO DE VUELO DE PILOTOS
-        
+        //el tiempo de vuelo se define segun flight_route_id y aicraft_type_id
+        $flight_route_id = FlightRoute::where('route', $request['flight_route'])->value('id'); //obtengo el id de la ruta
+        $aircraft = Aircraft::where('id', $request['aircraft_id'])->value('aircraft_type_id'); //obtengo aeronave seleccionada
+        $aircraft_type_id = AircraftType::where('id', $aircraft)->value('id');
 
+        //obtengo el tiempo segun los datos anteriores
+        $flight_time = FlightRouteDetail::where('route_id', $flight_route_id)->where('aircraft_type_id', $aircraft_type_id)->value('time');
+
+        //guardo en la tabla de tiempos
+
+        $pilots = [
+            0 => $request['captain_id'],
+            1 => $request['first_official_id'],
+        ];
+        foreach ($pilots as $pilot_id) {
+            FlightTime::create([
+                'air_traffic_id' => $airTraffic_id, 'employee_id' => $pilot_id,
+                'pilot_flight_time' => $flight_time, 'user_create' => $request['user_create'],
+                'user_update' => $request['user_update'],
+            ]);
+        }
+
+        $registrotiempo = FlightTime::max('id');
         // Redireccionar o realizar cualquier otra acción necesaria después de guardar los datos
-        return redirect()->route('air_traffic.index')->with('success', 'Registro de tráfico aéreo creado exitosamente.');
+        //return redirect()->route('air_traffic.index')->with('success', 'Registro de tráfico aéreo creado exitosamente.');
 
         //dd($request);
         //return dd('creado');
-        //echo $residual_fuel_amount;
+        echo $registrotiempo;
     }
 
     /**

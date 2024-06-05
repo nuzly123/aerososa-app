@@ -98,7 +98,7 @@ class FlightController extends Controller
         // Obtiene el vuelo desde la base de datos
         $flight = Flight::findOrFail($id);
 
-        // Obtiene los IDs de las ciudades de origen y destino del vuelo
+        /* // Obtiene los IDs de las ciudades de origen y destino del vuelo
         $originId = $flight->origin;
         $destinationId = $flight->destination;
         
@@ -108,12 +108,12 @@ class FlightController extends Controller
         $destinationCity = City::findOrFail($destinationId)->code;
 
         // Concatena las ciudades para formar la ruta del vuelo
-        $route = $originCity . ' - ' . $destinationCity;
+        $route = $originCity . ' - ' . $destinationCity; */
 
         $response = [
             'departure_time' => $flight->departure,
             'arrival_time' => $flight->arrival,
-            'flight_route' => $route
+            'flight_route' => $flight->flightRoute->route,
             // Agregar más respuestas si es necesario
         ];
 

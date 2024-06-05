@@ -64,7 +64,7 @@ class AircraftController extends Controller
     public function show(Aircraft $aircraft)
     {
         //
-    }
+    } 
 
     /**
      * Show the form for editing the specified resource.

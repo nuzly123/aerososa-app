@@ -364,7 +364,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#flight_selected').change(function() {
+            $('#flight_selected').change(function() { 
                 var flightId = $(this).val();
                 /* console.log(flightId); */
                 if (flightId !== '') {
