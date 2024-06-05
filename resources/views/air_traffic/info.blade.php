@@ -306,7 +306,7 @@
                                 <div class="report-section">
                                     <h6 class="section-title"><i class="fas fa-gas-pump"></i> Gaseo</h6>
                                     <p><strong><i class="fas fa-barcode"></i> Referencia de
-                                            Gaseo:</strong><br>{{ $air_traffic->fueling_id }}</p>
+                                            Gaseo:</strong><br>{{ $air_traffic->fueling->reference }}</p>
                                 </div>
                             @endif
                         </div>

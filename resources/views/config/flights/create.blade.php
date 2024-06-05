@@ -15,7 +15,7 @@
                             <label for="nameBasic" class="form-label text-left">Numero de Vuelo</label>
                             <input type="text" name="code" class="form-control" placeholder="000" required />
                         </div>
-                        <div class="col-md-4 mb-3">
+                        {{-- <div class="col-md-4 mb-3">
                             <label for="nameBasic" class="form-label text-left">Origen</label>
                             <select class="custom-select rounded-2" name="origin">
                                 <option value="0">- Opción -</option>
@@ -32,14 +32,23 @@
                                     <option value="{{ $city->id }}">{{ $city->code }}</option>
                                 @endforeach
                             </select>
+                        </div> --}}
+                        <div class="col-md-8">
+                            <label for="nameBasic" class="form-label text-left">Ruta</label>
+                            <select class="custom-select rounded-2" name="flight_route_id">
+                                <option value="0">- Opción -</option>
+                                @foreach ($routes as $route)
+                                    <option value="{{ $route->id }}">{{ $route->route }}</option>
+                                @endforeach
+                            </select>   
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <label for="nameBasic" class="form-label text-left">Salida</label>
                             <input type="time" name="departure" id="hora_salida" class="form-control" onchange="calcularDuracion('hora_salida', 'hora_llegada', 'duracion_vuelo')" placeholder="" required />
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <label for="nameBasic" class="form-label text-left">Llegada</label>
                             <input type="time" name="arrival" id="hora_llegada" class="form-control" onchange="calcularDuracion('hora_salida', 'hora_llegada', 'duracion_vuelo')" placeholder="" required />
                         </div>

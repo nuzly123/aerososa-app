@@ -27,7 +27,7 @@
                             <th scope="col">Nombre</th>
                             <th scope="col" class="text-center">Usuario</th>
                             <th scope="col" class="text-center">Rol</th>
-                            <th scope="col" class="text-center">Oficina</th>
+                            {{-- <th scope="col" class="text-center">Oficina</th> --}}
                             <th scope="col" class="text-center">Último Login</th>
                             <th scope="col" class="text-center">Acciones</th>
                         </tr>
@@ -39,7 +39,7 @@
                                 <td>{{ $user->employees->name." ".$user->employees->last_name }}</td>
                                 <td>{{ $user->user }}</td>
                                 <td>{{ "Pendiente" }}</td>
-                                <td>{{ $user->offices->code }}</td>
+                                {{-- <td>{{ $user->offices->code }}</td> --}}
                                 <td class="text-center">{{ "" }}</td>
                                 <td class="text-center">
                                     <a href="users/{{ $user->id }}/update-status"

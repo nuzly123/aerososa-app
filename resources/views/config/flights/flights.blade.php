@@ -27,8 +27,7 @@
                     <thead>
                         <tr>
                             <th class="text-center">Código</th>
-                            <th class="text-center">Origen</th>
-                            <th class="text-center">Destino</th>
+                            <th class="text-center">Ruta</th>
                             <th class="text-center">Salida</th>
                             <th class="text-center">Llegada</th>
                             <th class="text-center">Duración</th>
@@ -40,8 +39,7 @@
                             @foreach ($data as $flight)
                                 <tr>
                                     <td class="text-center">{{ $flight->code }}</td>
-                                    <td class="text-center">{{ $flight->originCity->code }}</td>
-                                    <td class="text-center">{{ $flight->destinationCity->code }}</td>
+                                    <td class="text-center">{{ $flight->flightRoute->route }}</td>
                                     <td class="text-center"> {{ $flight->departure }} </td>
                                     <td class="text-center"> {{ $flight->arrival }} </td>
                                     <td class="text-center"> {{ $flight->flight_time }} </td>

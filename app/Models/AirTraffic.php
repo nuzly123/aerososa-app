@@ -81,4 +81,9 @@ class AirTraffic extends Model
     {
         return $this->belongsToMany(Employee::class, 'flight_assistant_details', 'air_traffic_id', 'flight_assistant_id');
     }
+
+    public function fueling()
+    {
+        return $this->belongsTo(Fueling::class, 'fueling_id');
+    }
 }

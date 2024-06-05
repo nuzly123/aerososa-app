@@ -28,6 +28,8 @@
                         <tr>
                             <th class="text-center">#</th>
                             <th class="text-center">Ruta</th>
+                            <th class="text-center">Origen</th>
+                            <th class="text-center">Destino</th>
                             <th class="text-center">Creado</th>
                             <th class="text-center">Modificado</th>
                             <th class="text-center">Creado por</th>
@@ -41,27 +43,30 @@
                                 <tr>
                                     <td class="text-center">{{ $flight_route->id }}</td>
                                     <td class="text-center">{{ $flight_route->route }}</td>
+                                    <td class="text-center">{{ $flight_route->originCity->city }}</td>
+                                    <td class="text-center">{{ $flight_route->destinationCity->city }}</td>
                                     <td class="text-center">{{ $flight_route->createdBy->user }}</td>
                                     <td class="text-center">{{ $flight_route->updatedBy->user }}</td>
                                     <td class="text-center">{{ $flight_route->created_at }}</td>
                                     <td class="text-center">{{ $flight_route->updated_at }}</td>
                                     <td class="text-center">
                                         {{-- <form action=""> --}}
-                                        <a href="{{-- flight_routes/{{ $flight_route->id }}/update-status --}}"
+                                        <a href="flight_routes/{{ $flight_route->id }}/update-status"
                                             class="btn btn-outline-{{ $flight_route->status ? 'success' : 'danger' }} btn-xs">
                                             <span
                                                 class="fas {{ $flight_route->status ? 'fa-toggle-on fa-flip-horizontal' : 'fa-toggle-on' }}"></span>
                                         </a>
                                         {{-- </form> --}}
                                         <button type="submit" class="btn btn-xs btn-outline-warning tablabutton"
-                                            name="editButton" data-toggle="modal" data-target=".modal-edit" disabled>
+                                            name="editButton" data-toggle="modal"
+                                            data-target="#modal-edit{{ $flight_route->id }}">
                                             <span class="fas fa-pen"></span>
                                         </button>
 
 
 
                                     </td>
-                                    {{-- @include('config.flight_routes.edit') --}}
+                                    @include('config.flight_routes.edit')
                                 </tr>
                             @endforeach
                         @else

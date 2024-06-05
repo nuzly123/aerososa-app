@@ -10,7 +10,9 @@ class FlightRoute extends Model
     use HasFactory;
     public $table = 'flight_routes';
     protected $fillable = [
-        'route', 
+        'route',
+        'origin_city_id',
+        'destination_city_id',
         'user_create',
         'user_update',
         'status'
@@ -29,5 +31,15 @@ class FlightRoute extends Model
     public function updatedBy()
     {
         return $this->belongsTo(User::class, 'user_update');
+    }
+
+    public function originCity()
+    {
+        return $this->belongsTo(City::class, 'origin_city_id', 'id');
+    }
+
+    public function destinationCity()
+    {
+        return $this->belongsTo(City::class, 'destination_city_id', 'id');
     }
 }

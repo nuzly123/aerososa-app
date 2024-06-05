@@ -28,7 +28,8 @@ class AirTrafficController extends Controller
     public function index()
     {
         //
-        $data = AirTraffic::with(['createdBy', 'updatedBy', 'flight', 'captain', 'first_official', 'flightAssistants'])->get();
+        $data = AirTraffic::with(['createdBy', 'updatedBy', 'flight', 'captain', 'first_official', 'flightAssistants', 'fueling'])
+        ->whereDate('created_at', Carbon::today())->get();
         $flight_status_array = [
             0 => "MATRICULA",
             1 => "ON-TIME",
@@ -121,6 +122,10 @@ class AirTrafficController extends Controller
         foreach ($flightAssistants as $flightAssistantId) {
             FlightAssistantDetails::create(['flight_assistant_id' => $flightAssistantId, 'air_traffic_id' => $airTraffic_id]);
         }
+
+
+        //TIEMPO DE VUELO DE PILOTOS
+        
 
         // Redireccionar o realizar cualquier otra acción necesaria después de guardar los datos
         return redirect()->route('air_traffic.index')->with('success', 'Registro de tráfico aéreo creado exitosamente.');

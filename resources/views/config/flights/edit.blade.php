@@ -17,26 +17,14 @@
                             <input type="text" name="code" class="form-control" placeholder="000"
                                 value="{{ $flight->code }}" required />
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="nameBasic" class="form-label text-left">Origen</label>
-                            <select class="custom-select rounded-2" name="origin">
+                        <div class="col-md-8">
+                            <label for="nameBasic" class="form-label text-left">Ruta</label>
+                            <select class="custom-select rounded-2" name="flight_route_id">
                                 <option value="0">- Opción -</option>
-                                @foreach ($cities as $city)
-                                    {{-- <option value="{{ $city->id }}">{{ $city->code }}</option> --}}
-                                    <option value="{{ $city->id }}"
-                                        {{ $flight->origin == $city->id ? 'selected' : '' }}>
-                                        {{ $city->code }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="nameBasic" class="form-label text-left">Destino</label>
-                            <select class="custom-select rounded-2" name="destination">
-                                <option value="0">- Opción -</option>
-                                @foreach ($cities as $city)
-                                    <option value="{{ $city->id }}"
-                                        {{ $flight->destination == $city->id ? 'selected' : '' }}>
-                                        {{ $city->code }}</option>
+                                @foreach ($routes as $route)
+                                    <option value="{{ $route->id }}" 
+                                       {{--  {{ $route->flightRoute->id == $route->id ? 'selected' : ''}} --}}>
+                                        {{ $route->route }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -45,20 +33,21 @@
                         <div class="col-md-6">
                             <label for="nameBasic" class="form-label text-left">Salida</label>
                             <input type="time" name="departure" id="hora_salidaE" class="form-control"
-                            onchange="calcularDuracion('hora_salidaE', 'hora_llegadaE', 'duracion_vueloE')" value="{{ $flight->departure }}" placeholder=""
-                                required />
+                                onchange="calcularDuracion('hora_salidaE', 'hora_llegadaE', 'duracion_vueloE')"
+                                value="{{ $flight->departure }}" placeholder="" required />
                         </div>
                         <div class="col-md-6">
                             <label for="nameBasic" class="form-label text-left">Llegada</label>
                             <input type="time" name="arrival" id="hora_llegadaE" class="form-control"
-                            onchange="calcularDuracion('hora_salidaE', 'hora_llegadaE', 'duracion_vueloE')" value="{{ $flight->arrival }}" placeholder="" required />
+                                onchange="calcularDuracion('hora_salidaE', 'hora_llegadaE', 'duracion_vueloE')"
+                                value="{{ $flight->arrival }}" placeholder="" required />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="nameBasic" class="form-label text-left">Duración</label>
                             <input type="text" name="flight_time" class="form-control" id="duracion_vueloE"
-                                value="{{$flight->flight_time}}" readonly required />
+                                value="{{ $flight->flight_time }}" readonly required />
                         </div>
                     </div>
                     <input type="hidden" name="user_create" value="{{ 1 }}">

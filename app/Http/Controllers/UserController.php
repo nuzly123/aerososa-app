@@ -18,8 +18,8 @@ class UserController extends Controller
     {
         //
         $data = User::with(['createdBy', 'updatedBy'])->get();
-        //return view('users.users', compact('data'));
-        return response()->json($data);
+        return view('users.users', compact('data'));
+        //return response()->json($data);
         //return dd($data);
     }
 
@@ -29,11 +29,11 @@ class UserController extends Controller
     public function create()
     {
         //
-        $cities = City::get();
-        $offices = Office::get();
-        $departments = Department::get();
-        $contracts = Contract::get();
-        return view('users.create', compact('cities', 'offices', 'departments', 'contracts'));
+        $cities = City::where('status', 1)->get();
+        //$offices = Office::where('status', 1)->get();
+        $departments = Department::where('status', 1)->get();
+        $contracts = Contract::where('status', 1)->get();
+        return view('users.create', compact('cities', /* 'offices', */ 'departments', 'contracts'));
     }
 
     /**
@@ -75,7 +75,7 @@ class UserController extends Controller
         $offices = Office::get();
         $departments = Department::get();
         $contracts = Contract::get();
-        return view('user.edit', ['user' => $user], compact('cities', 'offices', 'departments', 'contracts'));
+        return view('users.edit', ['user' => $user], compact('cities', 'offices', 'departments', 'contracts'));
         /* return dd($employee); */
     }
 

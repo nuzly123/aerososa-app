@@ -14,7 +14,7 @@ class FlightRouteController extends Controller
     public function index()
     {
         //
-        $data = FlightRoute::with(['createdBy', 'updatedBy'])->get();
+        $data = FlightRoute::with(['createdBy', 'updatedBy', 'originCity', 'destinationCity'])->get();
         $cities = City::get();
         return view('config.flight_routes.flight_routes', compact('data', 'cities'));
     }
@@ -58,9 +58,11 @@ class FlightRouteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, FlightRoute $flight_route)
     {
         //
+        $flight_route->update($request->all());
+        return redirect()->route('flight_routes.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**
@@ -69,5 +71,12 @@ class FlightRouteController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function updateStatus($id)
+    {
+        if ($this->toggleStatus('flightroutes', $id)) {
+            return back()->with('success', 'El registro se ha actualizado exitosamente!');
+        }
     }
 }

@@ -49,7 +49,8 @@
                                 <td class="text-center">{{ $air_traffic->arrival }}</td>
                                 <td class="text-center">{{ $air_traffic->total_passengers }}</td>
                                 <td class="text-center">{{ $air_traffic->total_lbs }}</td>
-                                <td class="text-center">{{ $flight_status_array[$air_traffic->flight_status] }}</td>
+                                <td class="text-center"><span class="badge bg-info">
+                                        {{ $flight_status_array[$air_traffic->flight_status] }} </span></td>
                                 <td class="text-center"><a href="air_traffic/{{ $air_traffic->id }}/edit"
                                         class="btn btn-xs btn-outline-warning tablabutton">
                                         <span class="fas fa-pen"></span>
@@ -84,5 +85,9 @@
         setTimeout(() => {
             $('#alert').fadeOut('slow');
         }, 2000);
+    </script>
+
+    <script>
+        
     </script>
 @stop

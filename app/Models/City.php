@@ -20,13 +20,13 @@ class City extends Model
         return $this->belongsTo(User::class, 'user_update');
     }
 
-    public function flightsFrom()
+    /* public function flightsFrom()
     {
-        return $this->hasMany(Flight::class, 'origin');
+        return $this->hasMany(FlightRoute::class, 'origin_city_id');
     }
 
     public function flightsTo()
     {
-        return $this->hasMany(Flight::class, 'destination');
-    }
+        return $this->hasMany(FlightRoute::class, 'destination_city_id');
+    } */
 }

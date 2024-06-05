@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('flights', function (Blueprint $table) {
             $table->id();
             $table->string('code'); //numero de vuelo
-            $table->foreignId('origin'); //de donde sale
-            $table->foreignId('destination'); // hacia donde va
+            $table->foreignId('flight_route_id')->nullable(); //de donde sale
             $table->time('departure'); //hora de salida
             $table->time('arrival')->nullable(); //hora de llegada
             /* $table->string('frecuency'); //dia que vuela */
@@ -26,8 +25,7 @@ return new class extends Migration
             $table->timestamps();
 
             //llaves foraneas
-            $table->foreign('origin')->references('id')->on('cities');
-            $table->foreign('destination')->references('id')->on('cities');
+            $table->foreign('flight_route_id')->references('id')->on('flight_routes');
         });
     }
 

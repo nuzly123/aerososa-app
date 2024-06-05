@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Flight;
 use App\Models\City;
+use App\Models\FlightRoute;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -16,9 +17,11 @@ class FlightController extends Controller
     public function index()
     {
         //
-        $data = Flight::with(['createdBy', 'updatedBy', 'originCity', 'destinationCity'])->get();
+        $data = Flight::with(['createdBy', 'updatedBy', 'flightRoute'])->get();
+        $routes = FlightRoute::get();
         $cities = City::get();
-        return view('config.flights.flights', compact('data', 'cities'));
+        return view('config.flights.flights', compact('data', 'cities', 'routes'));
+        //return dd($routes);
     }
 
     /**
@@ -67,6 +70,9 @@ class FlightController extends Controller
     {
         //
         $flight->update($request->all());
+        //$request->all();
+        //return dd($flight);
+        //return dd($request);
         return redirect()->route('flights.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
@@ -95,6 +101,7 @@ class FlightController extends Controller
         // Obtiene los IDs de las ciudades de origen y destino del vuelo
         $originId = $flight->origin;
         $destinationId = $flight->destination;
+        
 
         // Obtiene los nombres de las ciudades de origen y destino
         $originCity = City::findOrFail($originId)->code;
