@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table id="example" class="table table-dataTable table-striped  dt-responsive" style="width:100%">
+                <table id="users-table" class="table table-dataTable table-striped  dt-responsive" style="width:100%">
                     <thead>
                         <tr>
                             <th scope="col">#</th>

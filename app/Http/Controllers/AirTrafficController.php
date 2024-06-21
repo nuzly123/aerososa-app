@@ -29,15 +29,24 @@ class AirTrafficController extends Controller
     public function index()
     {
         //
+        $date = Carbon::today()->toDateString();
         $data = AirTraffic::with(['createdBy', 'updatedBy', 'flight', 'captain', 'first_official', 'flightAssistants', 'fueling'])
-            ->whereDate('created_at', Carbon::today())->get();
+            ->whereDate('created_at', $date)->get();
         $flight_status_array = [
             0 => "MATRICULA",
             1 => "ON-TIME",
             2 => "DELAYED",
-            3 => "ADELANTADO"
+            3 => "ADELANTADO" 
         ];
-        return view('air_traffic.air_traffic', compact('data', 'flight_status_array'));
+
+        $flight_status_classes = [
+            0 => 'badge bg-warning',  // MATRICULA
+            1 => 'badge bg-success',  // ON-TIME
+            2 => 'badge bg-danger',   // DELAYED
+            3 => 'badge bg-primary'   // ADELANTADO
+        ];
+
+        return view('air_traffic.air_traffic', compact('data', 'date', 'flight_status_array', 'flight_status_classes'));
         //dd($data);
     }
 
@@ -90,26 +99,29 @@ class AirTrafficController extends Controller
 
         //REGISTRO DE GASEO
         //datos de otras tablas
-        $registration = Aircraft::where('id', $registro[0]['aircraft_id'])->value('registration');
-        $flight_code = Flight::where('id', $registro[0]['flight_id'])->value('code');
+        if (isset($request['refueling_amount'])) {
+            if ($request['refueling_amount'] > 0) {
+                $registration = Aircraft::where('id', $registro[0]['aircraft_id'])->value('registration');
+                $flight_code = Flight::where('id', $registro[0]['flight_id'])->value('code');
 
-        //formar codigo de referencia de gaseo MATRICULA, NUMERO VUELO, FECHA VUELO
-        $reference = $registration . ' ' . $flight_code . ' ' . $registro[0]['created_at'];
-        $caracteres = array('-', ':', ' ');
-        $newReference = str_replace($caracteres, '', $reference); //limpia la cadena de los caracteres especiales
+                //formar codigo de referencia de gaseo MATRICULA, NUMERO VUELO, FECHA VUELO
+                $reference = $registration . ' ' . $flight_code . ' ' . $registro[0]['created_at'];
+                $caracteres = array('-', ':', ' ');
+                $newReference = str_replace($caracteres, '', $reference); //limpia la cadena de los caracteres especiales
 
-        //crear registro de gaseo
-        Fueling::create([
-            'reference' => $newReference, 'fuel_amount' => $request['refueling_amount'],
-            'approved_by' => $request['approved_by'], 'user_create' => $request['user_create'],
-            'user_update' => $request['user_update'], 'aircraft_id' => $request['aircraft_id'],
-            'airport_id' => $request['airport_id'],
-        ]);
+                //crear registro de gaseo
+                Fueling::create([
+                    'reference' => $newReference, 'fuel_amount' => $request['refueling_amount'],
+                    'approved_by' => $request['approved_by'], 'user_create' => $request['user_create'],
+                    'user_update' => $request['user_update'], 'aircraft_id' => $request['aircraft_id'],
+                    'airport_id' => $request['airport_id'],
+                ]);
 
-        $fueling_id = Fueling::max('id'); //trae el ultimo id registrado
+                $fueling_id = Fueling::max('id'); //trae el ultimo id registrado
 
-        AirTraffic::where('id', $airTraffic_id)->update(['fueling_id' => $fueling_id]); //actualiza el campo de la referencia de gaseo en la BD
-
+                AirTraffic::where('id', $airTraffic_id)->update(['fueling_id' => $fueling_id]); //actualiza el campo de la referencia de gaseo en la BD
+            }
+        }
         //ACTUALIZACION DE REMANENTES
         $residual_fuel_amount = $request['initial_fuel'] - $request['fuel_consumption'];
         ResidualFuel::where('aircraft_id', $registro[0]['aircraft_id'])->update(['residual_fuel_amount' => $residual_fuel_amount, 'air_traffic_id' => $airTraffic_id]);
@@ -150,11 +162,11 @@ class AirTrafficController extends Controller
 
         $registrotiempo = FlightTime::max('id');
         // Redireccionar o realizar cualquier otra acción necesaria después de guardar los datos
-        //return redirect()->route('air_traffic.index')->with('success', 'Registro de tráfico aéreo creado exitosamente.');
+        return redirect()->route('air_traffic.index')->with('success', 'Registro de tráfico aéreo creado exitosamente.');
 
         //dd($request);
         //return dd('creado');
-        echo $registrotiempo;
+        //echo $registrotiempo;
     }
 
     /**
@@ -289,4 +301,29 @@ class AirTrafficController extends Controller
         return response()->json(['initial_fuel' => $initialFuel]);
         //dd($initialFuel);
     }
+
+    public function Filter(Request $request){
+        $date = $request->input('date');
+        $data = AirTraffic::whereDate('created_at', $date)->get();
+
+        // Define el array asociativo para los estados de vuelo y sus clases CSS correspondientes
+        $flight_status_classes = [
+            0 => 'badge bg-warning',  // MATRICULA
+            1 => 'badge bg-success',  // ON-TIME
+            2 => 'badge bg-danger',   // DELAYED
+            3 => 'badge bg-primary'   // ADELANTADO
+        ];
+
+        // Define el array asociativo para los textos de los estados de vuelo
+        $flight_status_array = [
+            0 => 'MATRICULA',
+            1 => 'ON-TIME',
+            2 => 'DELAYED',
+            3 => 'ADELANTADO'
+        ];
+
+        //return dd($date);
+        return view('air_traffic.air_traffic', compact('data', 'date', 'flight_status_array', 'flight_status_classes'));
+    }
+
 }

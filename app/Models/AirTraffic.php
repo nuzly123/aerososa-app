@@ -12,6 +12,9 @@ class AirTraffic extends Model
     protected $fillable = [
         'flight_date',
         'flight_id',
+        'initial_fuel',
+        'fuel_consumption',
+        'residual_fuel',
         'aircraft_id',
         'departure',
         'arrival',

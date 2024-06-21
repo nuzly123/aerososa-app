@@ -9,6 +9,7 @@ use App\Models\Contract;
 use App\Models\Employee;
 use App\Models\Position;
 use App\Models\Position_Details;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -71,15 +72,13 @@ class EmployeeController extends Controller
         foreach ($position_values as $position) {
             Position_Details::create(['position_id' => $position, 'employee_id' => $employee_id]);
         }
-        
+
         if (isset($data['license_number'])) {
             Employee_Crew::create(['license' => $data['license_number'], 'employee_id' => $employee_id]);
         }
 
         return redirect()->route('employees.index')->with('success', 'El registro se ha añadido exitosamente!');
         /* return response()->json($data); */
-
-        
     }
 
     /**
@@ -109,9 +108,9 @@ class EmployeeController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Employee $employee)
-    { 
+    {
         //
-        $data = request()->except(['_token', '_method']); 
+        $data = request()->except(['_token', '_method']);
 
         if ($request->hasFile('photo')) {
             Storage::delete('public/' . $employee->photo);
@@ -163,5 +162,25 @@ class EmployeeController extends Controller
     {
         $employee = Employee::with(['createdBy', 'updatedBy', 'departments', 'offices', 'contracts'])->find($id);
         return view('employees.profile', compact('employee'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $employees = Employee::where('name', 'LIKE', "%{$query}%")
+            ->orWhere('email', 'LIKE', "%{$query}%")
+            ->orWhere('dni', 'LIKE', "%{$query}%")
+            ->get();
+
+        $result = $employees->map(function ($employee) {
+            return [
+                'name' => $employee->name.' '.$employee->last_name,
+                'email' => $employee->email,
+                'dni' => $employee->dni,
+                'has_user' => User::where('employee_id', $employee->id)->exists()
+            ];
+        });
+
+        return response()->json($result);
     }
 }

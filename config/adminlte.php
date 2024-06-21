@@ -256,8 +256,8 @@ return [
     'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
-    'register_url' => 'register',
-    'password_reset_url' => 'password/reset',
+    'register_url' => null,
+    'password_reset_url' => null,
     'password_email_url' => 'password/email',
     'profile_url' => false,
 
@@ -329,6 +329,11 @@ return [
             'icon'        => 'fas fa-fw fa-plane',
 
         ],
+        [
+            'text'        => 'Reportes',
+            'url'         => 'reports',
+            'icon'        => 'fas fa-fw fa-file-alt',
+        ],
         ['header' => 'RECURSOS HUMANOS'],
         [
             'text'        => 'Empleados',
@@ -340,11 +345,6 @@ return [
             'text'        => 'Usuarios',
             'url'         => 'users',
             'icon'        => 'fas fa-fw fa-user',
-        ],
-        [
-            'text'        => 'Reportes',
-            'url'         => 'reports',
-            'icon'        => 'fas fa-fw fa-file-alt',
         ],
         [
             'text'    => 'Configuración',

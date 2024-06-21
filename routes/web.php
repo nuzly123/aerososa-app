@@ -37,20 +37,18 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('dashboard');
-});
-
-/* Auth::routes();
-
-Route::get('/home', function() {
-    return view('home');
-})->name('home')->middleware('auth');
+}); */
 
 Auth::routes();
 
+Route::get('/', function() {
+    return view('dashboard');
+})->name('home')->middleware('auth');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
- */
+
 /* MODULO CONFIG - TABLAS DE MANTENIMIENTO */
 Route::resource('airports', AirportController::class);
 Route::get('airports/{id}/update-status', [AirportController::class, 'updateStatus']);
@@ -91,6 +89,8 @@ Route::get('flight_route_details/{id}/update-status', [FlightRouteDetailControll
 Route::resource('employees', EmployeeController::class);
 Route::get('employees/{id}/update-status', [EmployeeController::class, 'updateStatus']);
 Route::get('employees/{id}/profile', [EmployeeController::class, 'viewProfile']);
+Route::get('/search-employees', [EmployeeController::class, 'search'])->name('employees.search');
+
 
 
 
@@ -104,6 +104,7 @@ Route::get('users/{id}/update-status', [UserController::class, 'updateStatus']);
 /* ------------------------------------------------------------------------------------ */
 /* AIRCRAFTS */
 Route::resource('aircrafts', AircraftController::class);
+Route::get('aircrafts/{id}/update-status', [AircraftController::class, 'updateStatus']);
 
 
 
@@ -117,6 +118,11 @@ Route::resource('air_traffic', AirTrafficController::class);
 Route::get('/consumo-combustible', [AirTrafficController::class, 'getFuelConsumption'])->name('consumo.combustible');
 Route::get('/remanente-combustible', [AirTrafficController::class, 'getResidualFuel'])->name('remanente.combustible');
 Route::get('/refueling-combustible', [AirTrafficController::class, 'getInitialFuel'])->name('refueling.combustible');
+Route::get('air_traffic', [AirTrafficController::class, 'index'])->name('air_traffic.index');
+Route::post('/air-traffic/filter', [AirTrafficController::class, 'filter'])->name('air-traffic.filter');
+
+
+
 
 /* ------------------------------------------------------------------------------------ */
 

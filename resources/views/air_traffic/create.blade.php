@@ -23,12 +23,17 @@
                                             <h5>Información del Vuelo <i class="fas fa-plane"></i></h5>
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="fecha_actual" class="form-label">Fecha del Vuelo</label>
+
+
+                                                    <label for="fecha_actual" class="form-label">Fecha del
+                                                        Vuelo <code>*</code></label>
+
+
                                                     <input type="date" class="form-control" name="flight_date"
                                                         id="fecha_actual" value="">
                                                 </div>
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="txtCargo" class="form-label">Aeronave</label>
+                                                    <label for="txtCargo" class="form-label">Aeronave <code>*</code></label>
                                                     <select class="select2 form-control" style="width: 100%;"
                                                         name="aircraft_id" id="aircraft_id" required>
                                                         <option value="">- Opción -</option>
@@ -40,7 +45,8 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="txtCargo" class="form-label">No. Vuelo</label>
+                                                    <label for="txtCargo" class="form-label">No. Vuelo
+                                                        <code>*</code></label>
                                                     <select class="select2 form-control" style="width: 100%;"
                                                         name="flight_id" id="flight_selected" required>
                                                         <option value="">- Opción -</option>
@@ -56,12 +62,12 @@
                                                 </div>
                                                 <div class="col-md-3 mb-3">
                                                     <div class="row">
-                                                        <div class="col-md-2">
-                                                            <label class="form-label">Salida:</label>
+                                                        <div class="col-md-7">
+                                                            <label class="form-label">Salida: <code>*</code></label>
                                                         </div>
-                                                        <div class="col-md-10">
+                                                        <div class="col-md-5">
                                                             <p class="text-primary" id="departure_time" align="right">
-                                                                00:00:00</p>
+                                                                00:00</p>
                                                         </div>
                                                     </div>
                                                     <input type="time" class="form-control" name="departure"
@@ -74,7 +80,7 @@
                                                         </div>
                                                         <div class="col-md-10">
                                                             <p class="text-primary" id="arrival_time" align="right">
-                                                                00:00:00</p>
+                                                                00:00</p>
                                                         </div>
                                                     </div>
                                                     <input type="time" class="form-control" name="arrival" id="arrival"
@@ -102,7 +108,7 @@
                                             <h5>Tripulación <i class="fas fa-users"></i></h5>
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
-                                                    <label class="form-label">Capitán</label>
+                                                    <label class="form-label">Capitán <code>*</code></label>
                                                     <select class="select2 form-control" style="width: 100%;"
                                                         name="captain_id" required>
                                                         <option value="">- Opción -</option>
@@ -114,7 +120,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
-                                                    <label class="form-label">Primer Oficial</label>
+                                                    <label class="form-label">Primer Oficial <code>*</code></label>
                                                     <select class="select2 form-control" style="width: 100%;"
                                                         name="first_official_id" required>
                                                         <option value="">- Opción -</option>
@@ -126,7 +132,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-12 mb-3">
-                                                    <label class="form-label">Tripulante(s)</label>
+                                                    <label class="form-label">Tripulante(s) <code>*</code></label>
                                                     <select class="select2 form-control" style="width: 100%;"
                                                         name="flight_assistant_id[]" multiple required>
                                                         <option value="">- Opción -</option>
@@ -154,23 +160,23 @@
                                             <div class="row">
                                                 <div class="col-md-3 mb-3">
                                                     <label class="form-label">PAX</label>
-                                                    <input type="number" class="form-control text-center" name="px"
-                                                        id="px" value="0">
+                                                    <input type="number" min="0" class="form-control text-center"
+                                                        name="px" id="px" value="0">
                                                 </div>
                                                 <div class="col-md-3 mb-3">
                                                     <label class="form-label">DH</label>
-                                                    <input type="number" class="form-control text-center" name="dh"
-                                                        id="dh" value="0">
+                                                    <input type="number" min="0" class="form-control text-center"
+                                                        name="dh" id="dh" value="0">
                                                 </div>
                                                 <div class="col-md-3 mb-3">
                                                     <label class="form-label">INFANTES</label>
-                                                    <input type="number" class="form-control text-center" name="inf"
-                                                        id="inf" value="0">
+                                                    <input type="number" min="0" class="form-control text-center"
+                                                        name="inf" id="inf" value="0">
                                                 </div>
                                                 <div class="col-md-3 mb-3">
                                                     <label class="form-label">TOTAL</label>
-                                                    <input type="number" class="form-control text-center" name="total_passengers"
-                                                        id="total" readonly value="0">
+                                                    <input type="number" min="0" class="form-control text-center"
+                                                        name="total_passengers" id="total" readonly value="0">
                                                 </div>
                                             </div>
                                         </div>
@@ -181,23 +187,23 @@
                                             <div class="row">
                                                 <div class="col-md-3 mb-3">
                                                     <label class="form-label">PAX</label>
-                                                    <input type="number" class="form-control text-center" name="px_lbs"
-                                                        id="px_lbs" value="0">
+                                                    <input type="number" min="0" class="form-control text-center"
+                                                        name="px_lbs" id="px_lbs" value="0">
                                                 </div>
                                                 <div class="col-md-3 mb-3">
                                                     <label class="form-label">CARGA</label>
-                                                    <input type="number" class="form-control text-center" name="freight"
-                                                        id="freight" value="0">
+                                                    <input type="number" min="0" class="form-control text-center"
+                                                        name="freight" id="freight" value="0">
                                                 </div>
                                                 <div class="col-md-3 mb-3">
                                                     <label class="form-label">TRANSITO</label>
-                                                    <input type="number" class="form-control text-center" name="trans_weight"
-                                                        id="trans_weight" value="0">
+                                                    <input type="number" min="0" class="form-control text-center"
+                                                        name="trans_weight" id="trans_weight" value="0">
                                                 </div>
                                                 <div class="col-md-3 mb-3">
                                                     <label class="form-label">TOTAL</label>
-                                                    <input type="number" class="form-control text-center" name="total_lbs"
-                                                        id="total_lbs" readonly value="0">
+                                                    <input type="number" min="0" class="form-control text-center"
+                                                        name="total_lbs" id="total_lbs" readonly value="0">
                                                 </div>
                                             </div>
 
@@ -209,23 +215,23 @@
                                             <div class="row">
                                                 <div class="col-md-3 mb-3">
                                                     <label class="form-label">TGU</label>
-                                                    <input type="number" class="form-control text-center" name="trans_tgu"
-                                                        id="trans_tgu" value="0">
+                                                    <input type="number" min="0" class="form-control text-center"
+                                                        name="trans_tgu" id="trans_tgu" value="0">
                                                 </div>
                                                 <div class="col-md-3 mb-3">
                                                     <label class="form-label">SAP</label>
-                                                    <input type="number" class="form-control text-center" name="trans_sap"
-                                                        id="trans_sap" value="0">
+                                                    <input type="number" min="0" class="form-control text-center"
+                                                        name="trans_sap" id="trans_sap" value="0">
                                                 </div>
                                                 <div class="col-md-3 mb-3">
                                                     <label class="form-label">RTB</label>
-                                                    <input type="number" class="form-control text-center" name="trans_rtb"
-                                                        id="trans_rtb" value="0">
+                                                    <input type="number" min="0" class="form-control text-center"
+                                                        name="trans_rtb" id="trans_rtb" value="0">
                                                 </div>
                                                 <div class="col-md-3 mb-3">
                                                     <label class="form-label">LCE</label>
-                                                    <input type="number" class="form-control text-center" name="trans_lce"
-                                                        id="trans_lce" value="0">
+                                                    <input type="number" min="0" class="form-control text-center"
+                                                        name="trans_lce" id="trans_lce" value="0">
                                                 </div>
                                             </div>
                                         </div>
@@ -234,31 +240,31 @@
 
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="fueling section">
+                                        {{-- <div class="fueling section">
                                             <div class="row">
                                                 <div class="col-md-12 mb-3">
                                                     <h5>Combustible <i class="fas fa-gas-pump"></i></i></h5>
                                                     <div class="row">
                                                         <div class="col-md-3 mb-3">
                                                             <label class="form-label">Inicial</label>
-                                                            <input type="number" class="form-control"
+                                                            <input type="number" min="0" class="form-control"
                                                                 name="initial_fuel" id="initial_fuel" value="0"
                                                                 readonly>
                                                         </div>
                                                         <div class="col-md-3 mb-3">
                                                             <label class="form-label">Gaseo</label>
-                                                            <input type="number" class="form-control"
+                                                            <input type="number" min="0" class="form-control"
                                                                 name="refueling_amount" id="refueling" value="0">
                                                         </div>
                                                         <div class="col-md-3 mb-3">
                                                             <label class="form-label">Consumo</label>
-                                                            <input type="number" class="form-control"
+                                                            <input type="number" min="0" class="form-control"
                                                                 name="fuel_consumption" id="fuel_consumption"
                                                                 value="0" readonly>
                                                         </div>
                                                         <div class="col-md-3 mb-3">
                                                             <label class="form-label">Remanente</label>
-                                                            <input type="number" class="form-control"
+                                                            <input type="number" min="0" class="form-control"
                                                                 name="residual_fuel" id="residual_fuel" readonly
                                                                 value="0">
                                                         </div>
@@ -291,9 +297,66 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    {{-- <div class="row">
-
-                                            </div> --}}
+                                                </div>
+                                            </div>
+                                        </div> --}}
+                                        <div class="fueling section">
+                                            <div class="row">
+                                                <div class="col-md-12 mb-3">
+                                                    <h5>Combustible <i class="fas fa-gas-pump"></i></h5>
+                                                    <div class="row">
+                                                        <div class="col-md-3 mb-3">
+                                                            <label class="form-label">Inicial</label>
+                                                            <input type="number" min="0" class="form-control"
+                                                                name="initial_fuel" id="initial_fuel" value="0"
+                                                                readonly>
+                                                        </div>
+                                                        <div class="col-md-3 mb-3">
+                                                            <label class="form-label">Gaseo</label>
+                                                            <input type="number" min="0" class="form-control"
+                                                                name="refueling_amount" id="refueling" value="0">
+                                                        </div>
+                                                        <div class="col-md-3 mb-3">
+                                                            <label class="form-label">Consumo</label>
+                                                            <input type="number" min="0" class="form-control"
+                                                                name="fuel_consumption" id="fuel_consumption"
+                                                                value="0" readonly>
+                                                        </div>
+                                                        <div class="col-md-3 mb-3">
+                                                            <label class="form-label">Remanente</label>
+                                                            <input type="number" min="0" class="form-control"
+                                                                name="residual_fuel" id="residual_fuel" readonly
+                                                                value="0">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <label class="form-label text-primary">Gaseo autorizado
+                                                                por:</label>
+                                                            <select class="select2 form-control" style="width: 100%;"
+                                                                name="approved_by" id="approved_by" required>
+                                                                <option value="">- Opción -</option>
+                                                                @foreach ($crew_members['despachador_vuelo'] as $crew_member)
+                                                                    <option value="{{ $crew_member->id }}">
+                                                                        {{ $crew_member->name . ' ' . $crew_member->last_name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label text-primary">Aeropuerto de
+                                                                Gaseo:</label>
+                                                            <select class="select2 form-control" style="width: 100%;"
+                                                                name="airport_id" id="airport_id" required>
+                                                                <option value="">- Opción -</option>
+                                                                @foreach ($airports as $airport)
+                                                                    <option value="{{ $airport->id }}">
+                                                                        {{ $airport->code }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -350,7 +413,7 @@
             // Select2 Multiple
             $('.select2').select2({
                 placeholder: "- Opción -",
-                allowClear: false,
+                allowClear: true,
             });
         });
     </script>
@@ -364,7 +427,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#flight_selected').change(function() { 
+            $('#flight_selected').change(function() {
                 var flightId = $(this).val();
                 /* console.log(flightId); */
                 if (flightId !== '') {
@@ -497,4 +560,63 @@
             });
         });
     </script>
+
+    {{-- <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var gaseoInput = document.getElementById('refueling');
+            var approved_bySelect = document.getElementById('approved_by');
+            var airportSelect = document.getElementById('airport_id');
+
+            function toggleSelect() {
+                var gaseoValue = parseInt(gaseoInput.value);
+
+                if (gaseoValue <= 0) {
+                    approved_bySelect.disabled = true;
+                    approved_bySelect.value = '';  // Clear the selection
+                    airportSelect.disabled = true;
+                    airportSelect.value = '';  // Clear the selection
+                } else {
+                    approved_bySelect.disabled = false;
+                    airportSelect.disabled = false;
+                }
+            }
+
+            gaseoInput.addEventListener('input', toggleSelect);
+
+            // Inicializar el estado del select al cargar la página
+            toggleSelect();
+        });
+    </script> --}}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var gaseoInput = document.getElementById('refueling');
+            var approved_bySelect = document.getElementById('approved_by');
+            var airportSelect = document.getElementById('airport_id');
+
+            function toggleSelect() {
+                var gaseoValue = parseInt(gaseoInput.value);
+
+                if (isNaN(gaseoValue) || gaseoValue <= 0) {
+                    // Deshabilita los select2 y limpia la selección
+                    $('#approved_by').val(null).trigger('change');
+                    $('#airport_id').val(null).trigger('change');
+
+                    approved_bySelect.disabled = true;
+                    airportSelect.disabled = true;
+                } else {
+                    approved_bySelect.disabled = false;
+                    airportSelect.disabled = false;
+                }
+            }
+
+
+            gaseoInput.addEventListener('input', toggleSelect);
+
+            // Inicializar el estado del select al cargar la página
+            toggleSelect();
+        });
+    </script>
+
+
 @stop

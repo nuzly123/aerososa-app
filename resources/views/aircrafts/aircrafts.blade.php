@@ -68,12 +68,12 @@
                                                                 class="fas fa-history mr-3"></i>Historial</p>
                                                     </a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a href="#" class="dropdown-item">
+                                                    {{-- <a href="#" class="dropdown-item">
                                                         <p class="text-left mb-0"><i class="fas fa-gas-pump mr-3"></i>Gaseo
                                                         </p>
-                                                    </a>
+                                                    </a> --}}
                                                 </div>
-                                            </div>
+                                            </div>  
                                         </div>
                                     </div>
                                     @include('aircrafts.edit')

@@ -1,5 +1,9 @@
 @extends('adminlte::page')
 
+@php
+    use Carbon\Carbon;
+@endphp
+
 @section('content_header')
     <h1>Tráfico Aéreo</h1>
 @stop
@@ -14,9 +18,28 @@
                     data-target="#modal-nuevo">
                     <span class="fas fa-plus"></span>
                 </button> --}}
-                    <a href="air_traffic/create" class="btn btn-sm btn-default">
-                        <span class="fas fa-plus"></span>
-                    </a>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <form id="filter-form" method="POST" action="{{ route('air-traffic.filter') }}">
+                                @csrf
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                        <input type="text" id="datepicker" name="date" value="{{ $date }}"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="{{ url('air_traffic/create') }}"
+                                class="btn btn-sm btn-default">
+                                <span class="fas fa-plus"></span>
+                            </a>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
             @if (Session::get('success'))
@@ -45,12 +68,19 @@
                                 <td class="text-center">{{ $air_traffic->flight_date }}</td>
                                 <td class="text-center">{{ $air_traffic->flight->code }}</td>
                                 <td class="text-center">{{ $air_traffic->flight_route }}</td>
-                                <td class="text-center">{{ $air_traffic->departure }}</td>
-                                <td class="text-center">{{ $air_traffic->arrival }}</td>
+                                {{-- <td class="text-center">{{ $air_traffic->departure }}</td> --}}
+                                <td class="text-center">{{ Carbon::parse($air_traffic->departure)->format('H:i') }}</td>
+                                {{-- <td class="text-center">{{ $air_traffic->arrival }}</td> --}}
+                                <td class="text-center">{{ Carbon::parse($air_traffic->arrival)->format('H:i') }}</td>
                                 <td class="text-center">{{ $air_traffic->total_passengers }}</td>
                                 <td class="text-center">{{ $air_traffic->total_lbs }}</td>
-                                <td class="text-center"><span class="badge bg-info">
-                                        {{ $flight_status_array[$air_traffic->flight_status] }} </span></td>
+                                {{-- <td class="text-center"><span class="badge bg-danger">
+                                        {{ $flight_status_array[$air_traffic->flight_status] }} </span></td> --}}
+                                <td class="text-center">
+                                    <span class="badge {{ $flight_status_classes[$air_traffic->flight_status] }}">
+                                        {{ $flight_status_array[$air_traffic->flight_status] }}
+                                    </span>
+                                </td>
                                 <td class="text-center"><a href="air_traffic/{{ $air_traffic->id }}/edit"
                                         class="btn btn-xs btn-outline-warning tablabutton">
                                         <span class="fas fa-pen"></span>
@@ -72,12 +102,60 @@
 
 @section('css')
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="../resources/css/air_traffic.css">
+    {{-- <link rel="stylesheet" href="../../resources/css/air_traffic.css"> --}}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        /* Estilo para resaltar cada sección del formulario */
+        .section {
+            background-color: #f9f9f9;
+            /* Color de fondo */
+            border: 1px solid #ddd;
+            /* Borde sólido */
+            padding: 20px;
+            /* Espaciado interno */
+            margin-bottom: 20px;
+            /* Espaciado inferior entre secciones */
+            border-radius: 5px;
+            /* Bordes redondeados */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Sombra */
+        }
+
+        /* Estilo para el título de cada sección */
+        .section h4 {
+            margin-top: 0;
+            /* Elimina el margen superior predeterminado del título */
+            margin-bottom: 20px;
+            /* Espaciado inferior entre el título y los campos */
+        }
+
+
+        .section-title {
+            background-color: rgb(107, 126, 146);
+            color: #fff;
+            padding: 8px 16px;
+            margin-bottom: 0;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .list-unstyled {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-section {
+            text-align: left;
+            margin-left: 5%;
+        }
+    </style>
 @stop
 
 @section('js')
     <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="//cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <script>
         $('.table-dataTable').dataTable();
     </script>
@@ -88,6 +166,13 @@
     </script>
 
     <script>
-        
+        $(function() {
+            $("#datepicker").datepicker({
+                dateFormat: "yy-mm-dd",
+                onSelect: function(dateText) {
+                    $('#filter-form').submit();
+                }
+            });
+        });
     </script>
 @stop

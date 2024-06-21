@@ -41,11 +41,16 @@ class AircraftController extends Controller
         //
         $data = request()->except('_token', 'residual_fuel_amount');
 
+       /*  $request->validate([
+            'img' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048', // Ajusta las reglas de validación según tus necesidades
+        ]); */
+
         if ($request->hasFile('img')) {
             $data['img'] = $request->file('img')->store('uploads', 'public');
         }else{
-            $data['img'] = "uploads/default-photo.jpg";
+            $data['img'] = "uploads/default-aircraft-photo.png";
         }
+
         Aircraft::create($data); //se creo el registro
 
         //crear registro de remanente
@@ -53,7 +58,7 @@ class AircraftController extends Controller
         $aircraft_id = Aircraft::max('id');
         ResidualFuel::create(['residual_fuel_amount' => $residual_fuel, 'aircraft_id' => $aircraft_id]); //registro creado
 
-
+        //dd($request->file('img')->store('uploads', 'public'));
         return redirect()->route('aircrafts.index')->with('success', 'El registro se ha añadido exitosamente!');
         //return dd($data);
     }
