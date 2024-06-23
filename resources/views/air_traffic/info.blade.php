@@ -47,20 +47,22 @@
                                 <h6 class="section-title"><i class="fas fa-users"></i> Pasajeros</h6>
                                 <div class="info-section">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <p><strong>PX: </strong><br>{{ $air_traffic->px }}</p>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <p><strong>DH: </strong><br>{{ $air_traffic->dh }}</p>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <p><strong>INF:</strong><br>{{ $air_traffic->inf }}</p>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <p><strong>Total: </strong><br>{{ $air_traffic->total_passengers }}</p>
                                         </div>
+                                    </div>
+
+                                    <div class="row">
+
                                     </div>
                                 </div>
                             </div>
@@ -68,23 +70,24 @@
                                 <h6 class="section-title"><i class="fas fa-weight-hanging"></i> Libras</h6>
                                 <div class="info-section">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <p><strong>
                                                     PX:</strong><br>{{ $air_traffic->px_lbs }}</p>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <p><strong>
                                                     Carga:</strong><br>{{ $air_traffic->freight }}</p>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <p><strong>
                                                     Trans:</strong><br>{{ $air_traffic->trans_weight }}</p>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <p><strong>Total: </strong><br>{{ $air_traffic->total_lbs }}</p>
                                         </div>
+                                    </div>
+                                    <div class="row">
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -116,56 +119,59 @@
                                     </div>
                                     </p>
                                     <p><strong><i class="fas fa-eye"></i>
-                                            Observador:</strong><br>{{ $air_traffic->obsservant }}</p>
+                                            Observador:</strong><br>{{ $air_traffic->obsservant ? $air_traffic->obsservant : 'N/A' }}
+                                    </p>
                                 </div>
                             </div>
                             <div class="report-section">
                                 <h6 class="section-title"><i class="fas fa-exchange-alt"></i> Tránsitos</h6>
                                 <div class="info-section">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <p><strong>TGU:</strong><br>{{ $air_traffic->trans_tgu }}</p>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <p><strong>SAP:</strong><br>{{ $air_traffic->trans_sap }}</p>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <p><strong>RTB:</strong><br>{{ $air_traffic->trans_rtb }}</p>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <p><strong>LCE:</strong><br>{{ $air_traffic->trans_lce }}</p>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <p><strong>RTB:</strong><br>{{ $air_traffic->trans_rtb }}</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p><strong>LCE:</strong><br>{{ $air_traffic->trans_lce }}</p>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                             <div class="report-section">
-                                <h6 class="section-title"><i class="fas fa-comment-alt"></i> Observaciones</h6>
-                                <p>{{ $air_traffic->remark }}</p>
+                                <h6 class="section-title"><i class="fas fa-gas-pump"></i> Combustible (LBS)</h6>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p><strong>Inicial:</strong><br>{{ $air_traffic->initial_fuel }}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p><strong>Consumo:</strong><br>{{ $air_traffic->fuel_consumption }}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p><strong>Remanente:</strong><br>{{ $air_traffic->residual_fuel }}</p>
+                                    </div>
+                                    {{-- <div class="col-md-6">
+                                        <p><strong><i class="fas fa-barcode"></i> Referencia de
+                                                Gaseo:</strong><br>
+                                            {{ $air_traffic->fueling_id ? $air_traffic->fueling->reference : 'N/A' }}
+                                        </p>
+                                    </div> --}}
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="report-section">
-                        <h6 class="section-title mb-3"><i class="fas fa-gas-pump"></i>Combustible</h6>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <p><strong>Inicial:</strong><br>{{ $air_traffic->initial_fuel }}</p>
-                            </div>
-                            <div class="col-md-2">
-                                <p><strong>Consumo:</strong><br>{{ $air_traffic->fuel_consumption }}</p>
-                            </div>
-                            <div class="col-md-2">
-                                <p><strong>Remanente:</strong><br>{{ $air_traffic->residual_fuel }}</p>
-                            </div>
-                            <div class="col-md-6">
-                                <p><strong><i class="fas fa-barcode"></i> Referencia de
-                                        Gaseo:</strong><br>
-                                    {{ $air_traffic->fueling_id ? $air_traffic->fueling->reference : 'N/A' }}
-                                </p>
-                            </div>
-                        </div>
+                        <h6 class="section-title"><i class="fas fa-comment-alt"></i> Observaciones</h6>
+                        <p>{{ $air_traffic->remark }}</p>
                     </div>
+
                 </div>
             </div>
             <div class="modal-footer">

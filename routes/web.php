@@ -4,6 +4,7 @@ use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\AircraftTypeController;
 use App\Http\Controllers\AirportController;
 use App\Http\Controllers\AirTrafficController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DatosController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\FlightRouteController;
 use App\Http\Controllers\FlightRouteDetailController;
+use App\Http\Controllers\LogOutController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\StationController;
@@ -38,14 +40,21 @@ use Illuminate\Support\Facades\Auth;
 */
 
 /* Route::get('/', function () {
-    return view('dashboard');
-}); */
+    return view('home');
+});
+ */
 
+ /* ------------------------------LOGIN Y LOGOUT---------------------------------------------------- */
 Auth::routes();
 
 Route::get('/', function() {
-    return view('dashboard');
+    return view('home');
 })->name('home')->middleware('auth');
+
+Route::get('/log-out', [LoginController::class, 'logout'])->name('logout');
+/* Route::get('/log-out', [LogOutController::class, 'logout']); */
+
+/* ----------------------------------------------------------------------------------- */
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -133,3 +142,11 @@ Route::get('/ruta-vuelo/{id}', [FlightController::class, 'getFlightRoute'])->nam
 Route::get('/obtener-estado-vuelo/{id}', [FlightController::class, 'getFlightStatus'])->name('estado.obtener');
 
 Route::get('/calcular-llegada/{departure_time}', [FlightController::class, 'calculateArrivalTime']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

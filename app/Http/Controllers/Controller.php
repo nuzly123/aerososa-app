@@ -21,7 +21,7 @@ class Controller extends BaseController
     {
         // Obtiene el nombre del modelo basado en el nombre de la tabla
         $modelClassName = 'App\\Models\\' . Str::studly(Str::singular($tableName));
-//preuntar si es una peticion ajax
+        //preguntar si es una peticion ajax
         // Verifica si el modelo existe
         if (class_exists($modelClassName) /* or Schema::hasTable($tableName) */) {
             // Encuentra el registro en la tabla correspondiente
@@ -29,17 +29,17 @@ class Controller extends BaseController
             if ($record) {
                 // Cambia el estado
                 $record->status = !$record->status;
-                $record->user_update = 1;//Auth::user()->id; //id del user de la sesion, cambiar cuando se trabaje en el modelo
+                $record->user_update = Auth::user()->id; //Auth::user()->id; //id del user de la sesion, cambiar cuando se trabaje en el modelo
                 // Guarda el registro actualizado
                 $record->save();
 
-                
+
                 return true; //tiene que retornar una respuesta json (return response()->json(parametros)
                 //return dd($record);
                 //$record=null;
             }
         }
-        
+
         return false;
     }
 }

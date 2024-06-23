@@ -39,44 +39,10 @@
                             <div class="col-sm-3 col-md-2 d-flex align-items-stretch flex-column">
                                 <div class="card bg-light d-flex flex-fill">
                                     <div class="card-header text-right border-bottom-0">
-                                            <div class="card-tools">
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-light btn-sm dropdown-toggle"
-                                                        data-toggle="dropdown" data-offset="-52" aria-expanded="false">
-                                                        <i class="fas fa-bars"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu" role="menu" style="">
-                                                        <a type="button" data-toggle="modal"
-                                                            data-target="#modal-edit{{ $crew->id }}"
-                                                            class="dropdown-item">
-                                                            <p class="text-left mb-0"><i class="fas fa-pen mr-3"></i>Licencia
-                                                            </p>
-                                                        </a>
-                                                        {{-- <button type="submit" class="btn">
-                                                            <p class="text-left mb-0"><i class="fas fa-pen mr-3"></i>Editar</p>
-                                                        </button> --}}
-                                                        {{--  <a class="dropdown-item">
-                                                            <p class="text-left mb-0"><i
-                                                                    class="fas fa-info-circle mr-3"></i>Detalles</p>
-                                                        </a> --}}
-                                                        <a type="button" data-toggle="modal"
-                                                            data-target="#modal-detalle-{{ $crew->id }}"
-                                                            class="dropdown-item">
-                                                            <p class="text-left mb-0"><i
-                                                                    class="fas fa-history mr-3"></i>Historial</p>
-                                                        </a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a href="#" class="dropdown-item">
-                                                            <p class="text-left mb-0"><i
-                                                                    class="fas fa-gas-pump mr-3"></i>Gaseo
-                                                            </p>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <div class="card-body pt-0">
                                         
+                                    </div>
+                                    <div class="card-body pt-0">
+
                                         <div class="col-12 text-center">
                                             <img src="{{ asset('storage') . '/' . $crew->photo }}" alt="user-avatar"
                                                 class="img-circle img-fluid">

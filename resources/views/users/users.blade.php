@@ -36,8 +36,8 @@
                         @foreach ($data as $user)
                             <tr>
                                 <td>{{ "*" }}</td>
-                                <td>{{ $user->employees->name." ".$user->employees->last_name }}</td>
-                                <td>{{ $user->user }}</td>
+                                <td>{{-- {{ $user->employees->name." ".$user->employees->last_name }} --}}</td>
+                                <td>{{ $user->name }}</td>
                                 <td>{{ "Pendiente" }}</td>
                                 {{-- <td>{{ $user->offices->code }}</td> --}}
                                 <td class="text-center">{{ "" }}</td>

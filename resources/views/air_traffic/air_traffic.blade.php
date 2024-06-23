@@ -157,7 +157,9 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script>
-        $('.table-dataTable').dataTable();
+        $('.table-dataTable').dataTable({
+            paging:false;
+        }); 
     </script>
     <script>
         setTimeout(() => {

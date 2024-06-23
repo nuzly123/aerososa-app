@@ -1,44 +1,28 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
-@section('title', 'AeroSosa | Monitoreo')
+{{-- Customize layout sections --}}
 
-@section('content_header')
-    <h1>Dashboard</h1>
+@section('subtitle', 'Welcome')
+@section('content_header_title', 'Home')
+@section('content_header_subtitle', 'Welcome')
+
+{{-- Content body: main page content --}}
+
+@section('content_body')
+    <p>Welcome to this beautiful admin panel.</p>
 @stop
 
-@section('content')
-    {{-- <p>Welcome to this beautiful admin panel.</p>
+{{-- Push extra CSS --}}
 
-    <h1>Ejemplo de AJAX en Laravel</h1>
-    <div id="resultado"></div>
-    <button id="obtenerDatos">Obtener Datos</button> --}}
-@stop
+@push('css')
+    {{-- Add here extra stylesheets --}}
+    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+@endpush
 
-{{-- @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop --}}
+{{-- Push extra scripts --}}
 
-@section('js')
-    {{-- <script> console.log('Hi!'); </script> --}}
-
-    {{--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
+@push('js')
     <script>
-        $(document).ready(function() {
-            // Realizar la petición AJAX al hacer clic en un botón (puedes cambiar el evento según tus necesidades)
-            $('#obtenerDatos').click(function() {
-                $.ajax({
-                    type: 'GET',
-                    url: "{{ route('datos.obtener') }}",
-                    success: function(response) {
-                        // Mostrar los datos obtenidos en el div con id 'resultado'
-                        $('#resultado').html('<p>Nombre: ' + response.nombre + '</p><p>Edad: ' +
-                            response.edad + '</p>');
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(error);
-                    }
-                });
-            }); 
-        });
+        console.log("Hi, I'm using the Laravel-AdminLTE package!");
     </script>
-@stop
+@endpush
