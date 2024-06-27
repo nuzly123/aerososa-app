@@ -41,8 +41,8 @@
                                     <td>{{ $contract->contract }}</td>
                                     <td class="text-center">{{ $contract->created_at }}</td>
                                     <td class="text-center">{{ $contract->updated_at ?? 'N/D' }}</td>
-                                    <td class="text-center"> {{ $contract->createdBy->user }} </td>
-                                    <td class="text-center"> {{ $contract->updatedBy->user ?? 'N/D' }} </td>
+                                    <td class="text-center"> {{ $contract->createdBy->username }} </td>
+                                    <td class="text-center"> {{ $contract->updatedBy->username ?? 'N/D' }} </td>
                                     <td class="text-center">
                                         {{-- <form action=""> --}}
                                         <a href="contracts/{{ $contract->id }}/update-status"

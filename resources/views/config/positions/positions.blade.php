@@ -41,8 +41,8 @@
                                     <td>{{ $position->position }}</td>
                                     <td class="text-center">{{ $position->created_at }}</td>
                                     <td class="text-center">{{ $position->updated_at ?? 'N/D' }}</td>
-                                    <td class="text-center"> {{ $position->createdBy->user }} </td>
-                                    <td class="text-center"> {{ $position->updatedBy->user ?? 'N/D' }} </td>
+                                    <td class="text-center"> {{ $position->createdBy->username }} </td>
+                                    <td class="text-center"> {{ $position->updatedBy->username ?? 'N/D' }} </td>
                                     <td class="text-center">
                                         {{-- <form action=""> --}}
                                         <a href="positions/{{ $position->id }}/update-status"

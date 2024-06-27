@@ -166,8 +166,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="user_create" value="{{ 1 }}">
-                    <input type="hidden" name="user_update" value="{{ 1 }}">
+                    <input type="hidden" name="user_update" value="{{ Auth::user()->id }}">
                 </form>
             </div>
         </div>

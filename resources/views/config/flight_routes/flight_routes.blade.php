@@ -45,8 +45,8 @@
                                     <td class="text-center">{{ $flight_route->route }}</td>
                                     <td class="text-center">{{ $flight_route->originCity->city }}</td>
                                     <td class="text-center">{{ $flight_route->destinationCity->city }}</td>
-                                    <td class="text-center">{{ $flight_route->createdBy->user }}</td>
-                                    <td class="text-center">{{ $flight_route->updatedBy->user }}</td>
+                                    <td class="text-center">{{ $flight_route->createdBy->username }}</td>
+                                    <td class="text-center">{{ $flight_route->updatedBy->username }}</td>
                                     <td class="text-center">{{ $flight_route->created_at }}</td>
                                     <td class="text-center">{{ $flight_route->updated_at }}</td>
                                     <td class="text-center">

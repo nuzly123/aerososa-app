@@ -41,8 +41,8 @@
                                     <td>{{ $department->department }}</td>
                                     <td class="text-center">{{ $department->created_at }}</td>
                                     <td class="text-center">{{ $department->updated_at ?? 'N/D' }}</td>
-                                    <td class="text-center"> {{ $department->createdBy->user }} </td>
-                                    <td class="text-center"> {{ $department->updatedBy->user ?? 'N/D' }} </td>
+                                    <td class="text-center"> {{ $department->createdBy->username }} </td>
+                                    <td class="text-center"> {{ $department->updatedBy->username ?? 'N/D' }} </td>
                                     <td class="text-center">
                                         {{-- <form action=""> --}}
                                         <a href="departments/{{ $department->id }}/update-status"

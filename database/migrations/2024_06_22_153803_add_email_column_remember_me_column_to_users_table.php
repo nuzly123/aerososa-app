@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             //
             $table->string('name')->after('id');
-            $table->string('email')->after('name');
+            $table->string('username')->after('name');
+            $table->string('email')->unique()->nullable()->after('username');
             $table->rememberToken()->after('reset_password')->nullable();
-            
         });
     }
 
@@ -27,8 +27,10 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->dropColumn('email');
             $table->dropColumn('remember_token');
+            $table->dropColumn('username');
+            $table->dropColumn('name');
+            $table->dropColumn('email');
         });
     }
 };

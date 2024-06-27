@@ -59,8 +59,8 @@
                             <input type="text" name="flight_time" class="form-control" id="duracion_vuelo" placeholder="00:00" readonly required />
                         </div>
                     </div>
-                    <input type="hidden" name="user_create" value="{{ 1 }}">
-                    <input type="hidden" name="user_update" value="{{ 1 }}">
+                    <input type="hidden" name="user_create" value="{{ Auth::user()->id }}">
+                    <input type="hidden" name="user_update" value="{{ Auth::user()->id }}">
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

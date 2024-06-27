@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Aero</b>Sosa',
+    'logo' => '<b>Aero</b>SOSA',
     'logo_img' => 'vendor/adminlte/dist/img/LogoAEROSOSA.svg',
     'logo_img_class' => 'brand-image elevation-3',
     'logo_img_xl' => null,
@@ -428,11 +428,11 @@ return [
             'url'  => 'profile',
             'icon' => 'fas fa-fw fa-user-circle',
         ],
-        [
+        /* [
             'text' => 'Cerrar Sesión',
-            'url'  => 'log-out',
+            'url'  => 'logout',
             'icon' => 'fas fa-fw fa-sign-out-alt',
-        ],
+        ], */
         /* ['header' => 'labels'],
         [
             'text'       => 'important',

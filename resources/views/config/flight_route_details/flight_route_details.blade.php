@@ -45,8 +45,8 @@
                                     <td class="text-center">{{ $flight_route_detail->aircraftType->type }}</td>
                                     <td class="text-center">{{ $flight_route_detail->time }}</td>
                                     <td class="text-center">{{ $flight_route_detail->fuel }}</td>
-                                    <td class="text-center">{{ $flight_route_detail->createdBy->user }}</td>
-                                    <td class="text-center">{{ $flight_route_detail->updatedBy->user }}</td>
+                                    <td class="text-center">{{ $flight_route_detail->createdBy->username }}</td>
+                                    <td class="text-center">{{ $flight_route_detail->updatedBy->username }}</td>
                                     <td class="text-center">
                                         {{-- <form action=""> --}}
                                         <a href="{{-- flight_routes/{{ $flight_route->id }}/update-status --}}"

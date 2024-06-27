@@ -17,7 +17,7 @@
                         <input type="text" name="department" class="form-control" placeholder="Aeropuerto"
                             value="{{ $department->department }}" required />
                     </div>
-                    <input type="hidden" name="user_update" value="{{ 1 }}"> {{-- cambiar segun el usuario de la sesion cuando se haga el modulo de users --}}
+                    <input type="hidden" name="user_update" value="{{ Auth::user()->id }}"> {{-- cambiar segun el usuario de la sesion cuando se haga el modulo de users --}}
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

@@ -14,8 +14,8 @@
                         <label for="nameBasic" class="form-label text-left">Tipo de Contrato</label>
                         <input type="text" name="contract" class="form-control" placeholder="Contrato" required />
                     </div>
-                    <input type="hidden" name="user_create" value="{{ 1 }}"> {{-- cambiar cuando se haga el módulo de usuario --}}
-                    <input type="hidden" name="user_update" value="{{ 1 }}"> 
+                    <input type="hidden" name="user_create" value="{{ Auth::user()->id }}"> {{-- cambiar cuando se haga el módulo de usuario --}}
+                    <input type="hidden" name="user_update" value="{{ Auth::user()->id }}"> 
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

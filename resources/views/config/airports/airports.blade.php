@@ -31,10 +31,10 @@
                         <tr>
                             <th>Aeropuerto</th>
                             <th>Código</th>
-                            <th>Creado</th>
-                            <th>Modificado</th>
-                            <th>Creado por</th>
-                            <th>Modificado por</th>
+                            <th class="text-center">Creado</th>
+                            <th class="text-center">Modificado</th>
+                            <th class="text-center">Creado por</th>
+                            <th class="text-center">Modificado por</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
@@ -46,8 +46,8 @@
                                     <td>{{ $airport->code }}</td>
                                     <td class="text-center">{{ $airport->created_at }}</td>
                                     <td class="text-center">{{ $airport->updated_at ?? 'N/D' }}</td>
-                                    <td class="text-center"> {{ $airport->createdBy->user }} </td>
-                                    <td class="text-center"> {{ $airport->updatedBy->user ?? 'N/D' }} </td>
+                                    <td class="text-center"> {{ $airport->createdBy->username }} </td>
+                                    <td class="text-center"> {{ $airport->updatedBy->username ?? 'N/D' }} </td>
                                     <td class="text-center">
                                         {{-- <form action=""> --}}
                                         <a href="airports/{{$airport->id}}/update-status"

@@ -45,8 +45,8 @@
                                     <td class="text-center">{{ $office->extension }}</td>
                                     <td class="text-center">{{ $office->created_at }}</td>
                                     <td class="text-center">{{ $office->updated_at ?? 'N/D' }}</td>
-                                    <td class="text-center"> {{ $office->createdBy->user }} </td>
-                                    <td class="text-center"> {{ $office->updatedBy->user ?? 'N/D' }} </td>
+                                    <td class="text-center"> {{ $office->createdBy->username }} </td>
+                                    <td class="text-center"> {{ $office->updatedBy->username ?? 'N/D' }} </td>
                                     <td class="text-center">
                                         {{-- <form action=""> --}}
                                         <a href="offices/{{ $office->id }}/update-status"

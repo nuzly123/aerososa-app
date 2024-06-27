@@ -41,8 +41,8 @@
                                     <td>{{ $type->type }}</td>
                                     <td class="text-center">{{ $type->created_at }}</td> 
                                     <td class="text-center">{{ $type->updated_at ?? 'N/D' }}</td>
-                                    <td class="text-center"> {{ $type->createdBy->user }} </td>
-                                    <td class="text-center"> {{ $type->updatedBy->user ?? 'N/D' }} </td>
+                                    <td class="text-center"> {{ $type->createdBy->username }} </td>
+                                    <td class="text-center"> {{ $type->updatedBy->username ?? 'N/D' }} </td>
                                     <td class="text-center">
                                         {{-- <form action=""> --}}
                                         <a href="aircraft_types/{{ $type->id }}/update-status"

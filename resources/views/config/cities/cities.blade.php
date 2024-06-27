@@ -43,8 +43,8 @@
                                     <td>{{ $city->code }}</td>
                                     <td class="text-center">{{ $city->created_at }}</td>
                                     <td class="text-center">{{ $city->updated_at ?? 'N/D' }}</td>
-                                    <td class="text-center"> {{ $city->createdBy->user }} </td>
-                                    <td class="text-center"> {{ $city->updatedBy->user ?? 'N/D' }} </td>
+                                    <td class="text-center"> {{ $city->createdBy->username }} </td>
+                                    <td class="text-center"> {{ $city->updatedBy->username ?? 'N/D' }} </td>
                                     <td class="text-center">
                                         {{-- <form action=""> --}}
                                         <a href="cities/{{ $city->id }}/update-status"

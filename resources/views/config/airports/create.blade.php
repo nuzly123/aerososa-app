@@ -21,8 +21,8 @@
                             <input type="text" name="code" class="form-control" placeholder="Código" required />
                         </div>
                     </div>
-                    <input type="hidden" name="user_create" value="{{ 1 }}">
-                    <input type="hidden" name="user_update" value="{{ 1 }}">
+                    <input type="hidden" name="user_create" value="{{ Auth::user()->id }}">
+                    <input type="hidden" name="user_update" value="{{ Auth::user()->id }}">
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

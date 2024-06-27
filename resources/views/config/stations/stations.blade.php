@@ -43,8 +43,8 @@
                                     <td class="text-center">{{ $station->code }}</td>
                                     <td class="text-center">{{ $station->created_at }}</td>
                                     <td class="text-center">{{ $station->updated_at ?? 'N/D' }}</td>
-                                    <td class="text-center"> {{ $station->createdBy->user }} </td>
-                                    <td class="text-center"> {{ $station->updatedBy->user ?? 'N/D' }} </td>
+                                    <td class="text-center"> {{ $station->createdBy->username }} </td>
+                                    <td class="text-center"> {{ $station->updatedBy->username ?? 'N/D' }} </td>
                                     <td class="text-center">
                                         {{-- <form action=""> --}}
                                         <a href="stations/{{ $station->id }}/update-status"
