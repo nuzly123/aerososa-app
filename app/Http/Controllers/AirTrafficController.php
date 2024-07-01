@@ -26,6 +26,12 @@ class AirTrafficController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+        $this->middleware('can:air_traffic.index');
+     }
+     
     public function index()
     {
         //
@@ -77,7 +83,7 @@ class AirTrafficController extends Controller
         foreach ($positions as $key => $position) {
             if ($position) {
                 $crew_member_ids = Position_Details::where('position_id', $position->id)->pluck('employee_id')->toArray();
-                $crew_members[$key] = Employee::whereIn('id', $crew_member_ids)->get();
+                $crew_members[$key] = Employee::whereIn('id', $crew_member_ids)->where('status', 1)->get();
             }
         }
 

@@ -27,12 +27,12 @@
                     <thead>
                         <tr>
                             <th>Oficina</th>
-                            <th>Código</th>
-                            <th>Extensión</th>
-                            <th>Creado</th>
-                            <th>Modificado</th>
-                            <th>Creado por</th>
-                            <th>Modificado por</th>
+                            <th class="text-center">Código</th>
+                            <th class="text-center">Extensión</th>
+                            <th class="text-center">Creado</th>
+                            <th class="text-center">Modificado</th>
+                            <th class="text-center">Creado por</th>
+                            <th class="text-center">Modificado por</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
@@ -41,7 +41,7 @@
                             @foreach ($data as $office)
                                 <tr>
                                     <td>{{ $office->office }}</td>
-                                    <td>{{ $office->code }}</td>
+                                    <td class="text-center">{{ $office->code }}</td>
                                     <td class="text-center">{{ $office->extension }}</td>
                                     <td class="text-center">{{ $office->created_at }}</td>
                                     <td class="text-center">{{ $office->updated_at ?? 'N/D' }}</td>

@@ -12,6 +12,7 @@
                 <table id="employee-table" class="table table-dataTable table-striped  dt-responsive">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Nombre</th>
                             <th>DNI</th>
                             <th>Email</th>

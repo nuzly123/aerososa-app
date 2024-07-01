@@ -12,6 +12,12 @@ class AirportController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function __construct()
+    {
+        $this->middleware('can:config.aiports.index');
+    }
+
     public function index()
     {
         //
@@ -42,7 +48,7 @@ class AirportController extends Controller
         //return response()->json($dataRequest);
 
         Airport::create($request->all());
-        return redirect()->route('airports.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.airports.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**
@@ -70,7 +76,7 @@ class AirportController extends Controller
     {
         //
         $airport->update($request->all());
-        return redirect()->route('airports.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.airports.index')->with('success', 'El registro se ha añadido exitosamente!');
         //return dd($airport);
     }
 

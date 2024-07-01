@@ -10,6 +10,12 @@ class CityController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function __construct()
+    {
+        $this->middleware('can:config.cities.index');
+    }
+
     public function index()
     {
         //
@@ -32,7 +38,7 @@ class CityController extends Controller
     {
         //
         City::create($request->all());
-        return redirect()->route('cities.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.cities.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**
@@ -59,7 +65,7 @@ class CityController extends Controller
     {
         //
         $city->update($request->all());
-        return redirect()->route('cities.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.cities.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**
@@ -73,7 +79,7 @@ class CityController extends Controller
     public function updateStatus($id)
     {
         if ($result = $this->toggleStatus('cities', $id)) {
-          return back()->with('success', 'El registro se ha actualizado exitosamente!'); 
+            return back()->with('success', 'El registro se ha actualizado exitosamente!');
         }
 
         //dd($result = $this->toggleStatus('airports', $id));

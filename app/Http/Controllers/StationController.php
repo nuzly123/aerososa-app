@@ -11,6 +11,11 @@ class StationController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('can:config.stations.index');
+    }
+
     public function index()
     {
         //
@@ -33,7 +38,7 @@ class StationController extends Controller
     {
         //
         Station::create($request->all());
-        return redirect()->route('stations.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.stations.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**
@@ -60,7 +65,7 @@ class StationController extends Controller
     {
         //
         $station->update($request->all());
-        return redirect()->route('stations.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.stations.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**

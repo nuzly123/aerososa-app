@@ -12,6 +12,11 @@ class FlightRouteDetailController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('can:flight_route_details.index');
+    }
+
     public function index()
     {
         //

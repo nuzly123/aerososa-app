@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+ class="text-center"@extends('adminlte::page')
 
 @section('content_header')
     <h1>Configuración</h1>
@@ -27,10 +27,10 @@
                     <thead>
                         <tr>
                             <th>Tipo de Contrato</th>
-                            <th>Creado</th>
-                            <th>Modificado</th>
-                            <th>Creado por</th>
-                            <th>Modificado por</th>
+                            <th class="text-center">Creado</th>
+                            <th class="text-center">Modificado</th>
+                            <th class="text-center">Creado por</th>
+                            <th class="text-center">Modificado por</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                     </thead>

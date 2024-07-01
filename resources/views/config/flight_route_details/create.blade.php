@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('flight_route_details.store') }}" method="post">
+                <form action="{{ route('config.flight_route_details.store') }}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-md-6">

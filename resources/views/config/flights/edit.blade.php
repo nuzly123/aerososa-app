@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('flights.update', $flight) }}" method="post">
+                <form action="{{ route('config.flights.update', $flight) }}" method="post">
                     @csrf
                     @method('PUT')
                     <div class="row">

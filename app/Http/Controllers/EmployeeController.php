@@ -19,6 +19,12 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      */
+    
+     public function __construct()
+    {
+        $this->middleware('can:employees.index');
+    }
+
     public function index()
     {
         //
@@ -137,7 +143,10 @@ class EmployeeController extends Controller
 
         $license_number = $request->input('license_number');
 
-        Employee_Crew::create(['license' => $license_number, 'employee_id' => $employee->id]);
+        if(isset($license_number)){
+           Employee_Crew::create(['license' => $license_number, 'employee_id' => $employee->id]); 
+        }
+        
 
         return redirect()->route('employees.index')->with('success', 'El registro se ha añadido exitosamente!');
         /* return response()->json($data); */
@@ -174,10 +183,11 @@ class EmployeeController extends Controller
 
         $result = $employees->map(function ($employee) {
             return [
-                'name' => $employee->name.' '.$employee->last_name,
+                'id' => $employee->id,
+                'name' => $employee->name . ' ' . $employee->last_name,
                 'email' => $employee->email,
                 'dni' => $employee->dni,
-                'has_user' => User::where('employee_id', $employee->id)->exists()
+                'has_user' => User::where('employee_id', $employee->id)->exists(),
             ];
         });
 

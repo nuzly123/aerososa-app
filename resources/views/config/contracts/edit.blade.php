@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('contracts.update', $contract) }}" method="post">
+                <form action="{{ route('config.contracts.update', $contract) }}" method="post">
                     @csrf
                     @method('PUT')
 

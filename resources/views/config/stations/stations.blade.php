@@ -27,11 +27,11 @@
                     <thead>
                         <tr>
                             <th>Estación</th>
-                            <th>Código</th>
-                            <th>Creado</th>
-                            <th>Modificado</th>
-                            <th>Creado por</th>
-                            <th>Modificado por</th>
+                            <th class="text-center">Código</th>
+                            <th class="text-center">Creado</th>
+                            <th class="text-center">Modificado</th>
+                            <th class="text-center">Creado por</th>
+                            <th class="text-center">Modificado por</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                     </thead>

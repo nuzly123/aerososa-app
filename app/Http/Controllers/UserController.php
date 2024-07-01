@@ -10,10 +10,17 @@ use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Role;
+
 
 class UserController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('can:admin.users.index');
+    }
+
     public function index()
     {
         //
@@ -29,11 +36,8 @@ class UserController extends Controller
     public function create()
     {
         //
-        $cities = City::where('status', 1)->get();
-        //$offices = Office::where('status', 1)->get();
-        $departments = Department::where('status', 1)->get();
-        $contracts = Contract::where('status', 1)->get();
-        return view('users.create', compact('cities', /* 'offices', */ 'departments', 'contracts'));
+        $roles = Role::all();
+        return view('users.create', compact('roles'));
     }
 
     /**
@@ -41,20 +45,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        /* if($request->hasFile('photo')){
-            $request['photo']=$request->file('photo')->store('uploads', 'public');
-        }
-        
-        Employee::create($request->all());
-        return redirect()->route('employees.index')->with('success', 'El registro se ha añadido exitosamente!'); */
-        $data = request()->except('_token');
-        if ($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo')->store('uploads', 'public');
-        }
+        $data = request()->except(['_token', '_method', 'role']);
         User::create($data);
-        return redirect()->route('Users.index')->with('success', 'El registro se ha añadido exitosamente!');
-        /* return response()->json($data); */
+        /* $user->roles->sync($request->role); */
+        return redirect()->route('admin.users.index')->with('success', 'El registro se ha añadido exitosamente!');
+        
     }
 
     /**
@@ -71,12 +66,8 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
-        $cities = City::get();
-        $offices = Office::get();
-        $departments = Department::get();
-        $contracts = Contract::get();
-        return view('users.edit', ['user' => $user], compact('cities', 'offices', 'departments', 'contracts'));
-        /* return dd($employee); */
+        $roles = Role::all();        
+        return view('users.edit', ['user' => $user], compact('roles'));
     }
 
     /**
@@ -87,15 +78,11 @@ class UserController extends Controller
         //
         $data = request()->except(['_token', '_method']);
 
-        if ($request->hasFile('photo')) {
-            Storage::delete('public/' . $user->photo);
-            $data['photo'] = $request->file('photo')->store('uploads', 'public');
-        }
+        /* return dd($data); */
 
         $user->update($data);
-
-        return redirect()->route('user.index')->with('success', 'El registro se ha añadido exitosamente!');
-        /* return response()->json($data); */
+        $user->roles()->sync($request->role);
+        return redirect()->route('admin.users.index')->with('success', 'El usuario se ha actualizado exitosamente!');
     }
 
     /**
@@ -108,14 +95,14 @@ class UserController extends Controller
 
     public function updateStatus($id)
     {
-        if ($this->toggleStatus('employee', $id)) {
+        if ($this->toggleStatus('user', $id)) {
             return back()->with('success', 'El registro se ha actualizado exitosamente!');
         }
     }
 
-    public function viewProfile($id)
+    /* public function viewProfile($id)
     {
         $employee = Employee::with(['createdBy', 'updatedBy', 'departments', 'offices', 'contracts'])->find($id);
         return view('employees.profile', compact('employee'));
-    }
+    } */
 }

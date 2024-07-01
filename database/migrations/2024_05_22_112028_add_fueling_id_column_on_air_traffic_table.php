@@ -25,10 +25,10 @@ return new class extends Migration
     public function down(): void
     {
         //
-        Schema::table('air_traffic', function (Blueprint $table) {
+        /* Schema::table('air_traffic', function (Blueprint $table) {
             //
             $table->dropForeign(['fueling_id']);
             $table->dropColumn('fueling_id');
-        });
+        }); */
     }
 };

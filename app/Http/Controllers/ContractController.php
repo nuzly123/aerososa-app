@@ -10,6 +10,12 @@ class ContractController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function __construct()
+    {
+        $this->middleware('can:config.contracts.index');
+    }
+
     public function index()
     {
         //
@@ -32,7 +38,7 @@ class ContractController extends Controller
     {
         //
         Contract::create($request->all());
-        return redirect()->route('contracts.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.contracts.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**
@@ -41,7 +47,7 @@ class ContractController extends Controller
     public function show(Contract $contract)
     {
         //
-    } 
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -59,7 +65,7 @@ class ContractController extends Controller
     {
         //
         $contract->update($request->all());
-        return redirect()->route('contracts.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.contracts.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**
@@ -73,7 +79,7 @@ class ContractController extends Controller
     public function updateStatus($id)
     {
         if ($result = $this->toggleStatus('contracts', $id)) {
-          return back()->with('success', 'El registro se ha actualizado exitosamente!'); 
+            return back()->with('success', 'El registro se ha actualizado exitosamente!');
         }
 
         //dd($result = $this->toggleStatus('airports', $id));

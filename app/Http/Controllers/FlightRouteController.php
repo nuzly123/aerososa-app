@@ -11,6 +11,12 @@ class FlightRouteController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function __construct()
+    {
+        $this->middleware('can:flight_routes.index');
+    }
+
     public function index()
     {
         //
@@ -36,7 +42,7 @@ class FlightRouteController extends Controller
         $data = request()->except('_token');
         FlightRoute::create($data);
 
-        return redirect()->route('flight_routes.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.flight_routes.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**
@@ -62,7 +68,7 @@ class FlightRouteController extends Controller
     {
         //
         $flight_route->update($request->all());
-        return redirect()->route('flight_routes.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.flight_routes.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**

@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('positions.update', $position) }}" method="post">
+                <form action="{{ route('config.positions.update', $position) }}" method="post">
                     @csrf
                     @method('PUT')
                     <div class="row">

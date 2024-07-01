@@ -10,6 +10,10 @@ class PositionController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('can:config.positions.index');
+    }
     public function index()
     {
         //
@@ -32,7 +36,7 @@ class PositionController extends Controller
     {
         //
         Position::create($request->all());
-        return redirect()->route('positions.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.positions.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**
@@ -59,7 +63,7 @@ class PositionController extends Controller
     {
         //
         $position->update($request->all());
-        return redirect()->route('positions.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.positions.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**

@@ -14,6 +14,13 @@ class AircraftController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function __construct()
+    {
+        $this->middleware('can:aircrafts.index');
+    }
+
+
     public function index()
     {
         //
@@ -41,13 +48,13 @@ class AircraftController extends Controller
         //
         $data = request()->except('_token', 'residual_fuel_amount');
 
-       /*  $request->validate([
+        /*  $request->validate([
             'img' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048', // Ajusta las reglas de validación según tus necesidades
         ]); */
 
         if ($request->hasFile('img')) {
             $data['img'] = $request->file('img')->store('uploads', 'public');
-        }else{
+        } else {
             $data['img'] = "uploads/default-aircraft-photo.png";
         }
 
@@ -69,7 +76,7 @@ class AircraftController extends Controller
     public function show(Aircraft $aircraft)
     {
         //
-    } 
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -90,7 +97,7 @@ class AircraftController extends Controller
             Storage::delete('public/' . $aircraft->img);
             $data['img'] = $request->file('img')->store('uploads', 'public');
         }
-        
+
         //return dd($data);
         $aircraft->update($data);
 

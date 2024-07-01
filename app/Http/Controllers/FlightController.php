@@ -14,6 +14,10 @@ class FlightController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('can:flights.index');
+    }
     public function index()
     {
         //
@@ -44,7 +48,7 @@ class FlightController extends Controller
 
         Flight::create(array_merge($data, ['flight_time' => $flight_time]));
 
-        return redirect()->route('flights.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.flights.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**
@@ -73,7 +77,7 @@ class FlightController extends Controller
         //$request->all();
         //return dd($flight);
         //return dd($request);
-        return redirect()->route('flights.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.flights.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**

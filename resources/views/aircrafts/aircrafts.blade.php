@@ -68,10 +68,10 @@
                                                                 class="fas fa-history mr-3"></i>Historial</p>
                                                     </a>
                                                     <div class="dropdown-divider"></div>
-                                                    {{-- <a href="#" class="dropdown-item">
-                                                        <p class="text-left mb-0"><i class="fas fa-gas-pump mr-3"></i>Gaseo
+                                                    <a href="#" class="dropdown-item">
+                                                        <p class="text-left mb-0"><i class="fas fa-info-circle mr-3"></i>Detalles
                                                         </p>
-                                                    </a> --}}
+                                                    </a>
                                                 </div>
                                             </div>  
                                         </div>

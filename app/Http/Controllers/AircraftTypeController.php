@@ -10,7 +10,14 @@ class AircraftTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
+    
      */
+
+     public function __construct()
+    {
+        $this->middleware('can:aircrafts_types.index');
+    }
+
     public function index()
     {
         //
@@ -33,7 +40,7 @@ class AircraftTypeController extends Controller
     {
         //
         AircraftType::create($request->all());
-        return redirect()->route('aircraft_types.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.aircraft_types.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**
@@ -60,7 +67,7 @@ class AircraftTypeController extends Controller
     {
         //
         $aircraft_type->update($request->all());
-        return redirect()->route('aircraft_types.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.aircraft_types.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**

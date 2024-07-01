@@ -12,6 +12,12 @@ class OfficeController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function __construct()
+    {
+        $this->middleware('can:config.offices.index');
+    }
+
     public function index()
     {
         //
@@ -37,7 +43,7 @@ class OfficeController extends Controller
     {
         //
         Office::create($request->all());
-        return redirect()->route('offices.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.offices.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**
@@ -64,7 +70,7 @@ class OfficeController extends Controller
     {
         //
         $office->update($request->all());
-        return redirect()->route('offices.index')->with('success', 'El registro se ha añadido exitosamente!');
+        return redirect()->route('config.offices.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
     /**
@@ -78,8 +84,7 @@ class OfficeController extends Controller
     public function updateStatus($id)
     {
         if ($this->toggleStatus('office', $id)) {
-          return back()->with('success', 'El registro se ha actualizado exitosamente!'); 
+            return back()->with('success', 'El registro se ha actualizado exitosamente!');
         }
-
     }
 }

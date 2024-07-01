@@ -294,7 +294,7 @@ return [
         [
             'type'         => 'navbar-search',
             'text'         => 'search',
-            'topnav_right' => true,
+            'topnav_right' => false,
         ],
         [
             'type'         => 'fullscreen-widget',
@@ -311,44 +311,60 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ], */
-        ['header' => 'PRINCIPAL'],
+        [
+            'header'         => 'PRINCIPAL',
+            'can'           => 'menu.principal'
+        ],
         [
             'text'        => 'Monitoreo',
             'url'         => 'air_traffic',
             'icon'        => 'fas fa-fw fa-tachometer-alt',
             'label_color' => 'success',
+            'can'         => 'air_traffic.index',
         ],
         [
             'text'        => 'Tripulación',
             'url'         => 'tripulation',
             'icon'        => 'fas fa-fw fa-users',
+            'can'         => 'crews.index',
         ],
         [
             'text'        => 'Aeronaves',
             'url'         => 'aircrafts',
             'icon'        => 'fas fa-fw fa-plane',
+            'can'         => 'aircrafts.index',
 
         ],
         [
             'text'        => 'Reportes',
             'url'         => 'reports',
             'icon'        => 'fas fa-fw fa-file-alt',
+            'can'         => 'reports.index',
         ],
-        ['header' => 'RECURSOS HUMANOS'],
+        [
+            'header' => 'RECURSOS HUMANOS',
+            'can'   =>  'menu.rrhh'
+        ],
         [
             'text'        => 'Empleados',
             'url'         => 'employees',
             'icon'        => 'fas fa-fw fa-briefcase',
+            'can'         => 'employees.index'
         ],
-        ['header' => 'ADMINISTRADOR'],
+        [
+            'header' => 'ADMINISTRADOR',
+            'can'    => 'menu.admin'
+        ],
         [
             'text'        => 'Usuarios',
             'url'         => 'users',
             'icon'        => 'fas fa-fw fa-user',
+            'can'         => 'admin.users.index',
         ],
         [
             'text'    => 'Configuración',
             'icon'    => 'fas fa-fw fa-cog',
+            'can'     => 'menu.config',
             'submenu' => [
                 [
                     'text' => 'Aeropuertos',
@@ -411,7 +427,7 @@ return [
                             'url'  => 'flight_route_details',
                         ],
                     ]
-                ],  
+                ],
                 [
                     'text' => 'Tipos Aeronave',
                     'url'  => 'aircraft_types',

@@ -25,12 +25,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        /* Schema::table('users', function (Blueprint $table) {
             //
             $table->dropColumn('remember_token');
             $table->dropColumn('username');
             $table->dropColumn('name');
             $table->dropColumn('email');
-        });
+        }); */
     }
 };

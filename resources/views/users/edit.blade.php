@@ -1,190 +1,203 @@
 @extends('adminlte::page')
 
+@php
+    use Illuminate\Support\Facades\Auth;
+@endphp
 @section('title', 'AdminLTE')
 
-
 @section('content_header')
-    <h1 class="m-0 text-dark">Empleados</h1>
+    <h1 class="m-0 text-dark">Usuarios</h1>
 @stop
 
 @section('content')
+    {{-- formulario usuario --}}
     <div class="container-fluid">
         <div class="col-md-12">
             <div class="card mb-4">
-                <h5 class="card-header">Nuevo Empleado</h5>
-                <form action="{{ route('employees.update', $employee) }}" method="POST" enctype="multipart/form-data">
+                <h5 class="card-header">Editar Usuario</h5>
+                <form action="{{ route('admin.users.update', $user) }}" method="post">
                     @csrf
                     {{ method_field('PATCH') }}
-                    {{-- @method('PUT') --}}
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">DNI</span>
-                                                <input type="text" name="number" hidden>
-                                            </div>
-                                            <input type="text" class="form-control" name="dni"
-                                                placeholder="Identidad" value="{{ $employee->dni }}" required />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span for="name" class="input-group-text">Nombre</span>
-                                            </div>
-                                            <input type="text" class="form-control" name="name" id="name"
-                                                required placeholder="Nombre" value="{{ $employee->name }}" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon11">Apellidos</span>
-                                            </div>
-                                            <input type="text" class="form-control" name="last_name" id="last_name"
-                                                required placeholder="Apellidos" aria-describedby="basic-addon11"
-                                                value="{{ $employee->last_name }}" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <label for="nuevo-empleado">Fecha de Nacimiento</label>
-                                <div class="row">
-                                    <div class="col-md-4 mb-3">
-                                        <input class="form-control" type="date" name="birth" required
-                                            value="{{ date('Y-m-d', strtotime($employee->birth)) }}" />
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Teléfono</span>
-                                            </div>
-                                            <input type="text" class="form-control" name="phone" required
-                                                placeholder="Teléfono" value="{{ $employee->phone }}" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Correo</span>
-                                            </div>
-                                            <input type="text" class="form-control" name="email" required
-                                                placeholder="Correo" value="{{ $employee->email }}" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <div class="col-md-12 mb-3">
-                                        <label for="exampleFormControlTextarea1" class="form-label">Dirección</label>
-                                        <textarea class="form-control" name="address" required rows="1">{{ $employee->address }}</textarea>
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <div class="col-md-3">
-                                        <label for="selectContrato" class="form-label">Tipo Contrato</label>
-                                        <select class="custom-select rounded-2" name="contract_id" required>
-                                            <option value="">- Opción -</option>
-                                            @foreach ($contracts as $contract)
-                                                <option value="{{ $contract->id }}"
-                                                    {{ $employee->contract_id == $contract->id ? 'selected' : '' }}>
-                                                    {{ $contract->contract }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="mb-3">
-                                            <label for="txtCargo" class="form-label">Cargo</label>
-                                            <input type="text" class="form-control" required name="position"
-                                                id="position" placeholder="Cargo" value="{{ $employee->position }}" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Departamento</label>
-                                        <select class="custom-select rounded-2" name="department_id" required>
-                                            <option value="">- Opción -</option>
-                                            @foreach ($departments as $department)
-                                                <option value="{{ $department->id }}"
-                                                    {{ $employee->department_id == $department->id ? 'selected' : '' }}>
-                                                    {{ $department->department }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Oficina</label>
-                                        <select class="custom-select rounded-2" name="office_id" required>
-                                            <option value="">- Opción -</option>
-                                            @foreach ($offices as $office)
-                                                <option value="{{ $office->id }}"
-                                                    {{ $employee->office_id == $office->id ? 'selected' : '' }}>
-                                                    {{ $office->office }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
                                     <div class="col-md-3 mb-3">
-                                        <label class="form-label">Fecha Ingreso</label>
-                                        <input class="form-control" type="date" required name="entry_date"
-                                            value="{{ date('Y-m-d', strtotime($employee->entry_date)) }}" />
-                                    </div>
-                                    <div class="col-md-9">
-                                        <div class="form-group">
-                                            <label for="exampleInputFile">Fotografía</label>
-                                            <div class="input-group">
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input"
-                                                        name="photo" id="photo" onchange="updateFileName()">
-                                                    <label class="custom-file-label" for="photo" id="photoName">Seleccionar</label>
-                                                </div>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">Upload</span>
-                                                </div>
+                                        <label>Empleado</label>
+                                        <div class="input-group">
+                                            <input type="text" id="name" name="name" readonly
+                                                class="form-control" placeholder="Seleccionar Empleado"
+                                                value="{{ $user->name }}" required>
+                                            <input type="hidden" id="dni" name="dni" value="{{ $user->dni }}">
+                                            <div class="input-group-prepend">
+                                                <a href="" type="button" class="btn btn-block btn-default btn-sm"
+                                                    name="searchEmployee" data-toggle="modal"
+                                                    data-target="#modal-employeeList">
+                                                    <i class="fas fa-search pt-2 pr-2 pl-2 text-dark"></i>
+                                                </a>
+                                                @include('users.search_employee')
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="col-md-3">
-                                        <label class="form-label">Ciudad</label>
-                                        <select class="custom-select rounded-2" name="city_id" required>
-                                            <option value="">- Opción -</option>
-                                            @foreach ($cities as $city)
-                                                <option value="{{ $city->id }}"
-                                                    {{ $employee->city_id == $city->id ? 'selected' : '' }}>
-                                                    {{ $city->city }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div> --}}
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-11" align="right">
-                                            <a href="{{ url('/employees') }}" class="btn btn-default">Regresar</a>
-                                        </div>
-                                        <div class="col-md-1" align="right">
-                                            <button type="submit" class="btn btn-success"
-                                                name="nuevoEmpleado">Guardar</button>
+
+                                    <div class="col-md-3">
+                                        <label>Correo</label>
+                                        <input type="email" class="form-control" id="email" name="email" required
+                                            readonly value="{{ $user->email }}">
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Nombre de Usuario <code>*</code></label>
+                                            <input type="text" name="username" required class="form-control"
+                                                id="user" placeholder="Usuario" value="{{ $user->username }}">
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <label for="selectRole" class="form-label">Rol <code>*</code></label>
+                                        <select class="custom-select rounded-2" name="role">
+                                            <option value="0">- Opción -</option>
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}"
+                                                    {{ $user->getRoleNames()->first() == $role->name ? 'selected' : '' }}>
+                                                    {{ $role->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                </div>
+                                <input type="hidden" id="employee_id" name="employee_id" value="{{$user->employee_id}}">
+                                <input type="hidden" name="user_update" value="{{ Auth::user()->id }}">
+                                <div class="col-md-12" align="right">
+                                    <button type="submit" class="btn btn-success" name="nuevoEmpleado">Guardar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="user_update" value="{{ Auth::user()->id }}">
                 </form>
             </div>
         </div>
     </div>
-@stop
+@endsection
+
 
 @section('css')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css">
+    <style>
+        .selected {
+            background-color: #d0e4f1;
+            /* Color de fondo sombreado */
+        }
+    </style>
 @stop
 
 @section('js')
-    <script src="../../../resources/js/employee.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
+    <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script>
+        $(document).ready(function() {
+            // Inicializar DataTable
+            var table = $('#employee-table').DataTable({
+                "paging": false,
+                "searching": false,
+                "ordering": false,
+                "info": false,
+                "lengthChange": false
+            });
+
+            // Búsqueda en tiempo real
+            $('#employee-search').on('keyup', function() {
+                let query = $(this).val();
+
+                if (query.length > 1) {
+                    $.ajax({
+                        url: '{{ route('employees.search') }}',
+                        type: 'GET',
+                        data: {
+                            'query': query
+                        },
+                        success: function(data) {
+                            table.clear();
+                            if (data.length > 0) {
+                                data.forEach(function(result) {
+                                    var rowNode = table.row.add([
+                                        result.id,
+                                        result.name,
+                                        result.dni,
+                                        result.email,
+                                        result.has_user ? '1' : '0'
+                                    ]).draw().node();
+
+                                    if (result.has_user) {
+                                        $(rowNode).addClass('user-exists');
+                                    }
+                                });
+                            } else {
+                                table.row.add([
+                                    'No se encontraron resultados',
+                                    '',
+                                    '',
+                                    '',
+                                ]).draw();
+                            }
+                        }
+                    });
+                } else {
+                    table.clear().draw();
+                }
+            });
+
+            var clickTimeout;
+
+            // Manejar clic en las filas de la tabla
+            $('#employee-table tbody').on('click', 'tr', function() {
+                clearTimeout(clickTimeout);
+                var row = $(this);
+
+                clickTimeout = setTimeout(function() {
+                    // Resaltar la fila con un clic
+                    if (row.hasClass('selected')) {
+                        row.removeClass('selected');
+                    } else {
+                        table.$('tr.selected').removeClass('selected');
+                        row.addClass('selected');
+                    }
+                }, 200); // Un retraso corto para distinguir entre click y dblclick
+            });
+
+            // Manejar doble clic en las filas de la tabla
+            $('#employee-table tbody').on('dblclick', 'tr', function() {
+                clearTimeout(clickTimeout);
+                var row = $(this);
+
+                // Verificar si el empleado ya tiene usuario
+                if (row.hasClass('user-exists')) {
+                    alert('Este empleado ya tiene un usuario y no puede ser seleccionado.');
+                    return; // Prevenir selección si el empleado ya tiene usuario
+                }
+
+                // Resaltar la fila con doble clic y seleccionar
+                if (!row.hasClass('selected')) {
+                    table.$('tr.selected').removeClass('selected');
+                    row.addClass('selected');
+                }
+
+                var data = table.row(this).data();
+                if (data) {
+                    // Asumimos que el formulario tiene campos con los ids 'name' y 'dni'
+                    $('#employee_id').val(data[0]);
+                    $('#name').val(data[1]);
+                    $('#dni').val(data[2]);
+                    $('#email').val(data[3]);
+                    // También puedes añadir aquí el resto de campos del formulario que quieras llenar
+
+                    $('#modal-employeeList').modal('hide'); // Cerrar el modal
+                }
+            });
+        });
+    </script> --}}
+
 @stop

@@ -26,13 +26,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('flight_routes', function (Blueprint $table) {
+        /* Schema::table('flight_routes', function (Blueprint $table) {
             //
             $table->dropForeign(['origin_city_id']);
             $table->dropColumn('origin_city_id');
 
             $table->dropForeign(['destination_city_id']);
             $table->dropColumn('destination_city_id');
-        });
+        }); */
     }
 };

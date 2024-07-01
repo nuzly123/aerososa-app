@@ -22,10 +22,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('aircrafts', function (Blueprint $table) {
+        /* Schema::table('aircrafts', function (Blueprint $table) {
             //
-           /*  $table->dropForeign(['residual_fuel_id']); */
+            //$table->dropForeign(['residual_fuel_id']);
             $table->dropColumn('residual_fuel_id');
-        });
+        }); */
     }
 };
