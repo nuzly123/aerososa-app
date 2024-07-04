@@ -22,5 +22,10 @@ class Employee_Crew extends Model
         return $this->hasMany(Employee_Crew_Type_Rating::class, 'employee_crew_id', 'id');
     }
 
+
+    public function employees()
+    {
+        return $this->belongsTo(Employee::class, 'employee_id');
+    }
     
 }

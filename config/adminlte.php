@@ -324,9 +324,18 @@ return [
         ],
         [
             'text'        => 'Tripulación',
-            'url'         => 'tripulation',
             'icon'        => 'fas fa-fw fa-users',
             'can'         => 'crews.index',
+            'submenu' => [
+                [
+                    'text' => 'Pilotos',
+                    'url'  => 'pilots',
+                ],
+                [
+                    'text' => 'Tripulantes',
+                    'url'  => 'flight-assistants',
+                ],
+            ]
         ],
         [
             'text'        => 'Aeronaves',

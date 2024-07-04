@@ -45,14 +45,14 @@ class RolePermissionSeeder extends Seeder
         Permission::create(['name' => 'air_traffic.filter'])->syncRoles([$adminRole, $userRole]);
         
         //AIRCRAFTS
-        Permission::create(['name' => 'aircrafts.index'])->syncRoles([$adminRole, $managerRole]);
-        Permission::create(['name' => 'aircrafts.create'])->syncRoles([$adminRole]);
-        Permission::create(['name' => 'aircrafts.edit'])->syncRoles([$adminRole]);
-        Permission::create(['name' => 'aircrafts.updateStatus'])->syncRoles([$adminRole]);
-        Permission::create(['name' => 'reports.aircrafts.history'])->syncRoles([$adminRole, $managerRole]); //REPORTS MODULE
+        Permission::create(['name' => 'aircrafts.index'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
+        Permission::create(['name' => 'aircrafts.create'])->syncRoles([$adminRole, $opmanagerRole]);
+        Permission::create(['name' => 'aircrafts.edit'])->syncRoles([$adminRole, $opmanagerRole]);
+        Permission::create(['name' => 'aircrafts.updateStatus'])->syncRoles([$adminRole, $opmanagerRole]);
+        Permission::create(['name' => 'reports.aircrafts.history'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]); //REPORTS MODULE
     
         //CREWS
-        Permission::create(['name' => 'crews.index'])->syncRoles([$adminRole]);
+        Permission::create(['name' => 'crews.index'])->syncRoles([$adminRole, $opmanagerRole]);
         Permission::create(['name' => 'crews.addLicense'])->syncRoles([$adminRole, $opmanagerRole]);
         Permission::create(['name' => 'crews.addTypeRating'])->syncRoles([$adminRole, $opmanagerRole]);
         Permission::create(['name' => 'crews.updateStatus'])->syncRoles([$adminRole, $opmanagerRole]);
@@ -64,6 +64,7 @@ class RolePermissionSeeder extends Seeder
         Permission::create(['name' => 'employees.edit'])->syncRoles([$adminRole, $rrhhrole]);
         Permission::create(['name' => 'employees.profile'])->syncRoles([$adminRole, $rrhhrole]);
         Permission::create(['name' => 'employees.updateStatus'])->syncRoles([$adminRole]);
+        Permission::create(['name' => 'employees.search'])->syncRoles([$adminRole]);
         
         //USERS
         Permission::create(['name' => 'admin.users.index'])->syncRoles([$adminRole]);

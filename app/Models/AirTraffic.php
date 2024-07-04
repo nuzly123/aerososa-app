@@ -10,6 +10,7 @@ class AirTraffic extends Model
     use HasFactory;
 
     protected $fillable = [
+        'reference',
         'flight_date',
         'flight_id',
         'initial_fuel',

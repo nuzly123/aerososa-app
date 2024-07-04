@@ -16,7 +16,9 @@ class FlightController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('can:flights.index');
+        $this->middleware('can:flights.index')->only('index');
+        $this->middleware('can:flights.create')->only('create');
+        $this->middleware('can:flights.edit')->only('edit');
     }
     public function index()
     {
@@ -93,8 +95,6 @@ class FlightController extends Controller
         if ($this->toggleStatus('flights', $id)) {
             return back()->with('success', 'El registro se ha actualizado exitosamente!');
         }
-
-        //dd($result = $this->toggleStatus('department', $id));
     }
 
     public function getFlightRoute($id)
@@ -115,8 +115,8 @@ class FlightController extends Controller
         $route = $originCity . ' - ' . $destinationCity; */
 
         $response = [
-            'departure_time' => $flight->departure,
-            'arrival_time' => $flight->arrival,
+            'departure_time' => Carbon::parse($flight->departure)->format('H:i'),
+            'arrival_time' => Carbon::parse($flight->arrival)->format('H:i'),
             'flight_route' => $flight->flightRoute->route,
             // Agregar más respuestas si es necesario
         ];

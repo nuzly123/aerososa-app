@@ -132,9 +132,9 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-12 mb-3">
-                                                    <label class="form-label">Tripulante(s) <code>*</code></label>
+                                                    <label class="form-label">Tripulante(s)</label>
                                                     <select class="select2 form-control" style="width: 100%;"
-                                                        name="flight_assistant_id[]" multiple required>
+                                                        name="flight_assistant_id[]" multiple>
                                                         <option value="">- Opción -</option>
                                                         @foreach ($crew_members['tripulante_cabina'] as $crew_member)
                                                             <option value="{{ $crew_member->id }}">
@@ -237,13 +237,12 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="col-md-6">
                                         {{-- <div class="fueling section">
                                             <div class="row">
                                                 <div class="col-md-12 mb-3">
-                                                    <h5>Combustible <i class="fas fa-gas-pump"></i></i></h5>
+                                                    <h5>Combustible <i class="fas fa-gas-pump"></i></h5>
                                                     <div class="row">
                                                         <div class="col-md-3 mb-3">
                                                             <label class="form-label">Inicial</label>
@@ -267,12 +266,13 @@
                                                             <input type="number" min="0" class="form-control"
                                                                 name="residual_fuel" id="residual_fuel" readonly
                                                                 value="0">
+                                                            <input type="hidden" name="residual" id="residual">
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6 mb-3">
-                                                            <label class="form-label text-primary">Gaseo autorizado por:
-                                                            </label>
+                                                            <label class="form-label text-primary">Gaseo autorizado
+                                                                por:</label>
                                                             <select class="select2 form-control" style="width: 100%;"
                                                                 name="approved_by" id="approved_by" required>
                                                                 <option value="">- Opción -</option>
@@ -284,8 +284,8 @@
                                                             </select>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <label class="form-label text-primary">Aeropuerto de Gaseo:
-                                                            </label>
+                                                            <label class="form-label text-primary">Aeropuerto de
+                                                                Gaseo:</label>
                                                             <select class="select2 form-control" style="width: 100%;"
                                                                 name="airport_id" id="airport_id" required>
                                                                 <option value="">- Opción -</option>
@@ -327,6 +327,7 @@
                                                             <input type="number" min="0" class="form-control"
                                                                 name="residual_fuel" id="residual_fuel" readonly
                                                                 value="0">
+                                                            <input type="hidden" name="residual" id="residual">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -371,21 +372,20 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="control">
-                                    <div class="row">
-                                        <div class="col-md-9 mt-5" align="right">
-                                            <a href="{{ url('/air_traffic') }}"
-                                                class="btn btn-default btn-lg">Regresar</a>
-                                        </div>
-                                        <div class="col-md-3 mt-5" align="right">
-                                            <button type="submit" class="btn btn-success btn-lg"
-                                                name="nuevoRegistro">Guardar</button>
+                                    <div class="col-md-12 control">
+                                        <div class="row">
+                                            <div class="col-md-11" align="right">
+                                                <a href="{{ url('/air_traffic') }}"
+                                                    class="btn btn-default btn-lg">Regresar</a>
+                                            </div>
+                                            <div class="col-md-1" align="right">
+                                                <button type="submit" class="btn btn-success btn-lg"
+                                                    name="nuevoRegistro">Guardar</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <input type="hidden" name="user_create" value="{{ 1 }}">
@@ -407,7 +407,7 @@
     <script src="//cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
     <script src="../../resources/js/air_traffic.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
             // Select2 Multiple
@@ -505,7 +505,7 @@
         });
     </script>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('#flight_route').change(function() {
                 var flightRoute = $(this).val();
@@ -521,7 +521,10 @@
                             aircraft_id: aircraftId
                         },
                         success: function(response) {
-                            $('#fuel_consumption').val(response.fuel_consumption);
+                            $('#fuel_consumption').val(response
+                                .fuel_consumption) //$('#flight_route').trigger('change');
+                            $('#fuel_consumption').trigger('change');
+
                         },
                         error: function(xhr, status, error) {
                             console.error(error);
@@ -529,8 +532,97 @@
                     });
                 } else {
                     $('#fuel_consumption').val('0');
+                    $('#fuel_consumption').trigger('change');
                 }
             });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Obtener los elementos de los campos de libras y total_lbs
+            var residual = document.getElementById("residual");
+            var refueling = document.getElementById("refueling");
+            var totalInitial = document.getElementById("initial_fuel");
+            var consumption = document.getElementById("fuel_consumption");
+            var new_residual = document.getElementById("residual_fuel");
+
+            var aircraft = document.getElementById("aircraft_id");
+            var flight = document.getElementById("flight_id");
+
+            function calcularInitialFuel() {
+                var residualValue = parseInt(residual.value) || 0;
+                var refuelingValue = parseInt(refueling.value) || 0;
+                var fuel_consumption = parseInt(consumption.value) || 0;
+
+                // Calcular la suma
+                var sumInitial = residualValue + refuelingValue;
+                totalInitial.value = sumInitial;
+
+                var newResidual = sumInitial - fuel_consumption;
+                new_residual.value = newResidual;
+            }
+
+            refueling.addEventListener("change", calcularInitialFuel);
+            consumption.addEventListener("change", calcularInitialFuel);
+        });
+    </script> --}}
+
+    <script>
+        $(document).ready(function() {
+            $('#flight_route').change(function() {
+                var flightRoute = $(this).val();
+                var aircraftId = $('#aircraft_id').val();
+                if (flightRoute !== '' && aircraftId !== '') {
+                    fetchFuelConsumption(flightRoute, aircraftId);
+                } else {
+                    $('#fuel_consumption').val('0');
+                    $('#fuel_consumption').trigger('change');
+                }
+            });
+
+            function fetchFuelConsumption(flightRoute, aircraftId) {
+                $.ajax({
+                    type: 'GET',
+                    url: '{{ route('consumo.combustible') }}',
+                    data: {
+                        flight_route: flightRoute,
+                        aircraft_id: aircraftId
+                    },
+                    success: function(response) {
+                        $('#fuel_consumption').val(response.fuel_consumption);
+                        $('#fuel_consumption').trigger('change');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+            // Function to calculate Initial Fuel and Residual Fuel
+            function calcularInitialFuel() {
+                var residualValue = parseInt($('#residual').val()) || 0;
+                var refuelingValue = parseInt($('#refueling').val()) || 0;
+                var fuelConsumptionValue = parseInt($('#fuel_consumption').val()) || 0;
+                var residual = parseInt($('#residual_fuel').val()) || 0;
+
+                var sumInitial = residualValue + refuelingValue;
+                $('#initial_fuel').val(sumInitial);
+
+                if (sumInitial > fuelConsumptionValue) {
+                    var newResidual = sumInitial - fuelConsumptionValue;
+                    $('#residual_fuel').val(newResidual);
+                } else {
+                    /* alert('El remanente debe ser mayor que el consumo. Por favor, ingrese más combustible.'); */
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'El combustible inicial debe ser mayor que el consumo. Por favor, ingrese gaseo.',
+                    });
+                }
+            }
+
+            // Event listeners for changes in refueling and fuel consumption
+            $('#refueling').on('change', calcularInitialFuel);
+            $('#fuel_consumption').on('change', calcularInitialFuel);
         });
     </script>
 
@@ -547,6 +639,7 @@
                         },
                         success: function(response) {
                             $('#residual_fuel').val(response.residual_fuel);
+                            $('#residual').val(response.residual_fuel)
                             $('#initial_fuel').val(response.residual_fuel);
                             $('#refueling').val('0');
                         },
@@ -560,33 +653,6 @@
             });
         });
     </script>
-
-    {{-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var gaseoInput = document.getElementById('refueling');
-            var approved_bySelect = document.getElementById('approved_by');
-            var airportSelect = document.getElementById('airport_id');
-
-            function toggleSelect() {
-                var gaseoValue = parseInt(gaseoInput.value);
-
-                if (gaseoValue <= 0) {
-                    approved_bySelect.disabled = true;
-                    approved_bySelect.value = '';  // Clear the selection
-                    airportSelect.disabled = true;
-                    airportSelect.value = '';  // Clear the selection
-                } else {
-                    approved_bySelect.disabled = false;
-                    airportSelect.disabled = false;
-                }
-            }
-
-            gaseoInput.addEventListener('input', toggleSelect);
-
-            // Inicializar el estado del select al cargar la página
-            toggleSelect();
-        });
-    </script> --}}
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -618,5 +684,6 @@
         });
     </script>
 
+    <script></script>
 
 @stop

@@ -27,11 +27,11 @@ class AirTrafficController extends Controller
      * Display a listing of the resource.
      */
 
-     public function __construct()
-     {
+    public function __construct()
+    {
         $this->middleware('can:air_traffic.index');
-     }
-     
+    }
+
     public function index()
     {
         //
@@ -42,7 +42,7 @@ class AirTrafficController extends Controller
             0 => "MATRICULA",
             1 => "ON-TIME",
             2 => "DELAYED",
-            3 => "ADELANTADO" 
+            3 => "ADELANTADO"
         ];
 
         $flight_status_classes = [
@@ -95,8 +95,25 @@ class AirTrafficController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->except('refueling', 'approved_by');
 
-        AirTraffic::create($request->except('refueling', 'approved_by'));
+        
+
+        $registration = Aircraft::where('id', $data['aircraft_id'])->value('registration');
+        $flight_code = Flight::where('id', $data['flight_id'])->value('code');
+        $date   = date('Y-m-d H:i:s');
+        
+        
+        //formar codigo de referencia de gaseo MATRICULA, NUMERO VUELO, FECHA VUELO
+        $reference = $registration . ' ' . $flight_code . ' ' . $date;
+        $caracteres = array('-', ':', ' ');
+        $newReference = str_replace($caracteres, '', $reference); //limpia la cadena de los caracteres especiales
+
+        $data['reference'] = $newReference; //guarda la referencia
+        //return dd($data);
+        
+        
+        AirTraffic::create($data);
 
         //$employee_id = Employee::max('id');
         $airTraffic_id = AirTraffic::max('id');
@@ -107,17 +124,9 @@ class AirTrafficController extends Controller
         //datos de otras tablas
         if (isset($request['refueling_amount'])) {
             if ($request['refueling_amount'] > 0) {
-                $registration = Aircraft::where('id', $registro[0]['aircraft_id'])->value('registration');
-                $flight_code = Flight::where('id', $registro[0]['flight_id'])->value('code');
-
-                //formar codigo de referencia de gaseo MATRICULA, NUMERO VUELO, FECHA VUELO
-                $reference = $registration . ' ' . $flight_code . ' ' . $registro[0]['created_at'];
-                $caracteres = array('-', ':', ' ');
-                $newReference = str_replace($caracteres, '', $reference); //limpia la cadena de los caracteres especiales
-
                 //crear registro de gaseo
                 Fueling::create([
-                    'reference' => $newReference, 'fuel_amount' => $request['refueling_amount'],
+                    'fuel_amount' => $request['refueling_amount'],
                     'approved_by' => $request['approved_by'], 'user_create' => $request['user_create'],
                     'user_update' => $request['user_update'], 'aircraft_id' => $request['aircraft_id'],
                     'airport_id' => $request['airport_id'],
@@ -137,9 +146,11 @@ class AirTrafficController extends Controller
         // Obtener los IDs de los tripulantes seleccionados desde el formulario
         $flightAssistants = $request->input('flight_assistant_id');
 
-        // Guardar los registros de los tripulantes en la tabla intermedia
-        foreach ($flightAssistants as $flightAssistantId) {
-            FlightAssistantDetails::create(['flight_assistant_id' => $flightAssistantId, 'air_traffic_id' => $airTraffic_id]);
+        if (isset($flightAssistants)) {
+            // Guardar los registros de los tripulantes en la tabla intermedia
+            foreach ($flightAssistants as $flightAssistantId) {
+                FlightAssistantDetails::create(['flight_assistant_id' => $flightAssistantId, 'air_traffic_id' => $airTraffic_id]);
+            }
         }
 
 
@@ -235,15 +246,15 @@ class AirTrafficController extends Controller
         $airTraffic->update($data);
 
         $flight_assistants = $request->input('flight_assistant_id'); //obtengo los flight_assistants
+        if (isset($flight_assistants)) {
+            DB::table('flight_assistant_details')
+                ->where('air_traffic_id', $airTraffic->id)
+                ->delete();
 
-        DB::table('flight_assistant_details')
-            ->where('air_traffic_id', $airTraffic->id)
-            ->delete();
-
-        foreach ($flight_assistants as $flight_assistant) {
-            FlightAssistantDetails::create(['flight_assistant_id' => $flight_assistant, 'air_traffic_id' => $airTraffic->id]);
+            foreach ($flight_assistants as $flight_assistant) {
+                FlightAssistantDetails::create(['flight_assistant_id' => $flight_assistant, 'air_traffic_id' => $airTraffic->id]);
+            }
         }
-
         return redirect()->route('air_traffic.index')->with('success', 'El registro se ha añadido exitosamente!');
     }
 
@@ -308,7 +319,8 @@ class AirTrafficController extends Controller
         //dd($initialFuel);
     }
 
-    public function Filter(Request $request){
+    public function Filter(Request $request)
+    {
         $date = $request->input('date');
         $data = AirTraffic::whereDate('created_at', $date)->get();
 
@@ -331,5 +343,4 @@ class AirTrafficController extends Controller
         //return dd($date);
         return view('air_traffic.air_traffic', compact('data', 'date', 'flight_status_array', 'flight_status_classes'));
     }
-
 }

@@ -16,7 +16,6 @@ class Fueling extends Model
         'user_update',
         'aircraft_id',
         'airport_id',
-        'reference',
     ];
 
     public function createdBy()

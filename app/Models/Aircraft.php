@@ -12,12 +12,12 @@ class Aircraft extends Model
     public $table = 'aircrafts';
 
     protected $fillable = [
-        'registration', 
+        'registration',
         'aircraft_type_id',
         'residual_fuel_id',
-        'img', 
-        'user_create', 
-        'user_update', 
+        'img',
+        'user_create',
+        'user_update',
         'status'
     ];
 
@@ -39,5 +39,19 @@ class Aircraft extends Model
     public function residual_fuel()
     {
         return $this->belongsTo(ResidualFuel::class, 'residual_fuel_id');
+    }
+
+    public function airTraffic()
+    {
+        return $this->hasMany(AirTraffic::class, 'aircraft_id');
+    }
+
+    /* public function lastFlight()
+    {
+        return $this->airTraffic()->latest('created_at')->first();
+    } */
+    public function lastFlight()
+    {
+        return $this->hasOne(AirTraffic::class, 'aircraft_id')->latestOfMany();
     }
 }

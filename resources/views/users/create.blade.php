@@ -11,7 +11,7 @@
 
 @section('content')
     {{-- formulario usuario --}}
-    <div class="container-fluid">
+    {{-- <div class="container-fluid">
         <div class="col-md-12">
             <div class="card mb-4">
                 <h5 class="card-header">Nuevo Usuario</h5>
@@ -91,7 +91,176 @@
                 </form>
             </div>
         </div>
+    </div> --}}
+    {{-- <div class="container-fluid">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <h5 class="card-header">Nuevo Usuario</h5>
+                <form id="userForm" action="{{ url('/users') }}" method="post">
+                    @csrf
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Empleado</label>
+                                        <div class="input-group">
+                                            <input type="text" id="name" name="name" readonly
+                                                class="form-control" placeholder="Seleccionar Empleado" required>
+                                            <input type="hidden" id="dni" name="dni">
+                                            <div class="input-group-prepend">
+                                                <a href="" type="button" class="btn btn-block btn-default btn-sm"
+                                                    name="searchEmployee" data-toggle="modal"
+                                                    data-target="#modal-employeeList">
+                                                    <i class="fas fa-search pt-2 pr-2 pl-2 text-dark"></i>
+                                                </a>
+                                                @include('users.search_employee')
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label>Correo</label>
+                                        <input type="email" class="form-control" id="email" name="email" required
+                                            readonly>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Nombre de Usuario <code>*</code></label>
+                                            <input type="text" name="username" required class="form-control"
+                                                id="user" placeholder="Usuario">
+                                            <span id="username-error" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Contraseña <code>*</code></label>
+                                            <input type="password" name="password" required class="form-control"
+                                                id="password" placeholder="********">
+                                            <span id="password-error" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Repetir Contraseña <code>*</code></label>
+                                            <input type="password" required class="form-control" name="repetir"
+                                                id="validate_password" placeholder="********">
+                                            <span id="repeat-password-error" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="selectRole" class="form-label">Rol <code>*</code></label>
+                                        <select class="custom-select rounded-2" name="role">
+                                            <option value="0">- Opción -</option>
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="employee_id" name="employee_id">
+                                <input type="hidden" name="user_create" value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="user_update" value="{{ Auth::user()->id }}">
+                                <div class="col-md-12" align="right">
+                                    <button type="submit" class="btn btn-success" name="nuevoEmpleado">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> --}}
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <h5 class="card-header">Nuevo Usuario</h5>
+                <form id="userForm" action="{{ url('/users') }}" method="post">
+                    @csrf
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Empleado</label>
+                                        <div class="input-group">
+                                            <input type="text" id="name" name="name" readonly
+                                                class="form-control" placeholder="Seleccionar Empleado" required>
+                                            <input type="hidden" id="dni" name="dni">
+                                            <div class="input-group-prepend">
+                                                <a href="" type="button" class="btn btn-block btn-default btn-sm"
+                                                    name="searchEmployee" data-toggle="modal"
+                                                    data-target="#modal-employeeList">
+                                                    <i class="fas fa-search pt-2 pr-2 pl-2 text-dark"></i>
+                                                </a>
+                                                @include('users.search_employee')
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label>Correo</label>
+                                        <input type="email" class="form-control" id="email" name="email" required
+                                            readonly>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Nombre de Usuario <code>*</code></label>
+                                            <input type="text" name="username" required class="form-control"
+                                                id="user" placeholder="Usuario">
+                                            <span id="username-error" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Contraseña <code>*</code></label>
+                                            <input type="password" name="password" required class="form-control"
+                                                id="password" placeholder="********">
+                                            <span id="password-error" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Repetir Contraseña <code>*</code></label>
+                                            <input type="password" required class="form-control" name="repetir"
+                                                id="validate_password" placeholder="********">
+                                            <span id="repeat-password-error" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="selectRole" class="form-label">Rol <code>*</code></label>
+                                        <select class="custom-select rounded-2" name="role">
+                                            <option value="0">- Opción -</option>
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="employee_id" name="employee_id">
+                                <input type="hidden" name="user_create" value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="user_update" value="{{ Auth::user()->id }}">
+                                <div class="col-md-12" align="right">
+                                    <button type="submit" class="btn btn-success" name="nuevoEmpleado">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+
 @endsection
 
 
@@ -209,6 +378,70 @@
                     $('#modal-employeeList').modal('hide'); // Cerrar el modal
                 }
             });
+        });
+    </script>
+    
+    <script>
+        $(document).ready(function() {
+            function checkFormValidity() {
+                let isValid = true;
+                if ($('#username-error').text() !== '' || $('#password-error').text() !== '' || $(
+                        '#repeat-password-error').text() !== '') {
+                    isValid = false;
+                }
+                $('button[name="nuevoEmpleado"]').attr('disabled', !isValid);
+            }
+
+            $('#user').on('blur', function() {
+                let username = $(this).val();
+                if (username.length > 0) {
+                    $.ajax({
+                        url: '{{ route('admin.username.check') }}',
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            username: username
+                        },
+                        success: function(response) {
+                            if (response.exists) {
+                                $('#username-error').text(
+                                    'El nombre de usuario ya está en uso.');
+                            } else {
+                                $('#username-error').text('');
+                            }
+                            checkFormValidity();
+                        }
+                    });
+                }
+            });
+
+            $('#password, #validate_password').on('keyup', function() {
+                let password = $('#password').val();
+                let repeatPassword = $('#validate_password').val();
+
+                if (password.length < 8 || !/[!@#$%^&*(),.?":{}|<>]/g.test(password)) {
+                    $('#password-error').text(
+                        'La contraseña debe tener al menos 8 caracteres y un carácter especial.');
+                } else {
+                    $('#password-error').text('');
+                }
+
+                if (password !== repeatPassword) {
+                    $('#repeat-password-error').text('Las contraseñas no coinciden.');
+                } else {
+                    $('#repeat-password-error').text('');
+                }
+                checkFormValidity();
+            });
+
+            $('#userForm').on('submit', function(e) {
+                if ($('#username-error').text() !== '' || $('#password-error').text() !== '' || $(
+                        '#repeat-password-error').text() !== '') {
+                    e.preventDefault();
+                }
+            });
+
+            checkFormValidity();
         });
     </script>
 

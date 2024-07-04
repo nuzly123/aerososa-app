@@ -56,6 +56,7 @@
                     </div>
                     <input type="hidden" name="user_create" value="{{ Auth::user()->id }}">
                     <input type="hidden" name="user_update" value="{{ Auth::user()->id }}">
+                    <input type="text" name="reference">
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

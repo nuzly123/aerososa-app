@@ -25,7 +25,10 @@
                         <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col" class="text-center">Usuario</th>
+                            <th scope="col" class="text-center">Email</th>
                             <th scope="col" class="text-center">Rol</th>
+                            <th scope="col" class="text-center">Creado</th>
+                            <th scope="col" class="text-center">Actualizado</th>
                             <th scope="col" class="text-center">Acciones</th>
                         </tr>
                     </thead>
@@ -34,7 +37,10 @@
                             <tr>
                                 <td>{{ $user->name }}</td>
                                 <td class="text-center">{{ $user->username }}</td>
+                                <td class="text-center">{{ $user->email }}</td>
                                 <td class="text-center">{{ $user->getRoleNames()->first() }}</td>
+                                <td class="text-center">{{ $user->created_at }}</td>
+                                <td class="text-center">{{ $user->updated_at }}</td>
                                 <td class="text-center">
                                     <a href="users/{{ $user->id }}/update-status"
                                         class="btn btn-outline-{{ $user->status ? 'success' : 'danger' }} btn-xs">
@@ -45,10 +51,14 @@
                                         class="btn btn-xs btn-outline-warning tablabutton">
                                         <span class="fas fa-pen"></span>
                                     </a>
-                                    <a href="users/{{ $user->id }}/profile"
+                                    <a href="users/{{ $user->id }}/reset-password"
+                                        class="btn btn-xs btn-outline-secondary tablabutton">
+                                        <span class="fas fa-key"></span>
+                                    </a>
+                                    {{-- <a href="users/{{ $user->id }}/profile"
                                         class="btn btn-xs btn-outline-info tablabutton">
                                         <span class="fas fa-eye"></span>
-                                    </a>
+                                    </a> --}}
                                 </td>
                             </tr>
                         @endforeach

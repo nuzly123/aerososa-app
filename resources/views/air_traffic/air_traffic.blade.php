@@ -158,7 +158,7 @@
 
     <script>
         $('.table-dataTable').dataTable({
-            paging:false;
+            paging:false
         }); 
     </script>
     <script>

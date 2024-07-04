@@ -46,10 +46,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data = request()->except(['_token', '_method', 'role']);
-        User::create($data);
-        /* $user->roles->sync($request->role); */
+        $user = User::create($data);
+        $user->roles()->sync($request->role);
         return redirect()->route('admin.users.index')->with('success', 'El registro se ha añadido exitosamente!');
-        
     }
 
     /**
@@ -66,7 +65,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
-        $roles = Role::all();        
+        $roles = Role::all();
         return view('users.edit', ['user' => $user], compact('roles'));
     }
 
@@ -105,4 +104,10 @@ class UserController extends Controller
         $employee = Employee::with(['createdBy', 'updatedBy', 'departments', 'offices', 'contracts'])->find($id);
         return view('employees.profile', compact('employee'));
     } */
+
+    public function checkUsername(Request $request)
+    {
+        $exists = User::where('username', $request->username)->exists();
+        return response()->json(['exists' => $exists]);
+    }
 }

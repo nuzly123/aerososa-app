@@ -87,7 +87,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -110,12 +110,16 @@
                                     </div>
                                     <p><strong></i> Tripulante de Cabina:</strong>
                                     <div class="row">
-                                        @foreach ($air_traffic->flightAssistants as $assistantDetail)
-                                            <div class="col-md-6">
-                                                <i class="fas fa-user-nurse"></i> {{ $assistantDetail->name }}
-                                                {{ $assistantDetail->last_name }}
-                                            </div>
-                                        @endforeach
+                                        @if (isset($air_traffic->flightAssistants))
+                                            <div class="col-md-12">{{ 'N/A' }}</div>
+                                        @else
+                                            @foreach ($air_traffic->flightAssistants as $assistantDetail)
+                                                <div class="col-md-6">
+                                                    <i class="fas fa-user-nurse"></i> {{ $assistantDetail->name }}
+                                                    {{ $assistantDetail->last_name }}
+                                                </div>
+                                            @endforeach
+                                        @endif
                                     </div>
                                     </p>
                                     <p><strong><i class="fas fa-eye"></i>
@@ -140,9 +144,9 @@
                                             <p><strong>LCE:</strong><br>{{ $air_traffic->trans_lce }}</p>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    {{-- <div class="row">
 
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="report-section">

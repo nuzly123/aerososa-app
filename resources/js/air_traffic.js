@@ -51,25 +51,28 @@ document.addEventListener("DOMContentLoaded", function () {
     transInput.addEventListener("change", calcularTotalLbs);
 });
 
-
-document.addEventListener("DOMContentLoaded", function () {
+/* document.addEventListener("DOMContentLoaded", function () {
     // Obtener los elementos de los campos de libras y total_lbs
-    var residual = document.getElementById("residual_fuel");
+    var residual = document.getElementById("residual");
     var refueling = document.getElementById("refueling");
     var totalInitial = document.getElementById("initial_fuel");
+    var consumption = document.getElementById("fuel_consumption");
+    var new_residual = document.getElementById("residual_fuel");
 
     function calcularInitialFuel() {
-
         var residualValue = parseInt(residual.value) || 0;
         var refuelingValue = parseInt(refueling.value) || 0;
+        var fuel_consumption = parseInt(consumption.value) || 0;
 
         // Calcular la suma
         var sumInitial = residualValue + refuelingValue;
-
-        // Mostrar la suma en el campo total_lbs
         totalInitial.value = sumInitial;
+
+        var newResidual = sumInitial - fuel_consumption;
+        new_residual.value = newResidual;
     }
 
     refueling.addEventListener("change", calcularInitialFuel);
+    consumption.addEventListener("change", calcularInitialFuel);
 });
-
+ */
