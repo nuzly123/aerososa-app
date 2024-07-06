@@ -21,7 +21,7 @@
                         @endif
                     </h6>
                     <h6><i class="fas fa-fw fa-gas-pump"></i><strong> Remanente:
-                        </strong>{{ $aircraft->residual_fuel->residual_fuel_amount }}</h6>
+                        </strong>{{ $aircraft->residual_fuel ? $aircraft->residual_fuel->residual_fuel_amount : ''}}</h6>
                     <h6><i class="fas fa-fw fa-question-circle"></i><strong> Estado:
                         </strong>{{ $aircraft->status ? 'Activo' : 'Inactivo' }}</h6>
                 </div>

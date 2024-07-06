@@ -23,12 +23,8 @@
                                             <h5>Información del Vuelo <i class="fas fa-plane"></i></h5>
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
-
-
                                                     <label for="fecha_actual" class="form-label">Fecha del
                                                         Vuelo <code>*</code></label>
-
-
                                                     <input type="date" class="form-control" name="flight_date"
                                                         id="fecha_actual" value="">
                                                 </div>

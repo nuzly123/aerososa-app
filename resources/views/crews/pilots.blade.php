@@ -77,9 +77,17 @@
                                                     @foreach ($licenses as $license)
                                                         @if ($crew->id == $license->employee_id)
                                                             <i class="fas fa-fw fa-id-badge"></i><strong>Licencia:</strong>
-                                                            {{ $license->license }}
+                                                            {{ $license->license }} <br>
                                                         @endif
                                                     @endforeach
+                                                    @if ($crew->last_activity)
+                                                        <i class="fas fa-fw fa-history"></i><strong>Último Vuelo:</strong>
+                                                        {{ $crew->last_activity->flight_route }} <br>
+                                                        <i class="fas fa-fw fa-calendar-alt"></i><strong>Fecha:</strong>
+                                                        {{ $crew->last_activity->flight_date }}
+                                                    @else
+                                                        Sin actividad de vuelo registrada.
+                                                    @endif
                                                 </p>
                                             </div>
                                         </div>

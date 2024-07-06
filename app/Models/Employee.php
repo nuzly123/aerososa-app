@@ -67,4 +67,10 @@ class Employee extends Model
     {
         return $this->hasMany(FlightAssistantDetails::class);
     }
+
+    public function airTrafic()
+    {
+        return $this->hasMany(AirTrafic::class);
+    }
+    
 }

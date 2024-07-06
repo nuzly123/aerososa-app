@@ -26,6 +26,7 @@ use App\Models\AirTraffic;
 use App\Models\FlightRouteDetail;
 use App\Models\Position;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /* 
@@ -132,6 +133,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/ruta-vuelo/{id}', [FlightController::class, 'getFlightRoute'])->name('ruta.obtener');
     Route::get('/obtener-estado-vuelo/{id}', [FlightController::class, 'getFlightStatus'])->name('estado.obtener');
     Route::get('/calcular-llegada/{departure_time}', [FlightController::class, 'calculateArrivalTime']);
+
+
+    /* REPORTS */
+    Route::get('/cargo-fuel-report', [ReportController::class, 'cargoFuelReport'])->name('reports.cargoFuel'); //pendiente crear permiso
 });
 
 require __DIR__ . '/auth.php';

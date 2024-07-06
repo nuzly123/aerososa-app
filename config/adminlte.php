@@ -346,9 +346,26 @@ return [
         ],
         [
             'text'        => 'Reportes',
-            'url'         => 'reports',
             'icon'        => 'fas fa-fw fa-file-alt',
             'can'         => 'reports.index',
+            'submenu' => [
+                [
+                    'text' => 'Carga y combustible', 
+                    'url'  => 'cargo-fuel-report',
+                ],
+                [
+                    'text' => 'Estado de Vuelo',
+                    'url'  => 'flight-state-report',
+                ],
+                [
+                    'text' => 'Calculo de libras',
+                    'url'  => 'wei',
+                ],
+                [
+                    'text' => 'Tripulaciones',
+                    'url'  => 'crews-report',
+                ],
+            ]
         ],
         [
             'header' => 'RECURSOS HUMANOS',

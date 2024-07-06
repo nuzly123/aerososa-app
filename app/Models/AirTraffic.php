@@ -90,4 +90,10 @@ class AirTraffic extends Model
     {
         return $this->belongsTo(Fueling::class, 'fueling_id');
     }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
+    
 }
