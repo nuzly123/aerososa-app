@@ -22,23 +22,29 @@ class RolePermissionSeeder extends Seeder
         $rrhhrole = Role::create(['name' => 'RRHH']);
         $opmanagerRole = Role::create(['name' => 'Manager de Operaciones']);  */
 
-        $adminRole = 'Admin';
+        /* $adminRole = 'Admin';
         $userRole = 'User';
         $managerRole = 'Manager';
         $rrhhrole = 'RRHH';
-        $opmanagerRole = 'Manager de Operaciones';
+        $opmanagerRole = 'Manager de Operaciones'; */
+
+        $adminRole = Role::findByName('Admin');
+        $userRole = Role::findByName('User');
+        $managerRole = Role::findByName('Manager');
+        $rrhhRole = Role::findByName('RRHH');
+        $opmanagerRole = Role::findByName('Manager de Operaciones');
 
         // Crear Permisos
-       /*  $permissionsAdmin = [
+        /*  $permissionsAdmin = [
             'admin',
         ]; */
-       
+
         /* foreach ($permissions as $permission) {
             Permission::create(['name' => $permission])->assignRole($adminRole);
         } */
 
-        
-        //AIR TRAFFIC
+
+        /*  //AIR TRAFFIC
         Permission::create(['name' => 'air_traffic.index'])->syncRoles([$adminRole, $userRole]);
         Permission::create(['name' => 'air_traffic.create'])->syncRoles([$adminRole, $userRole]);
         Permission::create(['name' => 'air_traffic.edit'])->syncRoles([$adminRole, $userRole]);
@@ -80,10 +86,10 @@ class RolePermissionSeeder extends Seeder
         Permission::create(['name' => 'config.airports.updateStatus'])->syncRoles([$adminRole]);
 
         //CIUDADES
-        Permission::create(['name' => 'config.ciudades.index'])->syncRoles([$adminRole]);
-        Permission::create(['name' => 'config.ciudades.create'])->syncRoles([$adminRole]);
-        Permission::create(['name' => 'config.ciudades.edit'])->syncRoles([$adminRole]);
-        Permission::create(['name' => 'config.ciudades.updateStatus'])->syncRoles([$adminRole]);
+        Permission::create(['name' => 'config.cities.index'])->syncRoles([$adminRole]);
+        Permission::create(['name' => 'config.cities.create'])->syncRoles([$adminRole]);
+        Permission::create(['name' => 'config.cities.edit'])->syncRoles([$adminRole]);
+        Permission::create(['name' => 'config.cities.updateStatus'])->syncRoles([$adminRole]);
 
         //POSITIONS
         Permission::create(['name' => 'config.positions.index'])->syncRoles([$adminRole]);
@@ -147,8 +153,30 @@ class RolePermissionSeeder extends Seeder
 
         //REPORTS
         Permission::create(['name' => 'reports.index'])->syncRoles([$adminRole, $userRole, $managerRole, $rrhhrole, $opmanagerRole]);
-        //aqui van a ir los permisos para los reportes
+        //aqui van a ir los permisos para los reportes */
 
+        /* Permission::create(['name' => 'config.aircraft_types.index'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
+        Permission::create(['name' => 'config.aircraft_types.create'])->syncRoles([$adminRole, $opmanagerRole]);
+        Permission::create(['name' => 'config.aircraft_types.edit'])->syncRoles([$adminRole, $opmanagerRole]);
+        Permission::create(['name' => 'config.aircraft_types.updateStatus'])->syncRoles([$adminRole, $opmanagerRole]); */
+
+        // Definir los permisos a eliminar
+        $permissionsToRemove = [
+            'config.aircraft_types.index',
+            'config.aircraft_types.edit',
+            'config.aircraft_types.updateStatus',
+            'config.aircraft_types.create',
+            // Agrega aquí más permisos según sea necesario
+        ];
+
+        // Eliminar permisos del rol Manager
+        foreach ($permissionsToRemove as $permissionName) {
+            if (Permission::where('name', $permissionName)->exists()) {
+                $permission = Permission::findByName($permissionName);
+                $managerRole->revokePermissionTo($permission);
+                $opmanagerRole->revokePermissionTo($permission);
+            }
+        }
 
 
         // Asignar todos los permisos al rol de admin

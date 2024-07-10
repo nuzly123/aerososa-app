@@ -16,6 +16,7 @@ class Fueling extends Model
         'user_update',
         'aircraft_id',
         'airport_id',
+        'air_traffic_id'
     ];
 
     public function createdBy()
@@ -31,5 +32,10 @@ class Fueling extends Model
     public function approvedBy()
     {
         return $this->belongsTo(Employee::class, 'id');
+    }
+
+    public function airTraffic()
+    {
+        return $this->belongsTo(AirTraffic::class, 'air_traffic_id');
     }
 }

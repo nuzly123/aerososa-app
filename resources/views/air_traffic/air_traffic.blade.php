@@ -20,7 +20,7 @@
                 </button> --}}
                     <div class="row">
                         <div class="col-md-10">
-                            <form id="filter-form" method="POST" action="{{ route('air-traffic.filter') }}">
+                            <form id="filter-form" method="POST" action="{{ route('air_traffic.filter') }}">
                                 @csrf
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -32,8 +32,7 @@
                             </form>
                         </div>
                         <div class="col-md-2">
-                            <a href="{{ url('air_traffic/create') }}"
-                                class="btn btn-sm btn-default">
+                            <a href="{{ url('air_traffic/create') }}" class="btn btn-sm btn-default">
                                 <span class="fas fa-plus"></span>
                             </a>
                         </div>
@@ -81,7 +80,7 @@
                                         {{ $flight_status_array[$air_traffic->flight_status] }}
                                     </span>
                                 </td>
-                                <td class="text-center"><a href="air_traffic/{{ $air_traffic->id }}/edit"
+                                <td class="text-center"><a href="{{ url("air_traffic/{$air_traffic->id}/edit") }}"
                                         class="btn btn-xs btn-outline-warning tablabutton">
                                         <span class="fas fa-pen"></span>
                                     </a>
@@ -158,8 +157,8 @@
 
     <script>
         $('.table-dataTable').dataTable({
-            paging:false
-        }); 
+            paging: false
+        });
     </script>
     <script>
         setTimeout(() => {

@@ -97,13 +97,13 @@ class AirTrafficController extends Controller
     {
         $data = $request->except('refueling', 'approved_by');
 
-        
+
 
         $registration = Aircraft::where('id', $data['aircraft_id'])->value('registration');
         $flight_code = Flight::where('id', $data['flight_id'])->value('code');
         $date   = date('Y-m-d H:i:s');
-        
-        
+
+
         //formar codigo de referencia de gaseo MATRICULA, NUMERO VUELO, FECHA VUELO
         $reference = $registration . ' ' . $flight_code . ' ' . $date;
         $caracteres = array('-', ':', ' ');
@@ -111,8 +111,8 @@ class AirTrafficController extends Controller
 
         $data['reference'] = $newReference; //guarda la referencia
         //return dd($data);
-        
-        
+
+
         AirTraffic::create($data);
 
         //$employee_id = Employee::max('id');
@@ -129,12 +129,12 @@ class AirTrafficController extends Controller
                     'fuel_amount' => $request['refueling_amount'],
                     'approved_by' => $request['approved_by'], 'user_create' => $request['user_create'],
                     'user_update' => $request['user_update'], 'aircraft_id' => $request['aircraft_id'],
-                    'airport_id' => $request['airport_id'],
+                    'airport_id' => $request['airport_id'], 'air_traffic_id' => $airTraffic_id,
                 ]);
 
-                $fueling_id = Fueling::max('id'); //trae el ultimo id registrado
+                /* $fueling_id = Fueling::max('id'); //trae el ultimo id registrado
 
-                AirTraffic::where('id', $airTraffic_id)->update(['fueling_id' => $fueling_id]); //actualiza el campo de la referencia de gaseo en la BD
+                AirTraffic::where('id', $airTraffic_id)->update(['fueling_id' => $fueling_id]); //actualiza el campo de la referencia de gaseo en la BD */
             }
         }
         //ACTUALIZACION DE REMANENTES
@@ -203,12 +203,14 @@ class AirTrafficController extends Controller
         $aircrafts = Aircraft::where('status', 1)->get();
         $flights = Flight::where('status', 1)->get();
         $flight_assistants = FlightAssistantDetails::all();
-
+        $airports = Airport::where('status', 1)->get();
+        $fueling = $airTraffic->fueling->where('air_traffic_id', $airTraffic->id)->first();;
         // Obtener IDs de los empleados para cada posición
         $positions = [
             'capitan' => Position::where('position', "Capitán")->first(),
             'primer_oficial' => Position::where('position', "Primer Oficial")->first(),
-            'tripulante_cabina' => Position::where('position', "Tripulante de Cabina")->first()
+            'tripulante_cabina' => Position::where('position', "Tripulante de Cabina")->first(),
+            'despachador_vuelo' => Position::where('position', "Despachador de Vuelo")->first()
         ];
 
         $crew_members = [];
@@ -232,8 +234,8 @@ class AirTrafficController extends Controller
 
 
 
-        return view('air_traffic.edit', ['air_traffic' => $airTraffic], compact('aircrafts', 'flights', 'crew_members', 'flight_status_array', 'flight_assistants'));
-        //dd($airTraffic);
+        return view('air_traffic.edit', ['air_traffic' => $airTraffic], compact('aircrafts', 'flights', 'crew_members', 'flight_status_array', 'flight_assistants', 'airports', 'fueling'));
+        //dd($fueling);
     }
 
     /**
@@ -255,7 +257,23 @@ class AirTrafficController extends Controller
                 FlightAssistantDetails::create(['flight_assistant_id' => $flight_assistant, 'air_traffic_id' => $airTraffic->id]);
             }
         }
-        return redirect()->route('air_traffic.index')->with('success', 'El registro se ha añadido exitosamente!');
+
+        if (isset($request['refueling_amount'])) {
+            if ($request['refueling_amount'] > 0) {
+                Fueling::updateOrCreate(['id', $airTraffic->fueling->id], [
+                    'fuel_amount' => $request['refueling_amount'],
+                    'approved_by' => $request['approved_by'],
+                    'user_create' => $request['user_create'],
+                    'user_update' => $request['user_update'],
+                    'aircraft_id' => $request['aircraft_id'],
+                    'airport_id' => $request['airport_id'],
+                ]);
+            } else {
+                Fueling::where('air_traffic_id', $airTraffic->id)->delete();
+            }
+        }
+
+        return redirect()->route('air_traffic.index')->with('primary', 'El registro se ha actualizado exitosamente!');
     }
 
     /**
@@ -269,6 +287,7 @@ class AirTrafficController extends Controller
     public function getFuelConsumption(Request $request)
     {
         $aircraftId = $request->aircraft_id;
+        /* return dd($aircraftId); */
         $route = $request->flight_route;
 
         //parametros

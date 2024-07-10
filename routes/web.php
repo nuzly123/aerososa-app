@@ -89,7 +89,7 @@ Route::middleware('auth')->group(function () {
     Route::get('flight_routes/{id}/update-status', [FlightRouteController::class, 'updateStatus'])->middleware('can:config.flight_routes.updateStatus')->name('config.flight_routes.updateStatus');
 
     Route::resource('flight_route_details', FlightRouteDetailController::class)->names('config.flight_route_details');
-    Route::get('flight_route_details/{id}/update-status', [FlightRouteDetailController::class, 'updateStatus'])->middleware('can:config.flight_routes_details.updateStatus')->name('config.flight_route_details.updateStatus');
+    Route::get('flight_route_details/{id}/update-status', [FlightRouteDetailController::class, 'updateStatus'])->middleware('can:config.flight_route_details.updateStatus')->name('config.flight_route_details.updateStatus');
 
     /* ------------------------------------------------------------------------------------ */
     /* RECURSOS HUMANOS */
@@ -124,7 +124,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/consumo-combustible', [AirTrafficController::class, 'getFuelConsumption'])->name('consumo.combustible');
     Route::get('/remanente-combustible', [AirTrafficController::class, 'getResidualFuel'])->name('remanente.combustible');
     Route::get('/refueling-combustible', [AirTrafficController::class, 'getInitialFuel'])->name('refueling.combustible');
-    Route::post('/air-traffic/filter', [AirTrafficController::class, 'filter'])->name('air-traffic.filter');
+    Route::post('/air_traffic/filter', [AirTrafficController::class, 'filter'])->name('air_traffic.filter');
 
     /* ------------------------------------------------------------------------------------ */
 
@@ -136,7 +136,7 @@ Route::middleware('auth')->group(function () {
 
 
     /* REPORTS */
-    Route::get('/cargo-fuel-report', [ReportController::class, 'cargoFuelReport'])->name('reports.cargoFuel'); //pendiente crear permiso
+    Route::get('/daily-report', [ReportController::class, 'dailyReport'])->name('reports.daily'); //pendiente crear permiso
 });
 
 require __DIR__ . '/auth.php';

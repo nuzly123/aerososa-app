@@ -14,7 +14,7 @@ class FlightRouteController extends Controller
 
     public function __construct()
     {
-        $this->middleware('can:flight_routes.index');
+        $this->middleware('can:config.flight_routes.index');
     }
 
     public function index()

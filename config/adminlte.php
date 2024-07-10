@@ -350,8 +350,8 @@ return [
             'can'         => 'reports.index',
             'submenu' => [
                 [
-                    'text' => 'Carga y combustible', 
-                    'url'  => 'cargo-fuel-report',
+                    'text' => 'Reporte diario', 
+                    'url'  => 'daily-report',
                 ],
                 [
                     'text' => 'Estado de Vuelo',

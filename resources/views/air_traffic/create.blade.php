@@ -10,7 +10,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="col-md-12">
-            <div class="card mb-4">
+            <div class="card card-primary mb-4">
                 <h5 class="card-header">Nuevo Registro Tráfico Aéreo</h5>
                 <form action="{{ url('/air_traffic') }}" method="post" enctype="multipart/form-data">
                     @csrf
@@ -19,71 +19,76 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="flight-info section">
-                                            <h5>Información del Vuelo <i class="fas fa-plane"></i></h5>
-                                            <div class="row">
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="fecha_actual" class="form-label">Fecha del
-                                                        Vuelo <code>*</code></label>
-                                                    <input type="date" class="form-control" name="flight_date"
-                                                        id="fecha_actual" value="">
-                                                </div>
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="txtCargo" class="form-label">Aeronave <code>*</code></label>
-                                                    <select class="select2 form-control" style="width: 100%;"
-                                                        name="aircraft_id" id="aircraft_id" required>
-                                                        <option value="">- Opción -</option>
-                                                        @foreach ($aircrafts as $aircraft)
-                                                            <option value="{{ $aircraft->id }}">
-                                                                {{ $aircraft->registration }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="txtCargo" class="form-label">No. Vuelo
-                                                        <code>*</code></label>
-                                                    <select class="select2 form-control" style="width: 100%;"
-                                                        name="flight_id" id="flight_selected" required>
-                                                        <option value="">- Opción -</option>
-                                                        @foreach ($flights as $flight)
-                                                            <option value="{{ $flight->id }}">{{ $flight->code }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6 mb-3">
-                                                    <label class="form-label">Ruta de Vuelo</label>
-                                                    <input type="text" class="form-control" name="flight_route"
-                                                        id="flight_route" readonly>
-                                                </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <div class="row">
-                                                        <div class="col-md-7">
-                                                            <label class="form-label">Salida: <code>*</code></label>
-                                                        </div>
-                                                        <div class="col-md-5">
-                                                            <p class="text-primary" id="departure_time" align="right">
-                                                                00:00</p>
-                                                        </div>
+                                        <div class="card card-success card-outline">{{-- <div class="flight-info section"> --}}
+                                            <div class="card-header">
+                                                <h5>Información del Vuelo <i class="fas fa-plane"></i></h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="fecha_actual" class="form-label">Fecha del
+                                                            Vuelo <code>*</code></label>
+                                                        <input type="date" class="form-control" name="flight_date"
+                                                            id="fecha_actual" value="">
                                                     </div>
-                                                    <input type="time" class="form-control" name="departure"
-                                                        id="departure">
-                                                </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <div class="row">
-                                                        <div class="col-md-2">
-                                                            <label class="form-label">Llegada:</label>
-                                                        </div>
-                                                        <div class="col-md-10">
-                                                            <p class="text-primary" id="arrival_time" align="right">
-                                                                00:00</p>
-                                                        </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="txtCargo" class="form-label">Aeronave
+                                                            <code>*</code></label>
+                                                        <select class="select2 form-control" style="width: 100%;"
+                                                            name="aircraft_id" id="aircraft_id" required>
+                                                            <option value="">- Opción -</option>
+                                                            @foreach ($aircrafts as $aircraft)
+                                                                <option value="{{ $aircraft->id }}">
+                                                                    {{ $aircraft->registration }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
-                                                    <input type="time" class="form-control" name="arrival" id="arrival"
-                                                        readonly>
-                                                </div>
-                                                <div class="col-md-6 mb-3">
-                                                    {{-- <div class="row">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="txtCargo" class="form-label">No. Vuelo
+                                                            <code>*</code></label>
+                                                        <select class="select2 form-control" style="width: 100%;"
+                                                            name="flight_id" id="flight_selected" required>
+                                                            <option value="">- Opción -</option>
+                                                            @foreach ($flights as $flight)
+                                                                <option value="{{ $flight->id }}">{{ $flight->code }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label class="form-label">Ruta de Vuelo</label>
+                                                        <input type="text" class="form-control" name="flight_route"
+                                                            id="flight_route" readonly>
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <div class="row">
+                                                            <div class="col-md-7">
+                                                                <label class="form-label">Salida: <code>*</code></label>
+                                                            </div>
+                                                            <div class="col-md-5">
+                                                                <p class="text-primary" id="departure_time" align="right">
+                                                                    00:00</p>
+                                                            </div>
+                                                        </div>
+                                                        <input type="time" class="form-control" name="departure"
+                                                            id="departure">
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <div class="row">
+                                                            <div class="col-md-2">
+                                                                <label class="form-label">Llegada:</label>
+                                                            </div>
+                                                            <div class="col-md-10">
+                                                                <p class="text-primary" id="arrival_time" align="right">
+                                                                    00:00</p>
+                                                            </div>
+                                                        </div>
+                                                        <input type="time" class="form-control" name="arrival"
+                                                            id="arrival">
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        {{-- <div class="row">
                                                         <div class="col-md-5">
                                                             <label class="form-label">Estado de Vuelo:</label>
                                                         </div>
@@ -91,279 +96,260 @@
                                                             <input type="text" class="form-control is-warning" id="inputWarning" placeholder="Enter ...">
                                                         </div>
                                                     </div>      --}}
-                                                    <label class="form-label mb-3">Estado de Vuelo</label>
-                                                    <input type="text" class="form-control" id="flight_status" readonly
-                                                        placeholder="-">
-                                                    <input type="hidden" name="flight_status" id="flight_status_index">
+                                                        <label class="form-label mb-3">Estado de Vuelo</label>
+                                                        <input type="text" class="form-control" id="flight_status"
+                                                            readonly placeholder="-">
+                                                        <input type="hidden" name="flight_status" id="flight_status_index">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+
+                                        </div>{{-- </div> --}}
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="crew-info section">
-                                            <h5>Tripulación <i class="fas fa-users"></i></h5>
-                                            <div class="row">
-                                                <div class="col-md-6 mb-3">
-                                                    <label class="form-label">Capitán <code>*</code></label>
-                                                    <select class="select2 form-control" style="width: 100%;"
-                                                        name="captain_id" required>
-                                                        <option value="">- Opción -</option>
-                                                        @foreach ($crew_members['capitan'] as $crew_member)
-                                                            <option value="{{ $crew_member->id }}">
-                                                                {{ $crew_member->name . ' ' . $crew_member->last_name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6 mb-3">
-                                                    <label class="form-label">Primer Oficial <code>*</code></label>
-                                                    <select class="select2 form-control" style="width: 100%;"
-                                                        name="first_official_id" required>
-                                                        <option value="">- Opción -</option>
-                                                        @foreach ($crew_members['primer_oficial'] as $crew_member)
-                                                            <option value="{{ $crew_member->id }}">
-                                                                {{ $crew_member->name . ' ' . $crew_member->last_name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-12 mb-3">
-                                                    <label class="form-label">Tripulante(s)</label>
-                                                    <select class="select2 form-control" style="width: 100%;"
-                                                        name="flight_assistant_id[]" multiple>
-                                                        <option value="">- Opción -</option>
-                                                        @foreach ($crew_members['tripulante_cabina'] as $crew_member)
-                                                            <option value="{{ $crew_member->id }}">
-                                                                {{ $crew_member->name . ' ' . $crew_member->last_name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-12 mb-3">
-                                                    <label class="form-label">Observador</label>
-                                                    <textarea class="form-control" name="obsservant" id="obsservant" cols="30" rows="2"></textarea>
-                                                    {{-- <input type="text" class="form-control" name="obsservant"
+                                        <div class="card card-success card-outline">
+                                            <div class="card-header">
+                                                <h5>Tripulación <i class="fas fa-users"></i></h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label class="form-label">Capitán <code>*</code></label>
+                                                        <select class="select2 form-control" style="width: 100%;"
+                                                            name="captain_id" required>
+                                                            <option value="">- Opción -</option>
+                                                            @foreach ($crew_members['capitan'] as $crew_member)
+                                                                <option value="{{ $crew_member->id }}">
+                                                                    {{ $crew_member->name . ' ' . $crew_member->last_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label class="form-label">Primer Oficial <code>*</code></label>
+                                                        <select class="select2 form-control" style="width: 100%;"
+                                                            name="first_official_id" required>
+                                                            <option value="">- Opción -</option>
+                                                            @foreach ($crew_members['primer_oficial'] as $crew_member)
+                                                                <option value="{{ $crew_member->id }}">
+                                                                    {{ $crew_member->name . ' ' . $crew_member->last_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-12 mb-3">
+                                                        <label class="form-label">Tripulante(s)</label>
+                                                        <select class="select2 form-control" style="width: 100%;"
+                                                            name="flight_assistant_id[]" multiple>
+                                                            <option value="">- Opción -</option>
+                                                            @foreach ($crew_members['tripulante_cabina'] as $crew_member)
+                                                                <option value="{{ $crew_member->id }}">
+                                                                    {{ $crew_member->name . ' ' . $crew_member->last_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-12 mb-3">
+                                                        <label class="form-label">Observador</label>
+                                                        <textarea class="form-control" name="obsservant" id="obsservant" cols="30" rows="2"></textarea>
+                                                        {{-- <input type="text" class="form-control" name="obsservant"
                                                         id="obsservant"> --}}
+                                                    </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <div class="passenger-info section">
-                                            <h5>Pasajeros <i class="fas fa-user-friends"></i></h5>
-                                            <div class="row">
-                                                <div class="col-md-3 mb-3">
-                                                    <label class="form-label">PAX</label>
-                                                    <input type="number" min="0" class="form-control text-center"
-                                                        name="px" id="px" value="0">
-                                                </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <label class="form-label">DH</label>
-                                                    <input type="number" min="0" class="form-control text-center"
-                                                        name="dh" id="dh" value="0">
-                                                </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <label class="form-label">INFANTES</label>
-                                                    <input type="number" min="0" class="form-control text-center"
-                                                        name="inf" id="inf" value="0">
-                                                </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <label class="form-label">TOTAL</label>
-                                                    <input type="number" min="0" class="form-control text-center"
-                                                        name="total_passengers" id="total" readonly value="0">
-                                                </div>
+                                        <div class="card card-primary card-outline">
+                                            <div class="card-header">
+                                                <h5>Pasajeros <i class="fas fa-user-friends"></i></h5>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="lbs-calculation section">
-                                            <h5>Cálculo de Libras <i class="fas fa-weight"></i></h5>
-                                            <div class="row">
-                                                <div class="col-md-3 mb-3">
-                                                    <label class="form-label">PAX</label>
-                                                    <input type="number" min="0" class="form-control text-center"
-                                                        name="px_lbs" id="px_lbs" value="0">
-                                                </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <label class="form-label">CARGA</label>
-                                                    <input type="number" min="0" class="form-control text-center"
-                                                        name="freight" id="freight" value="0">
-                                                </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <label class="form-label">TRANSITO</label>
-                                                    <input type="number" min="0" class="form-control text-center"
-                                                        name="trans_weight" id="trans_weight" value="0">
-                                                </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <label class="form-label">TOTAL</label>
-                                                    <input type="number" min="0" class="form-control text-center"
-                                                        name="total_lbs" id="total_lbs" readonly value="0">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-3 mb-3">
+                                                        <label class="form-label">PAX</label>
+                                                        <input type="number" min="0"
+                                                            class="form-control text-center" name="px"
+                                                            id="px" value="0">
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label class="form-label">DH</label>
+                                                        <input type="number" min="0"
+                                                            class="form-control text-center" name="dh"
+                                                            id="dh" value="0">
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label class="form-label">INFANTES</label>
+                                                        <input type="number" min="0"
+                                                            class="form-control text-center" name="inf"
+                                                            id="inf" value="0">
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label class="form-label">TOTAL</label>
+                                                        <input type="number" min="0"
+                                                            class="form-control text-center" name="total_passengers"
+                                                            id="total" readonly value="0">
+                                                    </div>
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="transits section">
-                                            <h5>Tránsitos <i class="fas fa-plane-arrival"></i></h5>
-                                            <div class="row">
-                                                <div class="col-md-3 mb-3">
-                                                    <label class="form-label">TGU</label>
-                                                    <input type="number" min="0" class="form-control text-center"
-                                                        name="trans_tgu" id="trans_tgu" value="0">
-                                                </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <label class="form-label">SAP</label>
-                                                    <input type="number" min="0" class="form-control text-center"
-                                                        name="trans_sap" id="trans_sap" value="0">
-                                                </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <label class="form-label">RTB</label>
-                                                    <input type="number" min="0" class="form-control text-center"
-                                                        name="trans_rtb" id="trans_rtb" value="0">
-                                                </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <label class="form-label">LCE</label>
-                                                    <input type="number" min="0" class="form-control text-center"
-                                                        name="trans_lce" id="trans_lce" value="0">
+                                        <div class="card card-primary card-outline">
+                                            <div class="card-header">
+                                                <h5>Cálculo de Libras <i class="fas fa-weight"></i></h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-3 mb-3">
+                                                        <label class="form-label">PAX</label>
+                                                        <input type="number" min="0"
+                                                            class="form-control text-center" name="px_lbs"
+                                                            id="px_lbs" value="0">
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label class="form-label">CARGA</label>
+                                                        <input type="number" min="0"
+                                                            class="form-control text-center" name="freight"
+                                                            id="freight" value="0">
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label class="form-label">TRANSITO</label>
+                                                        <input type="number" min="0"
+                                                            class="form-control text-center" name="trans_weight"
+                                                            id="trans_weight" value="0">
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label class="form-label">TOTAL</label>
+                                                        <input type="number" min="0"
+                                                            class="form-control text-center" name="total_lbs"
+                                                            id="total_lbs" readonly value="0">
+                                                    </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card card-primary card-outline">
+                                            <div class="card-header">
+                                                <h5>Tránsitos <i class="fas fa-plane-arrival"></i></h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-3 mb-3">
+                                                        <label class="form-label">TGU</label>
+                                                        <input type="number" min="0"
+                                                            class="form-control text-center" name="trans_tgu"
+                                                            id="trans_tgu" value="0">
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label class="form-label">SAP</label>
+                                                        <input type="number" min="0"
+                                                            class="form-control text-center" name="trans_sap"
+                                                            id="trans_sap" value="0">
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label class="form-label">RTB</label>
+                                                        <input type="number" min="0"
+                                                            class="form-control text-center" name="trans_rtb"
+                                                            id="trans_rtb" value="0">
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label class="form-label">LCE</label>
+                                                        <input type="number" min="0"
+                                                            class="form-control text-center" name="trans_lce"
+                                                            id="trans_lce" value="0">
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        {{-- <div class="fueling section">
+                                        <div class="card card-secondary card-outline">
                                             <div class="row">
                                                 <div class="col-md-12 mb-3">
-                                                    <h5>Combustible <i class="fas fa-gas-pump"></i></h5>
-                                                    <div class="row">
-                                                        <div class="col-md-3 mb-3">
-                                                            <label class="form-label">Inicial</label>
-                                                            <input type="number" min="0" class="form-control"
-                                                                name="initial_fuel" id="initial_fuel" value="0"
-                                                                readonly>
+                                                    <div class="card-header">
+                                                        <h5>Combustible <i class="fas fa-gas-pump"></i></h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-3 mb-3">
+                                                                <label class="form-label">Inicial</label>
+                                                                <input type="number" min="0" class="form-control"
+                                                                    name="initial_fuel" id="initial_fuel" value="0"
+                                                                    readonly>
+                                                            </div>
+                                                            <div class="col-md-3 mb-3">
+                                                                <label class="form-label">Gaseo</label>
+                                                                <input type="number" min="0" class="form-control"
+                                                                    name="refueling_amount" id="refueling"
+                                                                    value="0">
+                                                            </div>
+                                                            <div class="col-md-3 mb-3">
+                                                                <label class="form-label">Consumo</label>
+                                                                <input type="number" min="0" class="form-control"
+                                                                    name="fuel_consumption" id="fuel_consumption"
+                                                                    value="0" readonly>
+                                                            </div>
+                                                            <div class="col-md-3 mb-3">
+                                                                <label class="form-label">Remanente</label>
+                                                                <input type="number" min="0" class="form-control"
+                                                                    name="residual_fuel" id="residual_fuel" readonly
+                                                                    value="0">
+                                                                <input type="hidden" name="residual" id="residual">
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-3 mb-3">
-                                                            <label class="form-label">Gaseo</label>
-                                                            <input type="number" min="0" class="form-control"
-                                                                name="refueling_amount" id="refueling" value="0">
-                                                        </div>
-                                                        <div class="col-md-3 mb-3">
-                                                            <label class="form-label">Consumo</label>
-                                                            <input type="number" min="0" class="form-control"
-                                                                name="fuel_consumption" id="fuel_consumption"
-                                                                value="0" readonly>
-                                                        </div>
-                                                        <div class="col-md-3 mb-3">
-                                                            <label class="form-label">Remanente</label>
-                                                            <input type="number" min="0" class="form-control"
-                                                                name="residual_fuel" id="residual_fuel" readonly
-                                                                value="0">
-                                                            <input type="hidden" name="residual" id="residual">
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label text-primary">Gaseo autorizado
+                                                                    por:</label>
+                                                                <select class="select2 form-control" style="width: 100%;"
+                                                                    name="approved_by" id="approved_by" required>
+                                                                    <option value="">- Opción -</option>
+                                                                    @foreach ($crew_members['despachador_vuelo'] as $crew_member)
+                                                                        <option value="{{ $crew_member->id }}">
+                                                                            {{ $crew_member->name . ' ' . $crew_member->last_name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label text-primary">Aeropuerto de
+                                                                    Gaseo:</label>
+                                                                <select class="select2 form-control" style="width: 100%;"
+                                                                    name="airport_id" id="airport_id" required>
+                                                                    <option value="">- Opción -</option>
+                                                                    @foreach ($airports as $airport)
+                                                                        <option value="{{ $airport->id }}">
+                                                                            {{ $airport->code }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6 mb-3">
-                                                            <label class="form-label text-primary">Gaseo autorizado
-                                                                por:</label>
-                                                            <select class="select2 form-control" style="width: 100%;"
-                                                                name="approved_by" id="approved_by" required>
-                                                                <option value="">- Opción -</option>
-                                                                @foreach ($crew_members['despachador_vuelo'] as $crew_member)
-                                                                    <option value="{{ $crew_member->id }}">
-                                                                        {{ $crew_member->name . ' ' . $crew_member->last_name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label text-primary">Aeropuerto de
-                                                                Gaseo:</label>
-                                                            <select class="select2 form-control" style="width: 100%;"
-                                                                name="airport_id" id="airport_id" required>
-                                                                <option value="">- Opción -</option>
-                                                                @foreach ($airports as $airport)
-                                                                    <option value="{{ $airport->id }}">
-                                                                        {{ $airport->code }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> --}}
-                                        <div class="fueling section">
-                                            <div class="row">
-                                                <div class="col-md-12 mb-3">
-                                                    <h5>Combustible <i class="fas fa-gas-pump"></i></h5>
-                                                    <div class="row">
-                                                        <div class="col-md-3 mb-3">
-                                                            <label class="form-label">Inicial</label>
-                                                            <input type="number" min="0" class="form-control"
-                                                                name="initial_fuel" id="initial_fuel" value="0"
-                                                                readonly>
-                                                        </div>
-                                                        <div class="col-md-3 mb-3">
-                                                            <label class="form-label">Gaseo</label>
-                                                            <input type="number" min="0" class="form-control"
-                                                                name="refueling_amount" id="refueling" value="0">
-                                                        </div>
-                                                        <div class="col-md-3 mb-3">
-                                                            <label class="form-label">Consumo</label>
-                                                            <input type="number" min="0" class="form-control"
-                                                                name="fuel_consumption" id="fuel_consumption"
-                                                                value="0" readonly>
-                                                        </div>
-                                                        <div class="col-md-3 mb-3">
-                                                            <label class="form-label">Remanente</label>
-                                                            <input type="number" min="0" class="form-control"
-                                                                name="residual_fuel" id="residual_fuel" readonly
-                                                                value="0">
-                                                            <input type="hidden" name="residual" id="residual">
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6 mb-3">
-                                                            <label class="form-label text-primary">Gaseo autorizado
-                                                                por:</label>
-                                                            <select class="select2 form-control" style="width: 100%;"
-                                                                name="approved_by" id="approved_by" required>
-                                                                <option value="">- Opción -</option>
-                                                                @foreach ($crew_members['despachador_vuelo'] as $crew_member)
-                                                                    <option value="{{ $crew_member->id }}">
-                                                                        {{ $crew_member->name . ' ' . $crew_member->last_name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label text-primary">Aeropuerto de
-                                                                Gaseo:</label>
-                                                            <select class="select2 form-control" style="width: 100%;"
-                                                                name="airport_id" id="airport_id" required>
-                                                                <option value="">- Opción -</option>
-                                                                @foreach ($airports as $airport)
-                                                                    <option value="{{ $airport->id }}">
-                                                                        {{ $airport->code }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="remarks section mb-5">
+                                        <div class="card card-secondary card-outline">
                                             <div class="row">
                                                 <div class="col-md-12 mb-3">
-                                                    <label class="form-label">Observaciones</label>
-                                                    <textarea name="remark" id="remark" cols="10" rows="6" class="form-control"></textarea>
+                                                    <div class="card-header">
+                                                        <h5>Comentarios <i class="fas fa-comment-dots"></i></h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <textarea name="remark" id="remark" cols="10" rows="6" class="form-control"></textarea>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -384,8 +370,8 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="user_create" value="{{ 1 }}">
-                    <input type="hidden" name="user_update" value="{{ 1 }}">
+                    <input type="hidden" name="user_create" value="{{ Auth::user()->id }}">
+                    <input type="hidden" name="user_update" value="{{ Auth::user()->id }}">
                     <input type="hidden" name="flight_time">
                 </form>
             </div>
@@ -395,7 +381,7 @@
 
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../../resources/css/air_traffic.css">
+    {{-- <link rel="stylesheet" href="../../resources/css/air_traffic.css"> --}}
 @stop
 
 @section('js')
@@ -465,6 +451,7 @@
         $(document).ready(function() {
             $('#departure').change(function() {
                 var flightId = $('#flight_selected').val(); // Obtener el ID del vuelo seleccionado
+                var aircraft_id = $('#aircraft_id').val();
                 var realDepartureTime = $(this)
                     .val(); // Obtener la hora real de salida del vuelo desde el input
 
@@ -473,7 +460,8 @@
                         url: '{{ route('estado.obtener', ':id') }}'.replace(':id', flightId),
                         type: 'GET',
                         data: {
-                            real_departure_time: realDepartureTime // Enviar la hora real de salida del vuelo al backend
+                            real_departure_time: realDepartureTime, // Enviar la hora real de salida del vuelo al backend
+                            aircraft_id: aircraft_id
                         },
                         success: function(response) {
                             /* var indiceVuelo = response[0];
@@ -500,68 +488,7 @@
             });
         });
     </script>
-
-    {{-- <script>
-        $(document).ready(function() {
-            $('#flight_route').change(function() {
-                var flightRoute = $(this).val();
-                var aircraftId = $('#aircraft_id').val();
-                /*console.log(flightRoute);
-                console.log(aircraftId); */
-                if (flightRoute !== '' && aircraftId !== '') {
-                    $.ajax({
-                        type: 'GET',
-                        url: '{{ route('consumo.combustible') }}',
-                        data: {
-                            flight_route: flightRoute,
-                            aircraft_id: aircraftId
-                        },
-                        success: function(response) {
-                            $('#fuel_consumption').val(response
-                                .fuel_consumption) //$('#flight_route').trigger('change');
-                            $('#fuel_consumption').trigger('change');
-
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(error);
-                        }
-                    });
-                } else {
-                    $('#fuel_consumption').val('0');
-                    $('#fuel_consumption').trigger('change');
-                }
-            });
-        });
-
-        document.addEventListener("DOMContentLoaded", function() {
-            // Obtener los elementos de los campos de libras y total_lbs
-            var residual = document.getElementById("residual");
-            var refueling = document.getElementById("refueling");
-            var totalInitial = document.getElementById("initial_fuel");
-            var consumption = document.getElementById("fuel_consumption");
-            var new_residual = document.getElementById("residual_fuel");
-
-            var aircraft = document.getElementById("aircraft_id");
-            var flight = document.getElementById("flight_id");
-
-            function calcularInitialFuel() {
-                var residualValue = parseInt(residual.value) || 0;
-                var refuelingValue = parseInt(refueling.value) || 0;
-                var fuel_consumption = parseInt(consumption.value) || 0;
-
-                // Calcular la suma
-                var sumInitial = residualValue + refuelingValue;
-                totalInitial.value = sumInitial;
-
-                var newResidual = sumInitial - fuel_consumption;
-                new_residual.value = newResidual;
-            }
-
-            refueling.addEventListener("change", calcularInitialFuel);
-            consumption.addEventListener("change", calcularInitialFuel);
-        });
-    </script> --}}
-
+    
     <script>
         $(document).ready(function() {
             $('#flight_route').change(function() {
@@ -679,7 +606,5 @@
             toggleSelect();
         });
     </script>
-
-    <script></script>
 
 @stop

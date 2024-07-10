@@ -15,7 +15,7 @@ class AirportController extends Controller
 
     public function __construct()
     {
-        $this->middleware('can:config.aiports.index');
+        $this->middleware('can:config.airports.index');
     }
 
     public function index()

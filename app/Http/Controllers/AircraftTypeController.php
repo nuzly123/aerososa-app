@@ -15,7 +15,7 @@ class AircraftTypeController extends Controller
 
      public function __construct()
     {
-        $this->middleware('can:aircrafts_types.index');
+        $this->middleware('can:config.aircraft_types.index');
     }
 
     public function index()

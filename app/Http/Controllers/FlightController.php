@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aircraft;
 use App\Models\Flight;
 use App\Models\City;
 use App\Models\FlightRoute;
+use App\Models\FlightRouteDetail;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -16,9 +18,9 @@ class FlightController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('can:flights.index')->only('index');
-        $this->middleware('can:flights.create')->only('create');
-        $this->middleware('can:flights.edit')->only('edit');
+        $this->middleware('can:config.flights.index')->only('index');
+        $this->middleware('can:config.flights.create')->only('create');
+        $this->middleware('can:config.flights.edit')->only('edit');
     }
     public function index()
     {
@@ -131,11 +133,12 @@ class FlightController extends Controller
         $flight = Flight::findOrFail($id);
         $scheduledTime = $flight->departure;
         $realTime = $request->input('real_departure_time'); // Obtener la hora real de salida del vuelo desde la solicitud
+        $aircraft_id = $request->input('aircraft_id');
         $result = $this->determineFlightStatus($scheduledTime, $realTime);
         $response = [
             'index' => $result[0],
             'status' => $result[1],
-            'arrival' => $this->calculateArrivalTime($id, $realTime)
+            'arrival' => $this->calculateArrivalTime($id, $aircraft_id, $realTime),
         ];
         return response()->json($response);
         //dd($response);
@@ -167,10 +170,25 @@ class FlightController extends Controller
         }
     }
 
-    function calculateArrivalTime($id, $realTime)
+    /* function calculateArrivalTime($id, $realTime)
     {
         $flight = Flight::findOrFail($id);
         $flight_time = Carbon::parse($flight->flight_time);
+
+        $departureTime = Carbon::parse($realTime);
+        $arrivalTime = $departureTime->copy()->addHours($flight_time->hour)->addMinutes($flight_time->minute);
+
+        return $arrivalTime->format('H:i:s');
+    } */
+
+    function calculateArrivalTime($id, $aircraft_id, $realTime)
+    {
+        $flight = Flight::findOrFail($id);
+        $route_id = $flight->flightRoute->id;
+        $aircraft = Aircraft::findOrFail($aircraft_id);
+
+        $flight_time = Carbon::parse(FlightRouteDetail::where('route_id', $route_id)->where('aircraft_type_id', $aircraft->types->id)->value('time'));
+        /* Carbon::parse($flight->flight_time); */
 
         $departureTime = Carbon::parse($realTime);
         $arrivalTime = $departureTime->copy()->addHours($flight_time->hour)->addMinutes($flight_time->minute);

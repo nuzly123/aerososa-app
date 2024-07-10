@@ -39,6 +39,7 @@ class AirTraffic extends Model
         'remark',
         'user_create',
         'user_update',
+        'fueling_id',
     ];
 
     /* public function flight_assistant()
@@ -86,14 +87,19 @@ class AirTraffic extends Model
         return $this->belongsToMany(Employee::class, 'flight_assistant_details', 'air_traffic_id', 'flight_assistant_id');
     }
 
-    public function fueling()
+    /* public function fueling()
     {
         return $this->belongsTo(Fueling::class, 'fueling_id');
-    }
+    } */
 
     public function employee()
     {
         return $this->belongsTo(Employee::class);
     }
     
+    public function fueling()
+    {
+        return $this->hasMany(Fueling::class);
+    }
+
 }
