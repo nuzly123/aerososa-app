@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\CrewController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DatosController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
@@ -46,9 +47,13 @@ use Illuminate\Support\Facades\Route;
 }); */
 
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard'); */
+
+Route::get('/', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -109,7 +114,7 @@ Route::middleware('auth')->group(function () {
     /* AIRCRAFTS */
     Route::resource('aircrafts', AircraftController::class);
     Route::get('aircrafts/{id}/update-status', [AircraftController::class, 'updateStatus'])->middleware('can:aircrafts.updateStatus')->name('aircrafts.updateStatus');
-    
+
 
     /* ------------------------------------------------------------------------------------ */
     /* CREWS */

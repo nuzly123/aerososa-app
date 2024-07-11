@@ -39,7 +39,6 @@ class AirTraffic extends Model
         'remark',
         'user_create',
         'user_update',
-        'fueling_id',
     ];
 
     /* public function flight_assistant()
