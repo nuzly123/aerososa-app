@@ -110,15 +110,15 @@
                                     </div>
                                     <p><strong></i> Tripulante de Cabina:</strong>
                                     <div class="row">
-                                        @if (isset($air_traffic->flightAssistants))
-                                            <div class="col-md-12">{{ 'N/A' }}</div>
-                                        @else
+                                        @if ($air_traffic->flightAssistants && !$air_traffic->flightAssistants->isEmpty())
                                             @foreach ($air_traffic->flightAssistants as $assistantDetail)
                                                 <div class="col-md-6">
-                                                    <i class="fas fa-user-nurse"></i> {{ $assistantDetail->name }}
-                                                    {{ $assistantDetail->last_name }}
+                                                    <i class="fas fa-user-nurse"></i>
+                                                    {{ $assistantDetail->name . ' ' . $assistantDetail->last_name }}
                                                 </div>
                                             @endforeach
+                                        @else
+                                            <div class="col-md-12">{{ 'N/A' }}</div>
                                         @endif
                                     </div>
                                     </p>

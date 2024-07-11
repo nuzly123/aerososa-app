@@ -8,7 +8,7 @@
 @stop
 
 @section('content')
-    <div class="card card-solid">
+    <div class="card card-solid card-success card-outline">
         <div class="card-header">
             <h3 class="card-title">Grid de Pilotos</h3>
         </div>

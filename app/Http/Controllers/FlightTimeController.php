@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FlightHours;
+use App\Models\FlightTime;
 use Illuminate\Http\Request;
 
 class FlightTimesController extends Controller
@@ -34,7 +34,7 @@ class FlightTimesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(FlightHours $flightHours)
+    public function show(FlightTime $flightTime)
     {
         //
     }
@@ -42,7 +42,7 @@ class FlightTimesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(FlightHours $flightHours)
+    public function edit(FlightTime $flightTime)
     {
         //
     }
@@ -50,7 +50,7 @@ class FlightTimesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, FlightHours $flightHours)
+    public function update(Request $request, FlightTime $flightTime)
     {
         //
     }
@@ -58,7 +58,7 @@ class FlightTimesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FlightHours $flightHours)
+    public function destroy(FlightTime $flightTime)
     {
         //
     }

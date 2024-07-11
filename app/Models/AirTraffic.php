@@ -102,4 +102,8 @@ class AirTraffic extends Model
         return $this->hasMany(Fueling::class);
     }
 
+    public function route(){
+        return $this->belongsTo(FlightRoute::class, 'flight_route');
+    }
+
 }

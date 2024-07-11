@@ -11,6 +11,7 @@ use App\Http\Controllers\CrewController;
 use App\Http\Controllers\DatosController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\FlightRouteController;
 use App\Http\Controllers\FlightRouteDetailController;
@@ -134,9 +135,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/obtener-estado-vuelo/{id}', [FlightController::class, 'getFlightStatus'])->name('estado.obtener');
     Route::get('/calcular-llegada/{departure_time}', [FlightController::class, 'calculateArrivalTime']);
 
+    /* ----------------------------------------------------------------------------------- */
 
     /* REPORTS */
     Route::get('/daily-report', [ReportController::class, 'dailyReport'])->name('reports.daily'); //pendiente crear permiso
+
+    /* --------------------------------------------------------------------------------------- */
+
+    /* EXPORTS */
+    Route::get('/export-air-traffic', [ExportController::class, 'export'])->name('export.daily');
 });
 
 require __DIR__ . '/auth.php';

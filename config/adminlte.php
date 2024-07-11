@@ -350,20 +350,8 @@ return [
             'can'         => 'reports.index',
             'submenu' => [
                 [
-                    'text' => 'Reporte diario', 
+                    'text' => 'Lista de Reportes', 
                     'url'  => 'daily-report',
-                ],
-                [
-                    'text' => 'Estado de Vuelo',
-                    'url'  => 'flight-state-report',
-                ],
-                [
-                    'text' => 'Calculo de libras',
-                    'url'  => 'wei',
-                ],
-                [
-                    'text' => 'Tripulaciones',
-                    'url'  => 'crews-report',
                 ],
             ]
         ],

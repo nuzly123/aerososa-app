@@ -204,7 +204,7 @@ class AirTrafficController extends Controller
         $flights = Flight::where('status', 1)->get();
         $flight_assistants = FlightAssistantDetails::all();
         $airports = Airport::where('status', 1)->get();
-        $fueling = $airTraffic->fueling->where('air_traffic_id', $airTraffic->id)->first();;
+        $fueling = $airTraffic->fueling->where('air_traffic_id', $airTraffic->id)->first();
         // Obtener IDs de los empleados para cada posición
         $positions = [
             'capitan' => Position::where('position', "Capitán")->first(),

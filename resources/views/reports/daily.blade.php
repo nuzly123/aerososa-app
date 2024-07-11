@@ -7,153 +7,383 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <div class="card card-primary {{-- card-outline --}}">
+            <div class="col-md-6">
+                {{-- MONITOREO --}}
+                <h5 class="mt-4 mb-2">Módulo de Monitoreo</h5>
+                {{-- REPORTE DE TRAFICO AEREO --}}
+                <div class="card card-primary collapsed-card shadow">
                     <div class="card-header">
                         <h2 class="card-title">
-                            <i class="fas fa-filter"></i>
-                            Filtros
+                            <i class="fas fa-fw fa-file-alt"></i>
+                            Reporte de Tráfico Aéreo
                         </h2>
                         <div class="card-tools">
-                            {{--  <div class="card-footer"> --}}
-                            <button type="submit" class="btn btn-warning float-right"><i
-                                    class="fas fa-fw fa-search"></i>Generar</button>
-                            {{--  </div> --}}
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label for="fecha_actual" class="form-label">Fecha del Vuelo</label>
-                                <input type="date" class="form-control" name="flight_date" id="fecha_actual"
-                                    value="" required>
+                        <p>Este reporte genera un documento de excel con los datos de Tráfico Aéreo, aplique los filtros
+                            necesarios:</p>
+                        <form id="airTraffic_report">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="fecha_actual" class="form-label">Fecha del Vuelo</label>
+                                    <input type="date" class="form-control" name="flight_date" id="fecha_actual"
+                                        value="">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="txtCargo" class="form-label">Aeronave</label>
+                                    <select class="select2 form-control" style="width: 100%;" name="aircraft_id"
+                                        id="aircraft_id">
+                                        <option value="">- Opción -</option>
+                                        @foreach ($aircrafts as $aircraft)
+                                            <option value="{{ $aircraft->id }}">
+                                                {{ $aircraft->registration }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="txtCargo" class="form-label">Ruta</label>
+                                    <select class="select2 form-control" style="width: 100%;" name="flight_route"
+                                        id="flight_route">
+                                        <option value="">- Opción -</option>
+                                        @foreach ($flight_routes as $flight_route)
+                                            <option value="{{ $flight_route->route }}">{{ $flight_route->route }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="txtCargo" class="form-label">Aeronave</label>
-                                <select class="select2 form-control" style="width: 100%;" name="aircraft_id"
-                                    id="aircraft_id" required>
-                                    <option value="">- Opción -</option>
-                                    @foreach ($aircrafts as $aircraft)
-                                        <option value="{{ $aircraft->id }}">
-                                            {{ $aircraft->registration }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="txtCargo" class="form-label">Capitán</label>
+                                    <select class="select2 form-control" style="width: 100%;" name="captain_id"
+                                        id="captain">
+                                        <option value="">- Opción -</option>
+                                        @foreach ($crew_members['capitan'] as $captain)
+                                            <option value="{{ $captain->id }}">
+                                                {{ $captain->name . ' ' . $captain->last_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="txtCargo" class="form-label">Primer Oficial</label>
+                                    <select class="select2 form-control" style="width: 100%;" name="first_official_id"
+                                        id="first_official">
+                                        <option value="">- Opción -</option>
+                                        @foreach ($crew_members['primer_oficial'] as $first_official)
+                                            <option value="{{ $first_official->id }}">
+                                                {{ $first_official->name . ' ' . $first_official->last_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="txtCargo" class="form-label">Ruta</label>
-                                <select class="select2 form-control" style="width: 100%;" name="flight_route_id"
-                                    id="flight_route_id">
-                                    <option value="">- Opción -</option>
-                                    @foreach ($flight_routes as $flight_route)
-                                        <option value="{{ $flight_route->id }}">{{ $flight_route->route }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label for="txtCargo" class="form-label">Capitán</label>
-                                <select class="select2 form-control" style="width: 100%;" name="captain" id="captain">
-                                    <option value="">- Opción -</option>
-                                    @foreach ($crew_members['capitan'] as $captain)
-                                        <option value="{{ $captain->id }}">{{ $captain->name . ' ' . $captain->last_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="txtCargo" class="form-label">Primer Oficial</label>
-                                <select class="select2 form-control" style="width: 100%;" name="first_official"
-                                    id="first_official">
-                                    <option value="">- Opción -</option>
-                                    @foreach ($crew_members['primer_oficial'] as $first_official)
-                                        <option value="{{ $first_official->id }}">
-                                            {{ $first_official->name . ' ' . $first_official->last_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="txtCargo" class="form-label">Tripulante de Cabina</label>
-                                <select class="select2 form-control" style="width: 100%;" name="flight_assistant"
-                                    id="flight_assistant" required>
-                                    <option value="">- Opción -</option>
-                                    @foreach ($crew_members['tripulante_cabina'] as $flight_assistant)
-                                        <option value="{{ $flight_assistant->id }}">
-                                            {{ $flight_assistant->name . ' ' . $flight_assistant->last_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success float-right" id="exportButton"><i
+                                class="fas fa-fw fa-file-excel"></i>Excel</button>
+                    </div>
+                    </form>
+                </div>
+                {{-- REPORTE DE VUELO --}}
+                <div class="card card-primary collapsed-card shadow}">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-fw fa-file-alt"></i>
+                            Reporte de Vuelo
+                        </h2>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i>
+                            </button>
                         </div>
                     </div>
+                    <div class="card-body">
+                        <p>Este reporte muestra los detalles de un vuelo específico, seleccione el código de vuelo y la
+                            fecha que busca:</p>
+                        <form id="flight_report">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="txtCargo" class="form-label">No. Vuelo</label>
+                                    <select class="select2 form-control" style="width: 100%;" name="aircraft_id"
+                                        id="aircraft_id">
+                                        <option value="">- Opción -</option>
+                                        @foreach ($flights as $flight)
+                                            <option value="{{ $flight->id }}">
+                                                {{ $flight->code }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="fecha_actual" class="form-label">Fecha del Vuelo</label>
+                                    <input type="date" class="form-control" name="flight_date" id="fecha_actual"
+                                        value="">
+                                </div>
+                            </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group float-right">
+                            <button type="submit" class="btn btn-danger" id="exportButton"><i
+                                    class="fas fa-fw fa-file-pdf"></i>PDF</button>
+                            <button type="submit" class="btn btn-secondary" id="exportButton"><i
+                                    class="fas fa-fw fa-print"></i>Imprimir</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
 
+                {{-- AERONAVES --}}
+                <h5 class="mt-4 mb-2">Módulo de Aeronaves</h5>
+                {{-- REPORTE DE MOVIMIENTOS DE AERONAVE --}}
+                <div class="card card-primary collapsed-card shadow}">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-fw fa-file-alt"></i>
+                            Reporte de Movimientos
+                        </h2>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>Instrucciones</p>
+                        <form id="aircraft_report">
+                            <div class="row">
+                                {{-- <div class="col-md-4 mb-3">
+                                    <label for="txtCargo" class="form-label">No. Vuelo</label>
+                                    <select class="select2 form-control" style="width: 100%;" name="aircraft_id"
+                                        id="aircraft_id">
+                                        <option value="">- Opción -</option>
+                                        @foreach ($flights as $flight)
+                                            <option value="{{ $flight->id }}">
+                                                {{ $flight->code }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="fecha_actual" class="form-label">Fecha del Vuelo</label>
+                                    <input type="date" class="form-control" name="flight_date" id="fecha_actual"
+                                        value="">
+                                </div> --}}
+                            </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group float-right">
+                            <button type="submit" class="btn btn-danger" id="exportButton"><i
+                                    class="fas fa-fw fa-file-pdf"></i>PDF</button>
+                            <button type="submit" class="btn btn-success" id="exportButton"><i
+                                    class="fas fa-fw fa-file-excel"></i>Excel</button>
+                            <button type="submit" class="btn btn-secondary" id="exportButton"><i
+                                    class="fas fa-fw fa-print"></i>Imprimir</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                {{-- REPORTE DE GASEOS --}}
+                <div class="card card-primary collapsed-card shadow}">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-fw fa-file-alt"></i>
+                            Reporte de Gaseos
+                        </h2>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>Instrucciones</p>
+                        <form id="aircraft_report">
+                            <div class="row">
+                                {{-- <div class="col-md-4 mb-3">
+                                    <label for="txtCargo" class="form-label">No. Vuelo</label>
+                                    <select class="select2 form-control" style="width: 100%;" name="aircraft_id"
+                                        id="aircraft_id">
+                                        <option value="">- Opción -</option>
+                                        @foreach ($flights as $flight)
+                                            <option value="{{ $flight->id }}">
+                                                {{ $flight->code }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="fecha_actual" class="form-label">Fecha del Vuelo</label>
+                                    <input type="date" class="form-control" name="flight_date" id="fecha_actual"
+                                        value="">
+                                </div> --}}
+                            </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group float-right">
+                            <button type="submit" class="btn btn-danger" id="exportButton"><i
+                                    class="fas fa-fw fa-file-pdf"></i>PDF</button>
+                            <button type="submit" class="btn btn-success" id="exportButton"><i
+                                    class="fas fa-fw fa-file-excel"></i>Excel</button>
+                            <button type="submit" class="btn btn-secondary" id="exportButton"><i
+                                    class="fas fa-fw fa-print"></i>Imprimir</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+
+
+                {{-- TRIPULACION --}}
+                <h5 class="mt-4 mb-2">Módulo de Tripulación</h5>
+                {{-- REPORTE DE MOVIMIENTOS DE PILOTOS --}}
+                <div class="card card-primary collapsed-card shadow}">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-fw fa-file-alt"></i>
+                            Reporte de Movimientos
+                        </h2>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>Instrucciones</p>
+                        <form id="crew_history_report">
+                            {{-- <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="txtCargo" class="form-label">No. Vuelo</label>
+                                    <select class="select2 form-control" style="width: 100%;" name="aircraft_id"
+                                        id="aircraft_id">
+                                        <option value="">- Opción -</option>
+                                        @foreach ($flights as $flight)
+                                            <option value="{{ $flight->id }}">
+                                                {{ $flight->code }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="fecha_actual" class="form-label">Fecha del Vuelo</label>
+                                    <input type="date" class="form-control" name="flight_date" id="fecha_actual"
+                                        value="">
+                                </div>
+                            </div> --}}
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group float-right">
+                            <button type="submit" class="btn btn-danger" id="exportButton"><i
+                                    class="fas fa-fw fa-file-pdf"></i>PDF</button>
+                            <button type="submit" class="btn btn-success" id="exportButton"><i
+                                    class="fas fa-fw fa-file-excel"></i>Excel</button>
+                            <button type="submit" class="btn btn-secondary" id="exportButton"><i
+                                    class="fas fa-fw fa-print"></i>Imprimir</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                {{-- REPORTE DE HORAS ACUMULADAS POR PILOTO --}}
+                <div class="card card-primary collapsed-card shadow}">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-fw fa-file-alt"></i>
+                            Reporte de Horas Acumuladas
+                        </h2>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>Instrucciones</p>
+                        <form id="crew_flight_time_report">
+                            {{-- <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="txtCargo" class="form-label">No. Vuelo</label>
+                                    <select class="select2 form-control" style="width: 100%;" name="aircraft_id"
+                                        id="aircraft_id">
+                                        <option value="">- Opción -</option>
+                                        @foreach ($flights as $flight)
+                                            <option value="{{ $flight->id }}">
+                                                {{ $flight->code }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="fecha_actual" class="form-label">Fecha del Vuelo</label>
+                                    <input type="date" class="form-control" name="flight_date" id="fecha_actual"
+                                        value="">
+                                </div>
+                            </div> --}}
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group float-right">
+                            <button type="submit" class="btn btn-danger" id="exportButton"><i
+                                    class="fas fa-fw fa-file-pdf"></i>PDF</button>
+                            <button type="submit" class="btn btn-success" id="exportButton"><i
+                                    class="fas fa-fw fa-file-excel"></i>Excel</button>
+                            <button type="submit" class="btn btn-secondary" id="exportButton"><i
+                                    class="fas fa-fw fa-print"></i>Imprimir</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                {{-- REPORTE DE PIERNAS VOLADAS POR PILOTO --}}
+                <div class="card card-primary collapsed-card shadow}">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-fw fa-file-alt"></i>
+                            Reporte de Piernas Voladas
+                        </h2>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>Instrucciones</p>
+                        <form id="crew_flight_legs_report">
+                            {{-- <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="txtCargo" class="form-label">No. Vuelo</label>
+                                    <select class="select2 form-control" style="width: 100%;" name="aircraft_id"
+                                        id="aircraft_id">
+                                        <option value="">- Opción -</option>
+                                        @foreach ($flights as $flight)
+                                            <option value="{{ $flight->id }}">
+                                                {{ $flight->code }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="fecha_actual" class="form-label">Fecha del Vuelo</label>
+                                    <input type="date" class="form-control" name="flight_date" id="fecha_actual"
+                                        value="">
+                                </div>
+                            </div> --}}
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group float-right">
+                            <button type="submit" class="btn btn-danger" id="exportButton"><i
+                                    class="fas fa-fw fa-file-pdf"></i>Exportar</button>
+                            <button type="submit" class="btn btn-secondary" id="exportButton"><i
+                                    class="fas fa-fw fa-print"></i>Imprimir</button>
+                        </div>
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Reporte Diario</h3>
-                {{-- <div class="card-tools">
-                    <a href="employees/create" class="btn btn-sm btn-default">
-                        <span class="fas fa-plus"></span>
-                    </a>
-                </div> --}}
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th class="text-center">Fecha</th>
-                                <th class="text-center">Aeronave</th>
-                                <th class="text-center"># Vuelo</th>
-                                <th class="text-center">Ruta</th>
-                                <th class="text-center">Salida</th>
-                                <th class="text-center">Llegada</th>
-                                <th class="text-center">Estado</th>
-                                <th class="text-center">PX</th>
-                                <th class="text-center">DH</th>
-                                <th class="text-center">INF</th>
-                                <th class="text-center">Total</th>
-                                <th class="text-center">Aeropuerto</th>
-                                <th class="text-center">Gaseo</th>
-                                <th class="text-center">Inicial</th>
-                                <th class="text-center">Remanente</th>
-                                <th class="text-center">Total Libras</th>
-                                <th class="text-center">Combustible Inicial</th>
-                                <th class="text-center">Consumo</th>
-                                <th class="text-center">Remanente</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{-- @foreach ($data as $employee) --}}
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            {{-- @endforeach --}}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+
     </div>
 @stop
 
@@ -168,6 +398,10 @@
 @section('js')
     {{-- <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script> --}}
     {{-- <script src="//cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script> --}}
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
     <script src="//cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="../resources/js/reports.js"></script>
 
@@ -178,7 +412,7 @@
 
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap4.js"></script>
-    
+
     <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.bootstrap4.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.js"></script>
@@ -191,11 +425,94 @@
         });
     </script> --}}
     <script>
+        var inputFecha = document.getElementById("fecha_actual");
+        var fechaActual = new Date();
+        var formattedFecha = fechaActual.getFullYear() + "-" + ((fechaActual.getMonth() + 1) < 10 ? '0' : '') + (fechaActual
+            .getMonth() + 1) + "-" + (fechaActual.getDate() < 10 ? '0' : '') + fechaActual.getDate();
+        inputFecha.value = formattedFecha;
+    </script>
+    <script>
         $(document).ready(function() {
             // Select2 Multiple
             $('.select2').select2({
                 placeholder: "Seleccione",
                 allowClear: true,
+            });
+        });
+    </script>
+
+    {{-- @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '{{ session('error') }}',
+            });
+        </script>
+    @endif --}}
+
+    {{-- <script>
+        $(document).ready(function() {
+            $('#exportButton').click(function() {
+                var formData = $('#filters').serialize();
+                $.ajax({
+                    url: '{{ route('export.daily') }}',
+                    type: 'GET',
+                    data: formData,
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Export Successful',
+                                text: 'The file has been exported successfully. Click below to download.',
+                                showCancelButton: true,
+                                confirmButtonText: 'Download',
+                                cancelButtonText: 'Cancel'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = response.file;
+                                }
+                            });
+                        }
+                    },
+                    error: function(response) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: response.responseJSON.error,
+                        });
+                    }
+                });
+            });
+        });
+    </script> --}}
+
+    <script>
+        $(document).ready(function() {
+            $('#airTraffic_report').on('submit', function(event) {
+                event.preventDefault();
+                var formData = $('#airTraffic_report').serialize();
+                $.ajax({
+                    url: '{{ route('export.daily') }}',
+                    type: 'GET',
+                    data: formData,
+                    success: function(response) {
+                        if (response.error) {
+                            alert(response.error);
+                        } else {
+                            window.location.href = "{{ route('export.daily') }}" + "?" +
+                                formData;
+                        }
+                    },
+                    error: function(response) {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Sin Registros',
+                            text: response.responseJSON.error,
+                        });
+                        console.error(response.responseJSON.error);
+                    }
+                });
             });
         });
     </script>
