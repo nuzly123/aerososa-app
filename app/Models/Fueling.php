@@ -31,11 +31,21 @@ class Fueling extends Model
 
     public function approvedBy()
     {
-        return $this->belongsTo(Employee::class, 'id');
+        return $this->belongsTo(Employee::class, 'approved_by');
     }
 
     public function airTraffic()
     {
         return $this->belongsTo(AirTraffic::class, 'air_traffic_id');
+    }
+
+    public function airport()
+    {
+        return $this->belongsTo(Airport::class, 'airport_id');
+    }
+
+    public function aircraft()
+    {
+        return $this->belongsTo(Aircraft::class, 'aircraft_id');
     }
 }

@@ -14,10 +14,6 @@
             <div class="card-header">
                 <h3 class="card-title">Registro Diario de Tráfico Aéreo</h3>
                 <div class="card-tools">
-                    {{-- <button type="submit" class="btn btn-sm btn-default" name="addButton" data-toggle="modal"
-                    data-target="#modal-nuevo">
-                    <span class="fas fa-plus"></span>
-                </button> --}}
                     <div class="row">
                         <div class="col-md-10">
                             <form id="filter-form" method="POST" action="{{ route('air_traffic.filter') }}">
@@ -46,10 +42,11 @@
                     {{ Session::get('success') }}
                 </div>
             @endif
-            <div class="card-body">
+            <div class="card-body table-responsive">
                 <table id="example" class="table table-dataTable table-striped  dt-responsive" style="width:100%">
                     <thead>
                         <tr>
+                            <th class="text-left">Referencia</th>
                             <th class="text-center">Fecha</th>
                             <th class="text-center">Vuelo #</th>
                             <th class="text-center">Ruta</th>
@@ -64,6 +61,7 @@
                     <tbody>
                         @foreach ($data as $air_traffic)
                             <tr>
+                                <td class="text-left">{{ $air_traffic->reference }}</td>
                                 <td class="text-center">{{ $air_traffic->flight_date }}</td>
                                 <td class="text-center">{{ $air_traffic->flight->code }}</td>
                                 <td class="text-center">{{ $air_traffic->flight_route }}</td>

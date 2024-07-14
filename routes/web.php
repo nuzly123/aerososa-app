@@ -143,12 +143,25 @@ Route::middleware('auth')->group(function () {
     /* ----------------------------------------------------------------------------------- */
 
     /* REPORTS */
+
+    /* INDEX */
     Route::get('/daily-report', [ReportController::class, 'dailyReport'])->name('reports.daily'); //pendiente crear permiso
+
+    /* PDFS */
+
+
 
     /* --------------------------------------------------------------------------------------- */
 
     /* EXPORTS */
     Route::get('/export-air-traffic', [ExportController::class, 'export'])->name('export.daily');
+    Route::get('/reporte/pdf', [ExportController::class, 'generatePDF'])->name('report.flight');
+    Route::get('/reporte/aircraft-history/pdf', [ExportController::class, 'aircraftHistoryPDF'])->name('report.aircraft_history');
+    Route::get('/reporte/aircraft-fuelings/pdf', [ExportController::class, 'fuelingsPDF'])->name('report.aircraft_fuelings');
+    Route::post('/reporte/crew-history/pdf', [ExportController::class, 'crewHistoryPDF'])->name('report.crew_history');
+    Route::post('/reporte/crew-flight-time/pdf', [ExportController::class, 'crewFlightTimePDF'])->name('report.crew_flight_time');
+    Route::post('/reporte/assigned-crews/pdf', [ExportController::class, 'assignedCrewPDF'])->name('report.assigned_crews');
+
 });
 
 require __DIR__ . '/auth.php';

@@ -86,6 +86,7 @@ class AirTrafficExport implements FromQuery, WithMapping, WithHeadings
         $flightAssistantNamesString = implode(', ', $flightAssistantNames);
 
         return [
+            $airTraffic->reference,
             $airTraffic->flight_date,
             $airTraffic->aircraft->registration,
             $airTraffic->flight->code,
@@ -120,6 +121,7 @@ class AirTrafficExport implements FromQuery, WithMapping, WithHeadings
     public function headings(): array
     {
         return [
+            'Referencia',
             'Fecha de Vuelo',
             'Aeronave',
             'Vuelo',

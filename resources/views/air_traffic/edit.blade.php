@@ -30,7 +30,7 @@
                                                         <label for="fecha_actual" class="form-label">Fecha del
                                                             Vuelo <code>*</code></label>
                                                         <input type="date" class="form-control" name="flight_date"
-                                                            id="fecha_actual" value="">
+                                                            id="fecha_actual" value="{{$air_traffic->flight_date}}" readonly>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="txtCargo" class="form-label">Aeronave
@@ -406,13 +406,13 @@
             });
         });
     </script>
-    <script>
+    {{-- <script>
         var inputFecha = document.getElementById("fecha_actual");
         var fechaActual = new Date();
         var formattedFecha = fechaActual.getFullYear() + "-" + ((fechaActual.getMonth() + 1) < 10 ? '0' : '') + (fechaActual
             .getMonth() + 1) + "-" + (fechaActual.getDate() < 10 ? '0' : '') + fechaActual.getDate();
         inputFecha.value = formattedFecha;
-    </script>
+    </script> --}}
 
     <script>
         $(document).ready(function() {
