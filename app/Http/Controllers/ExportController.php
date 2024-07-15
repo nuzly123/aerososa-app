@@ -206,6 +206,7 @@ class ExportController extends Controller
         $pdfContent = $pdf->stream('aircraft_history.pdf')->getOriginalContent();
 
         return response($pdfContent, 200)->header('Content-Type', 'application/pdf');
+        //return dd($aircraft);
     }
 
 
