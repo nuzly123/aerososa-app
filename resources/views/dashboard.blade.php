@@ -11,7 +11,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>{{$total_vuelos}}</h3>
+                    <h3>{{ $total_vuelos }}</h3>
                     <p>Vuelos</p>
                 </div>
                 <div class="icon">
@@ -24,7 +24,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h3>{{$total_pasajeros}}</h3>
+                    <h3>{{ $total_pasajeros }}</h3>
                     <p>Pasajeros</p>
                 </div>
                 <div class="icon">
@@ -37,7 +37,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-warning">
                 <div class="inner">
-                    <h3>{{$total_lbs}}<sup style="font-size: 20px">Lbs</sup></h3>
+                    <h3>{{ $total_lbs }}<sup style="font-size: 20px">Lbs</sup></h3>
                     <p>Peso</p>
                 </div>
                 <div class="icon">
@@ -50,7 +50,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-danger">
                 <div class="inner">
-                    <h3>{{$total_gaseos}}<sup style="font-size: 20px">Lbs</sup></h3>
+                    <h3>{{ $total_gaseos }}<sup style="font-size: 20px">Lbs</sup></h3>
                     <p>Gaseos</p>
                 </div>
                 <div class="icon">
@@ -60,6 +60,9 @@
             </div>
         </div>
     </div>
+    {{-- <div class="row">
+
+    </div> --}}
 @stop
 
 @section('css')
@@ -68,7 +71,7 @@
 @stop
 
 @section('js')
-    <script>
+    {{-- <script>
         console.log("Hi, I'm using the Laravel-AdminLTE package!");
-    </script>
+    </script> --}}
 @stop
