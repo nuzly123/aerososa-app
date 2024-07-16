@@ -32,18 +32,9 @@ class AirTrafficExport implements FromQuery, WithMapping, WithHeadings
         if (!empty($this->filters['aircraft_id'])) {
             $query->where('aircraft_id', $this->filters['aircraft_id']);
         }
-
-        /* if (!empty($this->filters['flight_route'])) {
-            $query->where('flight_route', $this->filters['flight_route']);
-        } */
         if (!empty($this->filters['flight_route'])) {
             $query->where('flight_route', '=', $this->filters['flight_route']);
         }
-        /* if (!empty($filters['flight_route'])) {
-            $query->whereHas('flightRoute', function ($subquery) use ($filters) {
-                $subquery->where('flight_route', $filters['flight_route']);
-            });
-        } */
 
         if (!empty($this->filters['captain_id'])) {
             $query->where('captain_id', $this->filters['captain_id']);
@@ -52,10 +43,6 @@ class AirTrafficExport implements FromQuery, WithMapping, WithHeadings
         if (!empty($this->filters['first_official_id'])) {
             $query->where('first_official_id', $this->filters['first_official_id']);
         }
-
-        /* if (!empty($this->filters['flight_assistant_id'])) {
-            $query->where('flight_assistant_id', $this->filters['flight_assistant_id']);
-        } */
 
 
         return $query;
@@ -115,6 +102,8 @@ class AirTrafficExport implements FromQuery, WithMapping, WithHeadings
             $airTraffic->trans_rtb ? $airTraffic->trans_tgu : '0',
             $airTraffic->trans_lce ? $airTraffic->trans_tgu : '0',
             $airTraffic->remark ? $airTraffic->remark : 'N/A',
+            $airTraffic->createdBy->username,
+            $airTraffic->updatedBy->username,
         ];
     }
 
@@ -149,7 +138,9 @@ class AirTrafficExport implements FromQuery, WithMapping, WithHeadings
             'Tránsitos SAP',
             'Tránsitos RTB',
             'Tránsitos LCE',
-            'Remarks'
+            'Remarks',
+            'Creado por',
+            'Actualizado por'
         ];
     }
 }

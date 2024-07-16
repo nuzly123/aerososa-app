@@ -34,13 +34,13 @@
                                                             </p>
                                                         </a>
                                                     @endcan --}}
-                                                    @can('reports.crews.history')
+                                                    {{-- @can('reports.crews.history')
                                                         <a href="#" class="dropdown-item">
                                                             <p class="text-left mb-0"><i
                                                                     class="fas fa-history mr-3"></i>Historial
                                                             </p>
                                                         </a>
-                                                    @endcan
+                                                    @endcan --}}
                                                     <div class="dropdown-divider"></div>
                                                     @can('employees.profile')
                                                         <a href="employees/{{ $crew->id }}/profile" class="dropdown-item">

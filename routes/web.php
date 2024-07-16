@@ -154,12 +154,12 @@ Route::middleware('auth')->group(function () {
 
     /* EXPORTS */
     Route::get('/export-air-traffic', [ExportController::class, 'export'])->middleware('can:export.daily')->name('export.daily');
-    Route::get('/reporte/pdf', [ExportController::class, 'generatePDF'])->middleware('can:report.flight')->name('report.flight');
-    Route::get('/reporte/aircraft-history/pdf', [ExportController::class, 'aircraftHistoryPDF'])->middleware('can:report.aircraft_history')->name('report.aircraft_history');
-    Route::get('/reporte/aircraft-fuelings/pdf', [ExportController::class, 'fuelingsPDF'])->middleware('can:report.aircraft_fuelings')->name('report.aircraft_fuelings');
-    Route::post('/reporte/crew-history/pdf', [ExportController::class, 'crewHistoryPDF'])->middleware('can:report.crew_history')->name('report.crew_history');
-    Route::post('/reporte/crew-flight-time/pdf', [ExportController::class, 'crewFlightTimePDF'])->middleware('can:report.crew_flight_time')->name('report.crew_flight_time');
-    Route::post('/reporte/assigned-crews/pdf', [ExportController::class, 'assignedCrewPDF'])->middleware('can:report.assigned_crews')->name('report.assigned_crews');
+    Route::get('/reporte/pdf', [ExportController::class, 'generatePDF'])->middleware('can:report.flight')->name('reports.flight');
+    Route::get('/reporte/aircraft-history/pdf', [ExportController::class, 'aircraftHistoryPDF'])->middleware('can:reports.aircraft_history')->name('reports.aircraft_history');
+    Route::get('/reporte/aircraft-fuelings/pdf', [ExportController::class, 'fuelingsPDF'])->middleware('can:reports.aircraft_fuelings')->name('reports.aircraft_fuelings');
+    Route::get('/reporte/crew-history/pdf', [ExportController::class, 'crewHistoryPDF'])->middleware('can:reports.crew_history')->name('reports.crew_history');
+    Route::post('/reporte/crew-flight-time/pdf', [ExportController::class, 'crewFlightTimePDF'])->middleware('can:reports.crew_flight_time')->name('reports.crew_flight_time');
+    Route::post('/reporte/assigned-crews/pdf', [ExportController::class, 'assignedCrewPDF'])->middleware('can:reports.assigned_crews')->name('reports.assigned_crews');
 
 });
 

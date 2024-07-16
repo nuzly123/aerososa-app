@@ -51,10 +51,10 @@
                                         class="btn btn-xs btn-outline-warning tablabutton">
                                         <span class="fas fa-pen"></span>
                                     </a>
-                                    <a href="users/{{ $user->id }}/reset-password"
+                                    {{-- <a href="users/{{ $user->id }}/reset-password"
                                         class="btn btn-xs btn-outline-secondary tablabutton">
                                         <span class="fas fa-key"></span>
-                                    </a>
+                                    </a> --}}
                                     {{-- <a href="users/{{ $user->id }}/profile"
                                         class="btn btn-xs btn-outline-info tablabutton">
                                         <span class="fas fa-eye"></span>

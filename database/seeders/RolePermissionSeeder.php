@@ -160,12 +160,11 @@ class RolePermissionSeeder extends Seeder
         Permission::create(['name' => 'config.aircraft_types.edit'])->syncRoles([$adminRole, $opmanagerRole]);
         Permission::create(['name' => 'config.aircraft_types.updateStatus'])->syncRoles([$adminRole, $opmanagerRole]); */
 
-        /*  // Definir los permisos a eliminar
+        /* // Definir los permisos a eliminar
         $permissionsToRemove = [
-            'config.aircraft_types.index',
-            'config.aircraft_types.edit',
-            'config.aircraft_types.updateStatus',
-            'config.aircraft_types.create',
+            'reports.airTraffic',
+            'reports.aircrafts',
+            'reports.crews',
             // Agrega aquí más permisos según sea necesario
         ];
 
@@ -175,6 +174,8 @@ class RolePermissionSeeder extends Seeder
                 $permission = Permission::findByName($permissionName);
                 $managerRole->revokePermissionTo($permission);
                 $opmanagerRole->revokePermissionTo($permission);
+                $adminRole->revokePermissionTo($permission);
+                $userRole->revokePermissionTo($permission);
             }
         } */
 
@@ -182,17 +183,23 @@ class RolePermissionSeeder extends Seeder
         // Asignar todos los permisos al rol de admin
         /* $adminRole->givePermissionTo(Permission::all()); */
 
-        /* // Asignar permisos específicos a otros roles
-        $userRole->givePermissionTo(['create articles', 'edit articles', 'publish articles']); */
-
-
-
-        Permission::create(['name' => 'export.daily'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
+        // Asignar permisos específicos a otros roles
+        /* $userRole->givePermissionTo(['reports.airTraffic']);
+        $adminRole->givePermissionTo(['reports.airTraffic', 'reports.aircrafts', 'reports.crews']);
+        $managerRole->givePermissionTo(['reports.airTraffic', 'reports.aircrafts', 'reports.crews']);
+        $opmanagerRole->givePermissionTo(['reports.airTraffic', 'reports.aircrafts', 'reports.crews']); */
+        $userRole->givePermissionTo(['export.daily']);
+        /* Permission::create(['name' => 'export.daily'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
         Permission::create(['name' => 'reports.daily'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
-        Permission::create(['name' => 'report.flight'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
-        Permission::create(['name' => 'report.aircraft_history'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
-        Permission::create(['name' => 'report.aircraft_fuelings'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
-        Permission::create(['name' => 'report.crew_flight_time'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
-        Permission::create(['name' => 'report.assigned_crews'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
+        Permission::create(['name' => 'reports.flight'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
+        Permission::create(['name' => 'reports.aircraft_history'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
+        Permission::create(['name' => 'reports.aircraft_fuelings'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
+        Permission::create(['name' => 'reports.crew_flight_time'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
+        Permission::create(['name' => 'reports.assigned_crews'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
+        Permission::create(['name' => 'reports.crew_history'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]); */
+
+        /* Permission::create(['name' => 'reports.airTraffic'])->syncRoles([$adminRole, $managerRole, $opmanagerRole, $userRole]);
+        Permission::create(['name' => 'reports.aircrafts'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
+        Permission::create(['name' => 'reports.crews'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]); */
     }
 }

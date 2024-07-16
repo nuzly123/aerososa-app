@@ -9,7 +9,9 @@
         <div class="row">
             <div class="col-md-6">
                 {{-- MONITOREO --}}
-                <h5 class="mt-4 mb-2">Módulo de Monitoreo</h5>
+                @can('reports.airTraffic')
+                    <h5 class="mt-4 mb-2">Módulo de Monitoreo</h5>
+                @endcan
                 {{-- REPORTE DE TRAFICO AEREO --}}
                 @can('export.daily')
                     <div class="card card-primary collapsed-card shadow">
@@ -92,7 +94,7 @@
                     </div>
                 @endcan
                 {{-- REPORTE DE VUELO --}}
-                @can('report.flight')
+                @can('reports.flight')
                     <div class="card card-primary collapsed-card shadow">
                         <div class="card-header">
                             <h2 class="card-title">
@@ -125,9 +127,11 @@
                     </div>
                 @endcan
                 {{-- AERONAVES --}}
-                <h5 class="mt-4 mb-2">Módulo de Aeronaves</h5>
+                @can('reports.aircrafts')
+                    <h5 class="mt-4 mb-2">Módulo de Aeronaves</h5>
+                @endcan
                 {{-- REPORTE DE MOVIMIENTOS DE AERONAVE --}}
-                @can('report.aircraft_history')
+                @can('reports.aircraft_history')
                     <div class="card card-primary collapsed-card shadow">
                         <div class="card-header">
                             <h2 class="card-title">
@@ -146,7 +150,7 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="txtCargo" class="form-label">Aeronave</label>
                                         <select class="select2 form-control" style="width: 100%;" name="aircraft_id"
-                                            id="aircraft_id">
+                                            id="history_aircraft_id">
                                             <option value="">- Opción -</option>
                                             @foreach ($aircrafts as $aircraft)
                                                 <option value="{{ $aircraft->id }}">
@@ -175,7 +179,7 @@
                     </div>
                 @endcan
                 {{-- REPORTE DE GASEOS --}}
-                @can('report.aircraft_fuelings')
+                @can('reports.aircraft_fuelings')
                     <div class="card card-primary collapsed-card shadow">
                         <div class="card-header">
                             <h2 class="card-title">
@@ -251,9 +255,11 @@
                     </div>
                 @endcan
                 {{-- TRIPULACION --}}
-                <h5 class="mt-4 mb-2">Módulo de Tripulación</h5>
+                @can('reports.crews')
+                    <h5 class="mt-4 mb-2">Módulo de Tripulación</h5>
+                @endcan
                 {{-- REPORTE DE MOVIMIENTOS DE PILOTOS --}}
-                @can('report.crew_history')
+                @can('reports.crew_history')
                     <div class="card card-primary collapsed-card shadow">
                         <div class="card-header">
                             <h2 class="card-title">
@@ -306,7 +312,7 @@
                     </div>
                 @endcan
                 {{-- REPORTE DE HORAS ACUMULADAS POR PILOTO --}}
-                @can('report.crew_flight_time')
+                @can('reports.crew_flight_time')
                     <div class="card card-primary collapsed-card shadow">
                         <div class="card-header">
                             <h2 class="card-title">
@@ -359,7 +365,7 @@
                     </div>
                 @endcan
                 {{-- REPORTE DE TRIPULACION ASIGNADA POR VUELO --}}
-                @can('report.assigned_crews')
+                @can('reports.assigned_crews')
                     <div class="card card-primary collapsed-card shadow">
                         <div class="card-header">
                             <h2 class="card-title">
@@ -440,7 +446,7 @@
             .getMonth() + 1) + "-" + (fechaActual.getDate() < 10 ? '0' : '') + fechaActual.getDate();
         inputFecha.value = formattedFecha;
     </script>
-    
+
     <script>
         $(document).ready(function() {
             // Select2 Multiple
@@ -506,7 +512,7 @@
                 allowOutsideClick: false,
             });
 
-            fetch('{{ route('report.flight') }}?flight_reference=' + encodeURIComponent(flightReference), {
+            fetch('{{ route('reports.flight') }}?flight_reference=' + encodeURIComponent(flightReference), {
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json',
@@ -551,10 +557,10 @@
     {{-- REPORTE DE HISTORIAL DE AERONAVES --}}
     <script>
         document.getElementById('generate_aircraft_history_pdf_button').addEventListener('click', function() {
-            var aircraftId = document.getElementById('aircraft_id').value.trim();
+            var aircraftId = document.getElementById('history_aircraft_id').value.trim();
             var fechaInicial = document.getElementById('fecha_inicial').value.trim();
             var fechaFinal = document.getElementById('fecha_final').value.trim();
-
+            console.log(aircraftId);
             // Validar si al menos uno de los campos está lleno
             if (aircraftId === '' && fechaInicial === '') {
                 Swal.fire({
@@ -573,7 +579,7 @@
                 allowOutsideClick: false,
             });
 
-            var url = '{{ route('report.aircraft_history') }}?aircraft_id=' + encodeURIComponent(aircraftId) +
+            var url = '{{ route('reports.aircraft_history') }}?aircraft_id=' + encodeURIComponent(aircraftId) +
                 '&fecha_inicial=' + encodeURIComponent(fechaInicial) + '&fecha_final=' + encodeURIComponent(
                     fechaFinal);
 
@@ -645,7 +651,7 @@
                 allowOutsideClick: false,
             });
 
-            fetch('{{ route('report.aircraft_fuelings') }}?' + new URLSearchParams({
+            fetch('{{ route('reports.aircraft_fuelings') }}?' + new URLSearchParams({
                     aircraft_id: aircraft_id,
                     fecha_inicial: fecha_inicial,
                     fecha_final: fecha_final,
@@ -725,7 +731,7 @@
                 allowOutsideClick: false,
             });
 
-            fetch('{{ route('report.crew_history') }}', {
+            fetch('{{ route('reports.crew_history') }}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -811,7 +817,7 @@
                 allowOutsideClick: false,
             });
 
-            fetch('{{ route('report.crew_flight_time') }}', {
+            fetch('{{ route('reports.crew_flight_time') }}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -887,7 +893,7 @@
                 allowOutsideClick: false,
             });
 
-            fetch('{{ route('report.assigned_crews') }}', {
+            fetch('{{ route('reports.assigned_crews') }}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
