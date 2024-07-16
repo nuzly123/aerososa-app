@@ -354,18 +354,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 control">
-                                        <div class="row">
-                                            <div class="col-md-11" align="right">
-                                                <a href="{{ url('/air_traffic') }}"
-                                                    class="btn btn-default btn-lg">Regresar</a>
-                                            </div>
-                                            <div class="col-md-1" align="right">
-                                                <button type="submit" class="btn btn-success btn-lg"
-                                                    name="nuevoRegistro">Guardar</button>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -373,6 +361,12 @@
                     <input type="hidden" name="user_create" value="{{ Auth::user()->id }}">
                     <input type="hidden" name="user_update" value="{{ Auth::user()->id }}">
                     <input type="hidden" name="flight_time">
+                    <div class="card-footer">
+                        <a href="{{ url('/air_traffic') }}" class="btn btn-default btn-lg float-left"><i
+                                class="fas fa-fw fa-arrow-left"></i> Regresar</a>
+                        <button type="submit" class="btn btn-success btn-lg float-right"
+                            name="nuevoRegistro"><i class="fas fa-fw fa-save"></i> Guardar</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -488,7 +482,7 @@
             });
         });
     </script>
-    
+
     <script>
         $(document).ready(function() {
             $('#flight_route').change(function() {

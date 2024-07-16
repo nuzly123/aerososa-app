@@ -188,7 +188,9 @@ class RolePermissionSeeder extends Seeder
         $adminRole->givePermissionTo(['reports.airTraffic', 'reports.aircrafts', 'reports.crews']);
         $managerRole->givePermissionTo(['reports.airTraffic', 'reports.aircrafts', 'reports.crews']);
         $opmanagerRole->givePermissionTo(['reports.airTraffic', 'reports.aircrafts', 'reports.crews']); */
-        $userRole->givePermissionTo(['export.daily']);
+
+
+        /* $userRole->givePermissionTo(['export.daily']); */
         /* Permission::create(['name' => 'export.daily'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
         Permission::create(['name' => 'reports.daily'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
         Permission::create(['name' => 'reports.flight'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
@@ -201,5 +203,7 @@ class RolePermissionSeeder extends Seeder
         /* Permission::create(['name' => 'reports.airTraffic'])->syncRoles([$adminRole, $managerRole, $opmanagerRole, $userRole]);
         Permission::create(['name' => 'reports.aircrafts'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]);
         Permission::create(['name' => 'reports.crews'])->syncRoles([$adminRole, $managerRole, $opmanagerRole]); */
+
+        Permission::create(['name' => 'admin.users.updateStatus'])->syncRoles([$adminRole]);
     }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\AircraftTypeController;
 use App\Http\Controllers\AirportController;
 use App\Http\Controllers\AirTrafficController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\CrewController;
@@ -103,6 +104,7 @@ Route::middleware('auth')->group(function () {
     Route::get('employees/{id}/update-status', [EmployeeController::class, 'updateStatus'])->middleware('can:employees.updateStatus')->name('employees.updateStatus');
     Route::get('employees/{id}/profile', [EmployeeController::class, 'viewProfile'])->middleware('can:employees.profile')->name('employees.profile');
     Route::get('/search-employees', [EmployeeController::class, 'search'])->middleware('can:employees.search')->name('employees.search');
+    Route::post('employees/{employee}/update-photo', [EmployeeController::class, 'updatePhoto'])->name('employees.update-photo');
 
     /* ------------------------------------------------------------------------------------ */
     /* USUARIOS */
@@ -143,7 +145,7 @@ Route::middleware('auth')->group(function () {
     /* ----------------------------------------------------------------------------------- */
 
     /* REPORTS */
-    
+
     /* ---------------------------------------------------------------------------------------- */
 
     /* INDEX */
@@ -161,6 +163,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/reporte/crew-flight-time/pdf', [ExportController::class, 'crewFlightTimePDF'])->middleware('can:reports.crew_flight_time')->name('reports.crew_flight_time');
     Route::post('/reporte/assigned-crews/pdf', [ExportController::class, 'assignedCrewPDF'])->middleware('can:reports.assigned_crews')->name('reports.assigned_crews');
 
+    /* DASHBOARD GRAFICOS */
+    Route::get('/flights-chart-data', [ChartController::class, 'flightsChartData'])->name('charts.flights');
+    Route::get('/fuelings-chart-data', [ChartController::class, 'fuelingsChartData'])->name('charts.fuelings');
 });
 
 require __DIR__ . '/auth.php';

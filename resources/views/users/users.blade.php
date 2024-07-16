@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="card">
+        <div class="card card-primary card-outline">
             <div class="card-header">
                 <h3 class="card-title">Lista Usuarios</h3>
                 <div class="card-tools">
@@ -14,11 +14,16 @@
                         data-target="#modal-nuevo">
                         <span class="fas fa-plus"></span>
                     </button> --}}
-                    <a href="users/create" class="btn btn-sm btn-default">
-                        <span class="fas fa-plus"></span>
+                    <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
+                        <span class="fas fa-fw fa-plus"></span>Nuevo
                     </a>
                 </div>
             </div>
+            @if (Session::get('success'))
+                <div class="alert alert-success" id="alert">
+                    {{ Session::get('success') }}
+                </div>
+            @endif
             <div class="card-body table-responsive">
                 <table id="users-table" class="table table-dataTable table-striped  dt-responsive" style="width:100%">
                     <thead>
@@ -79,4 +84,11 @@
     <script>
         $('.table-dataTable').dataTable();
     </script>
+
+    <script>
+        setTimeout(() => {
+            $('#alert').fadeOut('slow');
+        }, 2000);
+    </script>
+
 @stop

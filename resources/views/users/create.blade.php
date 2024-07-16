@@ -12,7 +12,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="col-md-12">
-            <div class="card mb-4">
+            <div class="card card-primary mb-4">
                 <h5 class="card-header">Nuevo Usuario</h5>
                 <form id="userForm" action="{{ url('/users') }}" method="post">
                     @csrf
@@ -84,11 +84,14 @@
                                 <input type="hidden" id="employee_id" name="employee_id">
                                 <input type="hidden" name="user_create" value="{{ Auth::user()->id }}">
                                 <input type="hidden" name="user_update" value="{{ Auth::user()->id }}">
-                                <div class="col-md-12" align="right">
-                                    <button type="submit" class="btn btn-success" name="nuevoEmpleado">Guardar</button>
-                                </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="card-footer ">
+                        <a href="{{ url('/users') }}" class="btn btn-default float-left"><i class="fas fa-fw fa-arrow-left"></i>
+                            Regresar</a>
+                        <button type="submit" class="btn btn-success float-right" name="nuevoEmpleado"><i
+                                class="fas fa-fw fa-save"></i> Guardar</button>
                     </div>
                 </form>
             </div>

@@ -13,8 +13,8 @@
     {{-- formulario usuario --}}
     <div class="container-fluid">
         <div class="col-md-12">
-            <div class="card mb-4">
-                <h5 class="card-header">Editar Usuario</h5>
+            <div class="card card-warning mb-4">
+                <h5 class="card-header"><i class="fas fa-fw fa-edit"></i>Editar Usuario</h5>
                 <form action="{{ route('admin.users.update', $user) }}" method="post">
                     @csrf
                     {{ method_field('PATCH') }}
@@ -30,12 +30,13 @@
                                                 value="{{ $user->name }}" required>
                                             <input type="hidden" id="dni" name="dni" value="{{ $user->dni }}">
                                             <div class="input-group-prepend">
-                                                <a href="" type="button" class="btn btn-block btn-default btn-sm"
+                                                {{-- <a href="" type="button" class="btn btn-block btn-default btn-sm"
                                                     name="searchEmployee" data-toggle="modal"
                                                     data-target="#modal-employeeList">
                                                     <i class="fas fa-search pt-2 pr-2 pl-2 text-dark"></i>
-                                                </a>
-                                                @include('users.search_employee')
+                                                </a> --}}
+
+                                                {{-- @include('users.search_employee') --}}
                                             </div>
                                         </div>
                                     </div>
@@ -68,13 +69,18 @@
                                 <div class="row">
 
                                 </div>
-                                <input type="hidden" id="employee_id" name="employee_id" value="{{$user->employee_id}}">
+                                <input type="hidden" id="employee_id" name="employee_id" value="{{ $user->employee_id }}">
                                 <input type="hidden" name="user_update" value="{{ Auth::user()->id }}">
-                                <div class="col-md-12" align="right">
-                                    <button type="submit" class="btn btn-success" name="nuevoEmpleado">Guardar</button>
-                                </div>
+
                             </div>
                         </div>
+                    </div>
+                    <div class="card-footer ">
+                        <a href="{{ url('/users') }}" class="btn btn-default float-left"><i
+                                class="fas fa-fw fa-arrow-left"></i>
+                            Regresar</a>
+                        <button type="submit" class="btn btn-success float-right" name="editEmpleado"><i
+                                class="fas fa-fw fa-save"></i> Guardar</button>
                     </div>
                 </form>
             </div>

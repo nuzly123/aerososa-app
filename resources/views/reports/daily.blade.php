@@ -144,7 +144,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <p>Ingrese el rango de fechas</p>
+                            <p>Este reporte muestra los movimientos de cada Aeronave según su matrícula y rango de fechas.</p>
                             <form id="aircraft_history_report">
                                 <div class="row">
                                     <div class="col-md-4 mb-3">
@@ -193,7 +193,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <p>Instrucciones</p>
+                            <p>Este reporte muestra una recopilación de gaseos según los filtros mostrados a continuación:</p>
                             <form id="fueling_report">
                                 <div class="row">
                                     <div class="col-md-4 mb-3">
@@ -273,7 +273,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <p>Instrucciones</p>
+                            <p>Un reporte de movimientos de los pilotos, según cada piloto y un rango de fechas.</p>
                             <form id="crew_history_report">
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
@@ -326,7 +326,9 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <p>Instrucciones</p>
+                            <p>Este reporte recopila la información de los vuelos realizados por los pilotos en la base de datos
+                                y procesa los datos de tiempo de vuelo para poder generar un informe de horas acumuladas según
+                                el piloto y un rango de fechas.</p>
                             <form id="crew_flight_time_report">
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
@@ -379,7 +381,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <p>Instrucciones</p>
+                            <p>Muestra una lista de cada tripulación asignada por vuelo, según un rango de fechas.</p>
                             <form id="crew_assigned_crews_report">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">

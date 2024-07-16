@@ -10,7 +10,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="col-md-12">
-            <div class="card mb-4">
+            <div class="card card-primary mb-4">
                 <h5 class="card-header">Nuevo Empleado</h5>
                 <form action="{{ url('/employees') }}" method="post" enctype="multipart/form-data">
                     @csrf
@@ -92,11 +92,8 @@
                                     <div class="col-md-3">
                                         <label for="txtCargo" class="form-label">Cargo</label>
                                         <div class="mb-3">
-                                            {{-- <input type="text" class="form-control" required name="position"
-                                                id="position" placeholder="Cargo" /> --}}
                                             <select class="select2" style="width: 100%;" name="positions_array[]"
                                                 multiple="multiple" data-placeholder="Seleccione cargo(s)" required>
-                                                {{-- <option value="">- Opción -</option> --}}
                                                 @foreach ($positions as $position)
                                                     <option value="{{ $position->id }}">{{ $position->position }}</option>
                                                 @endforeach
@@ -122,50 +119,26 @@
                                         </select>
                                     </div>
                                 </div>
-
-                                <div class="col-md-3 mb-3" id="licencia_field" style="display: none;">
-                                    <label class="form-label">Número de Licencia</label>
-                                    <input type="text" class="form-control" name="license_number" id="license_number">
-                                </div>  
-
                                 <div class="row mb-3">
                                     <div class="col-md-3 mb-3">
                                         <label class="form-label">Fecha Ingreso</label>
                                         <input class="form-control" type="date" required name="entry_date" />
                                     </div>
-                                    {{-- <div class="col-md-9">
-                                        <div class="form-group">
-                                            <label for="exampleInputFile">Fotografía</label>
-                                            <div class="input-group">
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" name="photo"
-                                                        id="photo" onchange="updateFileName()">
-                                                    <label class="custom-file-label" for="photo"
-                                                        id="photoName">Seleccionar</label>
-                                                </div>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">Upload</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-11" align="right">
-                                        <a href="{{ url('/employees') }}" class="btn btn-default">Regresar</a>
-                                    </div>
-                                    <div class="col-md-1" align="right">
-                                        <button type="submit" class="btn btn-success"
-                                            name="nuevoEmpleado">Guardar</button>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
                     <input type="hidden" name="user_create" value="{{ Auth::user()->id }}">
                     <input type="hidden" name="user_update" value="{{ Auth::user()->id }}">
+                    <div class="card-footer">
+                        <a href="{{ url('/employees') }}" class="btn btn-default float-left"><i
+                                class="fas fa-fw fa-arrow-left"></i>
+                            Regresar</a>
+                        <button type="submit" class="btn btn-success float-right" name="nuevoEmpleado"><i
+                                class="fas fa-fw fa-save"></i>Guardar</button>
+                    </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -192,7 +165,7 @@
 
         });
     </script>
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             const departmentSelect = document.querySelector('select[name="department_id"]');
             licenseField = document.getElementById('licencia_field');
@@ -201,16 +174,16 @@
             departmentSelect.addEventListener('change', function() {
                 if (departmentSelect.value === '3') {
                     licenseField.style.display = 'block';
-                    
+
                     /* officeField.style.display = 'none';
                     officeField.value = '0'; */
                 } else {
-                    licenseNumnberField.value = ''; 
+                    licenseNumnberField.value = '';
                     licenseField.style.display = 'none';
                     /* licenseField.value = '';
                     officeField.style.display = 'block'; */
                 }
             });
         });
-    </script>
+    </script> --}}
 @stop

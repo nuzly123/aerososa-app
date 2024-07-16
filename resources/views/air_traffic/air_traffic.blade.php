@@ -14,29 +14,28 @@
             <div class="card-header">
                 <h3 class="card-title">Registro Diario de Tráfico Aéreo</h3>
                 <div class="card-tools">
-                    <div class="row">
-                        <div class="col-md-10">
+                    <div class="d-flex justify-content-between">
+                        <div class="mr-2 mt-1">
                             <form id="filter-form" method="POST" action="{{ route('air_traffic.filter') }}">
                                 @csrf
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                        <input type="text" id="datepicker" name="date" value="{{ $date }}"
-                                            class="form-control">
                                     </div>
+                                    <input type="text" id="datepicker" name="date" value="{{ $date }}"
+                                        class="form-control" placeholder="Selecciona una fecha">
                                 </div>
                             </form>
                         </div>
-                        <div class="col-md-2">
-                            <a href="{{ url('air_traffic/create') }}" class="btn btn-sm btn-default">
-                                <span class="fas fa-plus"></span>
+                        <div>
+                            <a href="{{ url('air_traffic/create') }}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Nuevo
                             </a>
                         </div>
                     </div>
-
-
                 </div>
             </div>
+
             @if (Session::get('success'))
                 <div class="alert alert-success" id="alert">
                     {{ Session::get('success') }}

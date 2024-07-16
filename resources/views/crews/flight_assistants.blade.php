@@ -17,8 +17,8 @@
                 <div class="col-12 mt-4">
                     <div class="row">
                         @foreach ($flight_assistants as $crew)
-                            <div class="col-sm-3 col-md-2 d-flex align-items-stretch flex-column">
-                                <div class="card bg-light d-flex flex-fill">
+                            <div class="col-sm-6 col-md-4 col-lg-3 d-flex align-items-stretch">
+                                <div class="card bg-light flex-fill">
                                     <div class="card-header text-muted border-bottom-0">
                                         <div class="card-tools">
                                             <div class="btn-group">
@@ -55,8 +55,10 @@
                                     <div class="card-body pt-0">
                                         <div class="row">
                                             <div class="col-12 text-center mb-2">
-                                                <img src="{{ asset('storage') . '/' . $crew->photo }}" alt="user-avatar"
-                                                    class="{{-- img-circle --}} img-fluid">
+                                                <div class="img-container">
+                                                    <img src="{{ asset('storage') . '/' . $crew->photo }}"
+                                                        alt="employee-photo" class="img-fluid">
+                                                </div>
                                             </div>
                                             <div class="col-md-12 text-center">
                                                 <p>
@@ -122,4 +124,8 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="../resources/css/employee.css">
 @stop

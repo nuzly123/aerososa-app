@@ -10,12 +10,11 @@
 @section('content')
     <div class="container-fluid">
         <div class="col-md-12">
-            <div class="card mb-4">
-                <h5 class="card-header">Editar Empleado</h5>
+            <div class="card card-warning mb-4">
+                <h5 class="card-header"><i class="fas fa-fw fa-edit"></i>Editar Empleado</h5>
                 <form action="{{ route('employees.update', $employee) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     {{ method_field('PATCH') }}
-                    {{-- @method('PUT') --}}
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -138,13 +137,6 @@
                                         </select>
                                     </div>
                                 </div>
-
-                                <div class="col-md-3 mb-3" id="licencia_field" {{-- style="display: {{isset($crews) ? ''}};" --}}>
-                                    <label class="form-label">Número de Licencia</label>
-                                    <input type="text" class="form-control" name="license_number"
-                                        id="license_number">
-                                </div>
-
                                 <div class="row mb-3">
                                     <div class="col-md-3 mb-3">
                                         <label class="form-label">Fecha Ingreso</label>
@@ -152,21 +144,17 @@
                                             value="{{ date('Y-m-d', strtotime($employee->entry_date)) }}" />
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-11" align="right">
-                                            <a href="{{ url('/employees') }}" class="btn btn-default">Regresar</a>
-                                        </div>
-                                        <div class="col-md-1" align="right">
-                                            <button type="submit" class="btn btn-success"
-                                                name="nuevoEmpleado">Guardar</button>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <input type="hidden" name="user_update" value="{{ Auth::user()->id }}">
+                    <div class="card-footer">
+                        <a href="{{ url('/employees') }}" class="btn btn-default float-left"><i
+                                class="fas fa-fw fa-arrow-left"></i>
+                            Regresar</a>
+                        <button type="submit" class="btn btn-success float-right" name="editEmpleado"><i
+                                class="fas fa-fw fa-save"></i>Guardar</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -193,7 +181,7 @@
 
         });
     </script>
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             const departmentSelect = document.querySelector('select[name="department_id"]');
             licenseField = document.getElementById('licencia_field');
@@ -213,5 +201,5 @@
                 }
             });
         });
-    </script>
+    </script> --}}
 @stop

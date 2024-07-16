@@ -19,8 +19,8 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    
-     public function __construct()
+
+    public function __construct()
     {
         $this->middleware('can:employees.index');
     }
@@ -54,19 +54,13 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->input('license_number') == null) {
+        /* if ($request->input('license_number') == null) {
             $data = request()->except('_token', 'license_number');
-        } else {
-            $data = request()->except('_token');
-        }
+        } else { */
+        $data = request()->except('_token');
+        /* } */
         // return dd($data);
-
-        //verifica si request trae un archivo(foto), si no, asigna una ruta de foto por default
-        if ($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo')->store('uploads', 'public');
-        } else {
-            $data['photo'] = "uploads/default.png";
-        }
+        $data['photo'] = "uploads/user-default-photo.jpg";
 
         //creando empleado
         Employee::create($data);
@@ -118,10 +112,10 @@ class EmployeeController extends Controller
         //
         $data = request()->except(['_token', '_method']);
 
-        if ($request->hasFile('photo')) {
+        /* if ($request->hasFile('photo')) {
             Storage::delete('public/' . $employee->photo);
             $data['photo'] = $request->file('photo')->store('uploads', 'public');
-        }
+        } */
         /*  return dd($data); */
         $employee->update($data);
 
@@ -141,12 +135,12 @@ class EmployeeController extends Controller
             Position_Details::create(['position_id' => $position, 'employee_id' => $employee->id]);
         }
 
-        $license_number = $request->input('license_number');
+       /*  $license_number = $request->input('license_number');
+ */
+        /* if (isset($license_number)) {
+            Employee_Crew::create(['license' => $license_number, 'employee_id' => $employee->id]);
+        } */
 
-        if(isset($license_number)){
-           Employee_Crew::create(['license' => $license_number, 'employee_id' => $employee->id]); 
-        }
-        
 
         return redirect()->route('employees.index')->with('success', 'El registro se ha añadido exitosamente!');
         /* return response()->json($data); */
@@ -192,5 +186,26 @@ class EmployeeController extends Controller
         });
 
         return response()->json($result);
+    }
+
+
+    public function updatePhoto(Request $request, Employee $employee)
+    {
+        $request->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($request->hasFile('photo')) {
+            if ($employee->photo != 'uploads/user-default-photo.jpg' || $employee->photo != 'uploads/default-aircraft-photo.png') {
+                Storage::delete('public/' . $employee->photo);
+            }
+            $data['photo'] = $request->file('photo')->store('uploads', 'public');
+
+            $employee->update($data);
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false]);
     }
 }
