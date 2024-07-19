@@ -1,5 +1,7 @@
  class="text-center"@extends('adminlte::page')
 
+ @section('title', 'Monitoreo | Contratos')
+
 @section('content_header')
     <h1>Configuración</h1>
 @stop

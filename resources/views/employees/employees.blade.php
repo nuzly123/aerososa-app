@@ -1,5 +1,7 @@
 @extends('adminlte::page')
 
+@section('title', 'Monitoreo | Empleados')
+
 @section('content_header')
     <h1>Empleados</h1>
 @stop

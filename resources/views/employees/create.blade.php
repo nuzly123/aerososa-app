@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'AdminLTE')
+@section('title', 'Monitoreo | Nuevo Empleado')
 
 
 @section('content_header')

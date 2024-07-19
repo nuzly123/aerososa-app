@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'AdminLTE')
+@section('title', 'Monitoreo | Editar Registro Tráfico Aéreo')
 
 
 @section('content_header')

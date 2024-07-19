@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'AdminLTE')
+@section('title', 'Monitoreo | Tripulantes')
 
 
 @section('content_header')

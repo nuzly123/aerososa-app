@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Monitoreo | Dashboard')
 
 @php
     use Carbon\Carbon;
@@ -156,14 +156,20 @@
                             <th></th>
                         </thead>
                         <tbody>
-                            @foreach($aircrafts as $aircraft)
-                                <tr>
-                                    <td class="text-center">{{$aircraft->registration}}</td>
-                                    <td class="text-center">{{$aircraft->types->type}}</td>
-                                    <td class="text-center"><span class="badge badge bg-warning">{{$aircraft->residual_fuel->residual_fuel_amount}}</span></td>
-                                    <td class="text-center"><a href="{{route('aircrafts.index')}}"><i class="fas fa-search"></i></a></td>
-                                </tr>
-                            @endforeach                            
+                            @foreach ($aircrafts as $aircraft)
+                                @if (!empty($aircraft->residual_fuel))
+                                    <tr>
+                                        <td class="text-center">{{ $aircraft->registration }}</td>
+                                        <td class="text-center">{{ $aircraft->types->type }}</td>
+                                        <td class="text-center"><span
+                                                class="badge badge bg-warning">{{ $aircraft->residual_fuel->residual_fuel_amount }}</span>
+                                        </td>
+                                        <td class="text-center"><a href="{{ route('aircrafts.index') }}"><i
+                                                    class="fas fa-search"></i></a></td>
+                                    </tr>
+                                @endif
+                            @endforeach
+
                         </tbody>
                     </table>
                 </div>

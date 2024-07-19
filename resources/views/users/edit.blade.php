@@ -3,7 +3,8 @@
 @php
     use Illuminate\Support\Facades\Auth;
 @endphp
-@section('title', 'AdminLTE')
+
+@section('title', 'Monitoreo | Editar Usuario')
 
 @section('content_header')
     <h1 class="m-0 text-dark">Usuarios</h1>
@@ -51,7 +52,7 @@
                                         <div class="form-group">
                                             <label>Nombre de Usuario <code>*</code></label>
                                             <input type="text" name="username" required class="form-control"
-                                                id="user" placeholder="Usuario" value="{{ $user->username }}">
+                                                id="user" placeholder="Usuario" value="{{ $user->username }}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">

@@ -1,5 +1,7 @@
 @extends('adminlte::page')
 
+@section('title', 'Monitoreo | Cargos')
+
 @section('content_header')
     <h1>Configuración</h1>
 @stop

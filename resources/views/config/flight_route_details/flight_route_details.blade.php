@@ -1,5 +1,7 @@
 @extends('adminlte::page')
 
+@section('title', 'Monitoreo | Detalle de Rutas')
+
 @section('content_header')
     <h1>Detalle de Rutas</h1>
 @stop

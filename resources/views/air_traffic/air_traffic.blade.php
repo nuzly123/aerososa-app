@@ -1,5 +1,7 @@
 @extends('adminlte::page')
 
+@section('title', 'Monitoreo | Tráfico Aéreo')
+
 @php
     use Carbon\Carbon;
 @endphp

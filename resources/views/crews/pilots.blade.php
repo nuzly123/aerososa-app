@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Tripulación')
+@section('title', 'Monitoreo | Pilotos')
 
 @section('content_header')
     <h1 class="m-0 text-dark">Tripulación</h1>

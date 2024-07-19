@@ -1,5 +1,7 @@
 @extends('adminlte::page')
 
+@section('title', 'Monitoreo | Tipos de Aeronaves')
+
 @section('content_header')
     <h1>Configuración</h1>
 @stop

@@ -4,6 +4,8 @@
     <h1>Usuarios</h1>
 @stop
 
+@section('title', 'Monitoreo | Usuarios')
+
 @section('content')
     <div class="container-fluid">
         <div class="card card-primary card-outline">

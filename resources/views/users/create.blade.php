@@ -3,7 +3,7 @@
 @php
     use Illuminate\Support\Facades\Auth;
 @endphp
-@section('title', 'AdminLTE')
+@section('title', 'Monitoreo | Nuevo Usuario')
 
 @section('content_header')
     <h1 class="m-0 text-dark">Usuarios</h1>
@@ -12,10 +12,11 @@
 @section('content')
     <div class="container-fluid">
         <div class="col-md-12">
-            <div class="card card-primary mb-4">
-                <h5 class="card-header">Nuevo Usuario</h5>
-                <form id="userForm" action="{{ url('/users') }}" method="post">
-                    @csrf
+            <form id="userForm" action="{{ url('/users') }}" method="post">
+                @csrf
+                <div class="card card-primary mb-4">
+                    <h5 class="card-header">Nuevo Usuario</h5>
+
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -88,13 +89,14 @@
                         </div>
                     </div>
                     <div class="card-footer ">
-                        <a href="{{ url('/users') }}" class="btn btn-default float-left"><i class="fas fa-fw fa-arrow-left"></i>
+                        <a href="{{ url('/users') }}" class="btn btn-default float-left"><i
+                                class="fas fa-fw fa-arrow-left"></i>
                             Regresar</a>
                         <button type="submit" class="btn btn-success float-right" name="nuevoEmpleado"><i
                                 class="fas fa-fw fa-save"></i> Guardar</button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 
